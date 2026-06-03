@@ -720,56 +720,56 @@ class Front_model extends Model
     return $post_img_arr; 
   }
 
-    function get_tech_post_old()
-    {
-        $builder = $this->db->table("permalink_list");
-        $builder->where("status", "active");
-        $res = $builder->get();
-        $perma = $res->getRowArray();
+    // function get_tech_post_old()
+    // {
+    //     $builder = $this->db->table("permalink_list");
+    //     $builder->where("status", "active");
+    //     $res = $builder->get();
+    //     $perma = $res->getRowArray();
 
-        $sql="SELECT `post_id` FROM `post_categories` WHERE `categorie_id`=116 ORDER BY RAND() LIMIT 10";
-        $res = $this->db->query($sql);
-        $tech_all_post = $res->getResultArray();
+    //     $sql="SELECT `post_id` FROM `post_categories` WHERE `categorie_id`=116 ORDER BY RAND() LIMIT 10";
+    //     $res = $this->db->query($sql);
+    //     $tech_all_post = $res->getResultArray();
 
-        foreach($tech_all_post as $key=>$value)
-        {
-            $sql = "SELECT `categorie_id` FROM `post_categories` WHERE `post_id`='{$value["post_id"]}'";
-            $post_cat = $this->db->query($sql)->getResultArray();
-            $cat_id = array();
-        foreach($post_cat as $k=>$v)
-        {
-            $sql = "SELECT `categorie`,`slug` FROM `categories` WHERE `id`='{$v["categorie_id"]}'";
-            $cat_id[$k]['cat'] = $this->db->query($sql)->getResultArray();
-        }
+    //     foreach($tech_all_post as $key=>$value)
+    //     {
+    //         $sql = "SELECT `categorie_id` FROM `post_categories` WHERE `post_id`='{$value["post_id"]}'";
+    //         $post_cat = $this->db->query($sql)->getResultArray();
+    //         $cat_id = array();
+    //     foreach($post_cat as $k=>$v)
+    //     {
+    //         $sql = "SELECT `categorie`,`slug` FROM `categories` WHERE `id`='{$v["categorie_id"]}'";
+    //         $cat_id[$k]['cat'] = $this->db->query($sql)->getResultArray();
+    //     }
 
-        $sql = "SELECT * FROM `posts` WHERE `id`='{$value["post_id"]}' ORDER BY `date_` DESC";
-        $all_posts = $this->db->query($sql)->getResultArray();
-        if(!empty($all_posts))
-        {
-            $tech_post['post_data'] = $all_posts;
+    //     $sql = "SELECT * FROM `posts` WHERE `id`='{$value["post_id"]}' ORDER BY `date_` DESC";
+    //     $all_posts = $this->db->query($sql)->getResultArray();
+    //     if(!empty($all_posts))
+    //     {
+    //         $tech_post['post_data'] = $all_posts;
 
 
-            $tech_post = array();
-            $tech_post['the_category'] = $cat_id;
-            $tech_post['post_data'] = $all_posts[0];
-            $sql = "SELECT `url` FROM `media` WHERE `id`='{$all_posts[0]["image"]}'";
-            $path = $this->db->query($sql)->getResultArray();
-            $tech_post['tech_path'] = $path;
+    //         $tech_post = array();
+    //         $tech_post['the_category'] = $cat_id;
+    //         $tech_post['post_data'] = $all_posts[0];
+    //         $sql = "SELECT `url` FROM `media` WHERE `id`='{$all_posts[0]["image"]}'";
+    //         $path = $this->db->query($sql)->getResultArray();
+    //         $tech_post['tech_path'] = $path;
 
-            $d = $all_posts[0]["date_"];
-            $d_create = date_create($d);
-            $date = date_format($d_create,$perma["linkformat"]);
+    //         $d = $all_posts[0]["date_"];
+    //         $d_create = date_create($d);
+    //         $date = date_format($d_create,$perma["linkformat"]);
 
-            $tech_post['tech_url'] = $date . "/" . $all_posts[0]["seo_url"];
-            $tech_all_post[$key]['all_tech_post'] = $tech_post;
-        }
+    //         $tech_post['tech_url'] = $date . "/" . $all_posts[0]["seo_url"];
+    //         $tech_all_post[$key]['all_tech_post'] = $tech_post;
+    //     }
         
-        }
-        echo "<pre>";
-        print_r($tech_all_post);
-        die;
-        return $tech_all_post;
-    }
+    //     }
+    //     echo "<pre>";
+    //     print_r($tech_all_post);
+    //     die;
+    //     return $tech_all_post;
+    // }
 
     // function get_tech_post()           old function 
     // {
