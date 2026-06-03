@@ -1,0 +1,78 @@
+
+</div>
+
+
+<script src="<?php echo base_url() ?>/assets/theme/newsfeed/assets/js/jquery.min.js"></script> 
+<script src="<?php echo base_url() ?>/assets/theme/newsfeed/assets/js/wow.min.js"></script> 
+<script src="<?php echo base_url() ?>/assets/theme/newsfeed/assets/js/bootstrap.min.js"></script> 
+<script src="<?php echo base_url() ?>/assets/theme/newsfeed/assets/js/slick.min.js"></script> 
+<script src="<?php echo base_url() ?>/assets/theme/newsfeed/assets/js/jquery.li-scroller.1.0.js"></script> 
+<script src="<?php echo base_url() ?>/assets/theme/newsfeed/assets/js/jquery.newsTicker.min.js"></script> 
+<script src="<?php echo base_url() ?>/assets/theme/newsfeed/assets/js/jquery.fancybox.pack.js"></script> 
+<script src="<?php echo base_url() ?>/assets/theme/newsfeed/assets/js/custom.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#single_page_content').find('a').each(function() {
+            $(this).css('color','#3498DB');
+        });
+        $('a')
+            .filter('[href^="http"], [href^="//"]')
+            .not('[href*="' + window.location.host + '"]')
+            .attr({
+                rel: 'noreferrer noopener',
+                target: '_blank'
+            })
+    });
+    $("#sform, #sclose").hide();
+    $("#sbtn").click(function(){
+        $("#sform, #sclose").show();
+        $("#sbtn").hide();
+    });
+    $("#sclose").click(function(){
+        $("#sclose, #sform").hide();
+        $("#sbtn").show();
+    });
+    $(document).ready(function(){
+        $(".humberg_btn").click(function(){
+            $("#navdropdown").toggleClass('is_active');
+        })
+    });
+</script>
+<script>
+    
+    $(document).ready(function() {
+        // $('.single_page_content_2 > div >div').first().attr('id','child1');
+        // $("#child1 p:nth-child(3)").css('background-color','cyan');
+        var html = ''; 
+        // $('#child1').each(function() {
+        //     var $this = $(this);
+
+                  
+            html +=  '<?php if(($single["f_name"]=='issuewire')||($single["f_name"]=='Issuewire')||($single["matico"]=='y')){?>';
+            html +=  '<div class="single_page_content">';
+            html +=  '<h3>More on <?php echo $settings[0]["setting_value"] ?>:</h3>';
+            html +=  '<ul>';
+            html +=  '<?php foreach ($relatedPostRandom as $relpost) { ?>';
+            html +=  '<li><a href="<?php echo base_url() ."/". $relpost["seo_url"] ?>" target="_blank"><?php echo $relpost["title"] ?></a></li>';
+            html +=  '<?php } ?>';
+            html +=  '</ul>';
+            html +=  '</div>';
+            html +=  '<?php }?>';
+            html += '<br />';
+
+        // });
+
+        $('.single_page_content_2 > div > div:nth-child(1) p:nth-child(2)').append(html);
+        // console.log(html);
+
+        
+     })
+
+    //  $(document).ready(function() {
+    //     $('.single_page_content_2 > div >div').first().attr('id','child1');
+    //      $("#child1 p:nth-child(3)").css('background-color','cyan');
+                
+    //  });     
+</script>
+</body>
+</html>

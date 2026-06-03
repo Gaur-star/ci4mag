@@ -1,0 +1,44 @@
+
+<section id="contentSection">
+  <div class="row">
+      <div class="col-lg-9 col-md-9 col-sm-9">
+        <div class="left_content">
+          <div class="contact_area" id="wid">
+            <h4><?php echo $singlepage["title"]; ?></h4>
+            <br>
+            <p><?php echo html_entity_decode(nl2br($singlepage["content"])) ?></p>
+          </div>               
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-3">
+        <aside class="right_content">
+          <div class="single_sidebar">        
+            <div class="" id="add_box_sidebar">
+              <code id="image_add_sidebar"><?php echo $add[0]['sidebar'] ?></code>
+            </div><!-- .nv-header-ads-area -->
+            </br>                
+            <div class="sidebar_div">
+              <h4 class="widget">Latest News</h4>
+              <ul class="spost_nav">                  
+                <?php
+                  if (isset($latest_news)) {
+                    foreach ($latest_news as $cat) { ?>
+                    <li>
+                      <div class="media">
+                        <a href="<?php echo base_url().'/'.$cat['seo_url'];?>" class="media-left"><img src="<?php if(!empty($cat['url'])) { echo $cat['url']; }else{ echo base_url().'/'.$settings[12]['setting_value']; } ?>" class="attachment-news-vibrant-block-thumb size-news-vibrant-block-thumb wp-post-image lazy" alt="" /></a>
+                      </div>      
+                      <div class="media-body">
+                        <h3 class="nv-post-title"><a href="<?php echo base_url().'/'.$cat['seo_url'];?>"><?php echo $cat['title'];?></a></h3>
+                        <div class="nv-post-meta">
+                            <span class="posted-on"><a href="<?php echo base_url().'/'.$cat['seo_url'];?>" rel="bookmark" class="catg_title"><time class="entry-date published updated" datetime="2022-08-12T10:05:05-04:00"><?php echo date("d M, Y", strtotime($cat['update_date']))?></time></a></span>
+                        </div>
+                      </div>                                      
+                    </li>
+                <?php } } ?>
+              </ul>
+            </div>
+          </div>
+        </aside>
+      </div>
+  </div>
+</section>

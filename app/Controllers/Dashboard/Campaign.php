@@ -1,0 +1,209 @@
+<?php
+namespace App\Controllers;
+
+use App\Models\Post_model;
+use CodeIgniter\Controller;
+
+class Campaign extends Controller
+{
+    public $Post_model;
+    public function __construct()
+    {
+    
+        // $this->load->library('');
+        $this->Post_model = new Post_model();
+
+        // $this->load->model('Post_model');
+        helper('cookie');
+    }    
+    /**
+     * insertPost fetch the xml from diffrent location and insert that as post ;
+     *
+     * @return void
+     */
+    function insertPost()
+    {
+        $request = \Config\Services::request();
+        $campaignId = $request->getPost("id");
+        // print_r($campaignId);
+        // die;
+        $res = $this->Post_model->getCampaign($campaignId);
+        //  echo "<pre>";
+        //  print_r($res);
+        //  die;
+        $url = $res['campaign_url'];
+        $author = $res["author"];
+        $invalidurl = false;
+        $feeds = "";
+        
+        libxml_use_internal_errors(true);
+        if (@simplexml_load_file($url)) {
+            $feeds = simplexml_load_file($url);
+
+        } else {
+            $getxml = $this->get_xml_from_url($url);
+            if ($getxml) {
+                
+                $feeds = simplexml_load_string($getxml);
+            }
+        }
+
+        // echo "<pre>";
+        // print_r($feeds);
+        // die;
+
+        if ($feeds) {
+
+           
+
+            $numofpost = 0;
+            $site = $feeds->channel->title;
+            $sitelink = $feeds->channel->link;
+
+            $count = 0;
+            $isinsertstart = false;
+
+           
+
+            foreach ($feeds->channel->item as $key => $item) {
+
+                $g_id = (array) $item->guid;
+                $g_id = $g_id[0]; 
+                $guid = $this->Post_model->get_guid();
+                // echo "<pre>";
+                // print_r($guid);
+                // print_r($g_id);
+                // echo $g_id;
+                // die;
+                if(in_array($g_id, $guid)){
+
+                // echo "<pre>";
+                // print_r($g_id);
+                // echo $g_id . "<br>";
+                    continue;
+                }
+                // echo $g_id . " - ";
+                // $firstguid = $feed->channel->item->
+                // $lastguid = 
+                //  print_r($link);die;
+                $id = (array)$item->guid;
+                $title = (array)$item->title;
+                $link = $item->link;
+                //  print_r($link);die;
+                $description = (string)$item->description;
+                //  var_dump($description);
+                //  print_r($description);
+                //  die;
+                $postDate = $item->pubDate;
+                $category = "";
+
+                foreach ($item->category as $writeMe) {
+                    $category = $category . $writeMe . ",";
+                }
+
+                
+                $post["title"] = $title;
+                $post["seo_url_text"] = $title;
+                $post["content"] = $description;
+                // print_r($post["title"]);die;
+                $post["date_"] = date("Y-m-d", strtotime($postDate));
+                $post["time_"] = date("H:i:s", strtotime($postDate));
+                $post["date_time"] = date("Y-m-d H:i:s", strtotime($postDate));
+                $post["update_date"] = date("Y-m-d H:i:s", strtotime($postDate));
+                $post["visibility"] = "p";
+                $post["author"] = $author;
+                if($author == 14){
+                    $post['news_sitemap'] = '1'; 
+                }else{
+                    $post['news_sitemap'] = '0'; 
+                }
+                // echo "<pre>";
+                // print_r($author);
+                // die;
+                // $post["matico"] = "y";
+                                
+
+                $cat["categories"] = $category;
+
+                $seo = explode("/", $link[0]);
+                // echo "<pre>";
+                // print_r($seo);
+                // die;
+                $guid_check = $id;
+                if($guid_check != 'https://spindigit.com/'){
+                    $post["seo_url"] = rtrim(preg_replace("/\d/u", "", $seo[3]) , "-");
+                }else{$post["seo_url"] =  $seo[3];}
+                // $post["seo_url"] =  $seo[3];
+                $post["guid"] =   $id;
+                $cat_guid =  $id[0];
+                $p['post'] = $post;
+
+                // print_r($cat);
+
+                $parser = xml_parser_create();
+                xml_parse_into_struct($parser, $description, $values);
+
+              
+                foreach ($values as $key => $val) {
+                    if ($val['tag'] == 'IMG') {
+                        $first_src = $val['attributes']['SRC'];
+                        break;
+                    } else {
+                        $first_src = "";
+                    }
+                }
+
+                //  print_r($first_src);
+                $insert_id = $this->Post_model->insert_post_data($p, $first_src, $cat);
+                // echo "sssssss";die;
+                //  print_r($insert_id);
+
+                 if ($insert_id) {
+                    $numofpost++; 
+                    $insert_cat = $this->Post_model->insert_cat_data($cat, $insert_id);  
+                 }
+                $count++;
+
+                if($count >= 5){
+                    break;
+                }
+
+              // print_r($insert_cat);
+               
+            }
+            // $ch = curl_init() ; 
+            // curl_setopt($ch, CURLOPT_URL,"http://wp2ci4.com/admin/matico") ;  
+            // $res = curl_exec($ch) ;  
+            // print_r($res);
+            // die;
+            // echo $numofpost;
+            // die;
+           //  echo $numofpost;die;
+            if ($numofpost > 0) {
+             //  echo "ppppp";die;
+                $campaign["total_post"] = $numofpost;
+                $campaign["last_run"] = date("Y-m-d H:i:s");
+                $this->Post_model->campaignUpdate($campaignId, $campaign);
+            }
+        } else {
+            echo "Failed loading XML\n";
+            foreach (libxml_get_errors() as $error) {
+                echo "\t", $error->message;
+            }
+        }
+
+    }
+    function get_xml_from_url($url)
+    {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
+
+        $xmlstr = curl_exec($ch);
+        curl_close($ch);
+
+        return $xmlstr;
+    }
+}

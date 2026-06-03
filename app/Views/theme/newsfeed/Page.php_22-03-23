@@ -1,0 +1,219 @@
+<?php
+namespace App\Controllers\admin;
+
+use App\Models\Page_model;
+use App\Models\Pages_edit_model;
+use App\Models\Blog_add_model;
+use CodeIgniter\Controller;
+
+
+class Page extends Controller
+{
+  public $login;
+  public $session;
+  public $page_model;
+  public $roleId;
+  public $role;
+  function __construct()
+  {
+    $this->session = session();
+    $this->login = $this->session->get("usr");
+    $this->fname = $this->session->get("f_name");
+    if (!$this->login) {
+      return redirect()->to(base_url() . "/login");
+      die;
+    }
+    // $this->load->model('page_model');
+    $this->page_model = new Page_model();
+    $this->pages_edit_model = new Pages_edit_model();
+    $this->blog_add_model = new Blog_add_model();
+    helper('form');
+    //$this->load->library('pagination');
+    helper(array('form', 'url'));
+    // $this->load->library('form_validation');
+    helper('get_permalink');
+    helper('webbuild_usable');
+    $this->roleId = $this->session->get("role");
+    $this->role = get_role($this->roleId);
+  }
+  public function index($page=1)
+  {
+
+    $request = \Config\Services::request();
+    $perpage = 10;
+  
+    $pager = \Config\Services::pager();
+    $filter['search'] = filter_var($request->getVar('search'),FILTER_SANITIZE_STRING);
+    $filter['author'] = filter_var($request->getVar('author'),FILTER_SANITIZE_STRING);
+    // print_r($filter);die;
+    if($this->roleId != 1)
+    {
+      if(!$this->login)
+      {
+        return redirect()->to(base_url() . "/login");
+      }
+        $data = $this->page_model->pageCount($this->login);
+        $data = $this->page_model->getPage($page,$perpage,$this->login,$filter);
+        $data['page'] = $this->page_model->paginate(10);
+        $data['pager'] = $this->page_model->pager;
+
+    }
+
+   
+    if ($this->roleId != 1) {
+    $data = $this->page_model->pageCount($this->login);
+    $data['pages'] = $this->page_model->getPage($page, $perpage, $this->login,$filter);
+    $data['page'] = $this->page_model->paginate(10);
+    $data['pager'] = $this->page_model->pager;
+    
+
+    } else {
+    $data = $this->page_model->pageCount();
+    $data['pages'] = $this->page_model->getPage($page, $perpage, $this->login, $filter);
+    $data['page'] = $this->page_model->paginate(10);
+    $data['pager'] = $this->page_model->pager;
+    
+  }
+  $data['trash_count']=$this->page_model->trash_page_count();
+  $data['u_firstname'] = $this->fname;
+  //$data['pages'] = $this->pages_edit_model ->pagination(50);
+  $data['permalink']=getPermalink();
+  // echo "<pre>";
+  // print_r($data['pages']); die;
+  // echo "<pre>";
+  // print_r($filter['search']);
+  // die;
+  echo view('admin/header',$data);
+  echo view('admin/sidebar');
+  echo view('admin/pageList',$data);
+  echo view('admin/footer');
+    //  echo "<pre> ";
+    //  print_r($data);die;
+    // $config['total_rows'] = $data['total'];
+    // $config['per_page'] = $perpage;
+    // $config['reuse_query_string'] = true;
+    // $config["use_page_numbers"] = TRUE;
+    // $config["num_links"] = 1;
+    // $config['base_url'] = base_url() . "admin/page/index/";
+    // $config["full_tag_open"] = "<div class='pagination-page'>";
+    // $config["full_tag_close"] = "</div>";
+    // $this->pagination->initialize($config);
+    // $this->load->view('admin/header');
+    // $this->load->view('admin/sidebar');
+    // $this->load->view('admin/pageList', $data);
+    // $this->load->view('admin/footer');
+  }
+  public function delete($id)
+  {
+    // echo $id;die;
+    $this->page_model->deletePage($id);
+
+    return redirect()->to(base_url() . "/admin/page");
+  }
+  function pageEdit($id)
+  {
+    
+    helper("webbuild_usable");
+    $data["stylesheets"][] = "assets/richtext/richtext.min.css";
+    $data["javascripts"][] = "assets/richtext/jquery.richtext.min.js";
+    $count_per_page = 20;
+    $data["img_no_page"] = $this->page_model->countImgPage($count_per_page);
+    $data["page"] = $this->page_model->getPageDetail($id);
+    $data['u_firstname'] = $this->fname;
+    //  echo "<pre>";
+    //  print_r($data);die;
+    echo view('admin/header', $data);
+    echo view('admin/sidebar');
+    echo view('admin/pageEdit');
+    echo view('admin/footer');
+  }
+  function pageUpdate($id)
+  {
+    $request = \Config\Services::request();
+    if (is_numeric($id)) {
+      $data["title"] = filter_var(trim($request->getPost("title")), FILTER_SANITIZE_STRING);
+      $data["seo_url"] = filter_var(trim($request->getPost("seo_url")), FILTER_SANITIZE_STRING);
+      $data["content"] = $request->getPost("content");
+      $data["meta_tag"] = filter_var(trim($request->getPost("meta_tag")), FILTER_SANITIZE_STRING);
+      $data["meta_desc"] = filter_var(trim($request->getPost("meta_desc")), FILTER_SANITIZE_STRING);
+      $data["noindex"] = filter_var(trim($request->getPost("noindex")), FILTER_SANITIZE_STRING);
+      $data["nofollow"] = filter_var(trim($request->getPost("nofollow")), FILTER_SANITIZE_STRING);
+      $data["sitemap"] = filter_var(trim($request->getPost("sitemap")), FILTER_SANITIZE_STRING);
+      $data["visibility"] = filter_var(trim($request->getPost("visibility")), FILTER_SANITIZE_STRING);
+      date_default_timezone_set('Asia/Kolkata');
+      $data["cur_date"] = date("Y-m-d H:i:A");
+      
+      // echo "<pre>";
+      // print_r($data);die;
+      $res = $this->page_model->pageUpdate($id, $data);
+      return redirect()->to(base_url() . "/admin/page/pageEdit/" . $id);
+    } else {
+      return redirect()->to(base_url() . "/admin/page");
+    }
+  }
+  public function page_trash($id)
+  {
+    $this->page_model->page_trash($id);
+    return redirect()->to(base_url() . "/admin/page");
+  }
+
+  public function get_trash_pages()
+  {
+    $data["trash_page"]=$this->page_model->get_trash_page();
+    $session = session();
+    // $pager = \Config\Services::pager();
+   // $data = $this->blog_add_model->getTrash($page=1);
+    // $data['pages'] = $this->blog_add_model->paginate(10);
+    // $data['pager'] = $this->blog_add_model->pager;
+    $data['u_firstname'] = $this->fname;
+
+    echo view('admin/header', $data);
+    echo view('admin/sidebar');
+    echo view('admin/trash_page',$data);
+    echo view('admin/footer');
+  }
+
+  public function restore_trash_page($id)
+  {
+    $this->page_model->restore_trash_page($id);
+    return redirect()->to(base_url() . "/admin/page");
+  }
+
+  public function trash_page_delete_all()
+  {
+    $request = \Config\Services::request();
+    $id = $request->getPost("id");
+    // echo '<pre>';
+    // print_r($id);
+    // die();
+    $this->page_model->trash_page_delete_all($id);
+   return redirect()->to(base_url() . "/admin/trash_pages");
+
+  }
+
+  //////////////////////////////////ADDING WIDGETS
+
+  public function page_widget($id)
+  {
+    //  echo "sss";
+    //  echo $id;
+    //  die;
+    $view = \Config\Services::renderer();
+     $data['widgets'] =  view('widgets/basic',array(),['saveData' => true]);
+   //  echo $widgets;
+    //  $data["widgets"] =  'hello widgets';
+    //$data['widgets'] =  view('widgets/basic',['saveData' => true]);
+    // echo $data['widgets'];die;
+   // $data['title'] ='saurav';
+    $p['one']=$id;
+   // $view->renderString('<div>My Sharona</div>');
+
+
+  // echo $view->renderString('<div>My Sharona</div>');
+    echo view('theme/newsfeed/header');  
+    echo view('theme/newsfeed/menu');
+    echo view('theme/newsfeed/page',$p);
+    echo view('theme/newsfeed/bottom');
+    echo view('theme/newsfeed/footer');
+  }
+}

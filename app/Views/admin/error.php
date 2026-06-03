@@ -1,0 +1,1 @@
+<h1 style="text-align:center;color:red;font-size: 3em;">404 ERROR</h1>

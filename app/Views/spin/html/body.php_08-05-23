@@ -1,0 +1,852 @@
+<style>
+    .postform *{
+        width:50px !important;
+    }
+</style>
+<style>
+.item {
+  background: #abc;
+  padding: 1px;
+  text-align: center;
+  font-size: 2rem;
+  margin: 5px;
+}
+.item img {
+  height: 400px;
+}
+@media screen and (max-width: 480px) {
+  .item img {
+    height: 200px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .item img {
+    height: 200px;
+  }
+}
+@media screen and (max-width: 800px) {
+  .item img {
+    height: 200px;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .item img {
+    height: 200px;
+  }
+}
+.owl-dots{
+    display:none;
+}
+#box button{
+    display:none;
+    background:none;
+    border:none;
+}
+#box i{
+   color:#3fa6cf;
+   font-size: 0.8em;
+}
+
+</style>
+<style>
+    #centered {
+        position: absolute;
+        top: 82%;
+        left: 50%;
+        font-size: 80%;
+        font-family: Arial, sans-serif;
+        text-transform: uppercase;
+        width: 90%;
+        transform: translate(-50%, -50%);
+        }
+        .item:hover {
+        -ms-transform: scale(1.1); /* IE 9 */
+        -webkit-transform: scale(1.1); /* Safari 3-8 */
+        transform: scale(1.1); 
+        }
+        #centered a {
+        color: white;
+        display: block;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        height: 2.6em; /* Fallback for non-webkit, line-height * 2 */
+        line-height: 1.3em;
+        }
+        #centered-bottom a {
+        color: white;
+        display: block;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        height: 2.6em; 
+        line-height: 1.3em;
+        }
+        #centered-bottom {
+        position: absolute;
+        top: 92%;
+        left: 54%;
+        font-size: 60%;
+        font-family: Arial, sans-serif;
+        text-transform: uppercase;
+        width: 90%;
+        transform: translate(-50%, -50%);
+        text-align:left;
+        }
+        #centered a:hover {
+        color: #00abff;
+        }
+        #centered-bottom a:hover {
+        color: #00abff;
+        }
+        
+</style>
+<style>
+    #catory {
+        width:100%;
+        position: absolute;
+        top:59%;
+        left: 2%;
+        display: inline-block;
+    }
+    #catory button
+    {               
+        height:auto;
+        color: #fff!important;
+        display: block;
+        font-size: 11px;
+        font-weight: 600;
+        margin-right: 5px;
+        padding: 1px 10px;
+        text-transform: capitalize;
+        border-radius: 2px;
+        display: inline-block;
+        width:auto;
+    }
+</style>
+<style>
+    #add_box_sidebar{
+        width: 376px;
+        float: right;
+        margin-bottom: 50px;
+    }
+    #image_add_sidebar{
+        width:100%;
+        height:auto;
+    }   
+</style>
+<style>
+    .owl-carousel .owl-item img {
+    display: block;
+    width: 100%;
+    object-fit: fill;
+    height:300px;
+}
+</style>
+
+<div class="nv-ticker-wrapper">
+    <div class="cv-container">
+        <div class="nv-ticker-block nv-clearfix"> <span class="ticker-caption">Breaking News</span>
+            <div class="ticker-content-wrapper">
+                <ul id="newsTicker" class="cS-hidden">
+                    <?php foreach($latest_news as $latest){?>
+                    <li>
+                        <div class="news-ticker-title">
+                            <a href="<?php echo $latest['seo_url'];?>">
+                                <?php echo $latest['title'];?>
+                            </a>
+                        </div>
+                    </li>
+                <?php }?>
+                </ul>
+            </div><!-- .ticker-content-wrapper -->
+        </div><!-- .nv-ticker-block -->
+    </div><!-- .cv-container -->
+</div><!-- .nv-ticker-wrapper -->
+
+<!-----slider--------->
+<div class="cv-container">
+    <div class="owl-carousel owl-theme">
+        <?php foreach($latest_news as $latest){ ?>
+            <div class="item">
+                <a href="<?php echo $latest['seo_url'];?>">
+                    <img src="<?php if(!empty($latest['url'])) { echo $latest['url']; }else{ echo $settings[12]['setting_value']; } ?>"
+                    data-src="<?php echo $latest['seo_url'];?> " class="attachment-news-vibrant-block-thumb size-news-vibrant-block-thumb wp-post-image lazy" alt="" 
+                    style="width:100%" data-was-processed="true"/> 
+                    <div id="catory" class="container">
+                        <?php foreach($latest['cat'] as $categorie) { ?>                                                
+                            <a href="<?php echo base_url().'/category/' .$categorie?>"><button class="button-xsmall pure-button"><?php echo $categorie; ?></button></a>                                             
+                        <?php } ?>
+                    </div>   
+                    <div id="centered" ><a href="<?php echo $latest['seo_url'];?>" target="_top"><b><?php echo $latest['title']; ?></b></a></div>
+                    <div id="centered-bottom" ><a href="<?php echo $latest['seo_url'];?>" target="_top"><b><?php echo $latest['date_']; ?></b></a></div>
+                </a>
+            </div>
+        <?php } ?>
+    </div>
+
+    <div class="container" align="center" id="box">
+        <button class="play"><i class="fas fa-play"></i></button>
+        <button class="stop"><i class="fas fa-pause"></i></button>
+    </div>
+</div>
+<!-----slider-div-end--------->
+
+        <div id="content" class="site-content">
+            <div class="cv-container">
+                <div class="nv-home-top-section nv-clearfix">
+                    <section id="news_vibrant_carousel-7" class="widget news_vibrant_carousel">
+                        <div class="nv-block-wrapper carousel-posts nv-clearfix layout1">
+                            <div class="nv-block-title-nav-wrap">
+                                <div class="carousel-nav-action">
+                                    <div class="nv-navPrev carousel-controls"><i class="fa fa-angle-left"></i></div>
+                                    <div class="nv-navNext carousel-controls"><i class="fa fa-angle-right"></i></div>
+                                </div>
+                            </div> <!-- nv-full-width-title-nav-wrap -->
+                            <div class="nv-block-posts-wrapper">
+                                <ul id="blockCarousel" class="cS-hidden">
+                                    <li>
+                                        <div class="nv-single-post nv-clearfix">
+                                            <div class="nv-post-thumb">
+                                                <a
+                                                    href="https://spindigit.com/2022/08/09/krs-token-a-game-changer-in-the-tourism-industry/">
+                                                </a>
+                                            </div><!-- .nv-post-thumb -->
+                                            <div class="nv-post-content">
+                                                <div class="post-cats-list">
+                                                    <span class="category-button nv-cat-227"><a
+                                                            href="https://spindigit.com/category/finance/">Finance</a></span>
+                                                </div>
+                                                <h3 class="nv-post-title small-size"><a
+                                                        href="https://spindigit.com/2022/08/09/krs-token-a-game-changer-in-the-tourism-industry/">KRS
+                                                        Token, A Game Changer In The Tourism Industry</a></h3>
+                                                <div class="nv-post-meta"> <span class="posted-on"><a
+                                                            href="https://spindigit.com/2022/08/09/krs-token-a-game-changer-in-the-tourism-industry/"
+                                                            rel="bookmark"><time class="entry-date published updated"
+                                                                datetime="2022-08-09T09:05:05-04:00">August 9,
+                                                                2022</time></a></span> </div>
+                                            </div><!-- .nv-post-content -->
+                                        </div><!-- .nv-single-post -->
+                                    </li>
+                                    <li>
+                                        <div class="nv-single-post nv-clearfix">
+                                            <div class="nv-post-thumb">
+                                                <a
+                                                    href="https://spindigit.com/2022/08/09/dryfta-is-an-all-in-one-event-management-platform-for-universities/">
+                                                    <img width="400" height="600"
+                                                        src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20400%20600'%3E%3C/svg%3E"
+                                                        data-src="https://spindigit.com/wp-content/uploads/2022/08/900-600-3513658735-400x600.png"
+                                                        class="attachment-news-vibrant-carousel-portrait size-news-vibrant-carousel-portrait wp-post-image lazy"
+                                                        alt="" /> </a>
+                                            </div><!-- .nv-post-thumb -->
+                                            <div class="nv-post-content">
+                                                <div class="post-cats-list">
+                                                    <span class="category-button nv-cat-205"><a
+                                                            href="https://spindigit.com/category/business/">Business</a></span>
+                                                    <span class="category-button nv-cat-191"><a
+                                                            href="https://spindigit.com/category/event/">Event</a></span>
+                                                    <span class="category-button nv-cat-193"><a
+                                                            href="https://spindigit.com/category/internet/">Internet</a></span>
+                                                    <span class="category-button nv-cat-218"><a
+                                                            href="https://spindigit.com/category/software/">Software</a></span>
+                                                    <span class="category-button nv-cat-116"><a
+                                                            href="https://spindigit.com/category/technology/">Technology</a></span>
+                                                </div>
+                                                <h3 class="nv-post-title small-size"><a
+                                                        href="https://spindigit.com/2022/08/09/dryfta-is-an-all-in-one-event-management-platform-for-universities/">Dryfta
+                                                        is an all in one event management platform for universities</a>
+                                                </h3>
+                                                <div class="nv-post-meta"> <span class="posted-on"><a
+                                                            href="https://spindigit.com/2022/08/09/dryfta-is-an-all-in-one-event-management-platform-for-universities/"
+                                                            rel="bookmark"><time class="entry-date published updated"
+                                                                datetime="2022-08-09T08:00:05-04:00">August 9,
+                                                                2022</time></a></span> </div>
+                                            </div><!-- .nv-post-content -->
+                                        </div><!-- .nv-single-post -->
+                                    </li>
+                                    <li>
+                                        <div class="nv-single-post nv-clearfix">
+                                            <div class="nv-post-thumb">
+                                                <a
+                                                    href="https://spindigit.com/2022/08/08/klug-counsel-pllc-commenced-operations-at-their-new-office-in-washington-dc/">
+                                                    <img width="400" height="500"
+                                                        src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20400%20500'%3E%3C/svg%3E"
+                                                        data-src="https://spindigit.com/wp-content/uploads/2022/08/logo1109259622-1-400x500.png"
+                                                        class="attachment-news-vibrant-carousel-portrait size-news-vibrant-carousel-portrait wp-post-image lazy"
+                                                        alt="" /> </a>
+                                            </div><!-- .nv-post-thumb -->
+                                            <div class="nv-post-content">
+                                                <div class="post-cats-list">
+                                                    <span class="category-button nv-cat-227"><a
+                                                            href="https://spindigit.com/category/finance/">Finance</a></span>
+                                                    <span class="category-button nv-cat-228"><a
+                                                            href="https://spindigit.com/category/investment/">Investment</a></span>
+                                                    <span class="category-button nv-cat-225"><a
+                                                            href="https://spindigit.com/category/legal/">Legal</a></span>
+                                                </div>
+                                                <h3 class="nv-post-title small-size"><a
+                                                        href="https://spindigit.com/2022/08/08/klug-counsel-pllc-commenced-operations-at-their-new-office-in-washington-dc/">Klug
+                                                        Counsel PLLC commenced operations at their new office in
+                                                        Washington DC</a></h3>
+                                                <div class="nv-post-meta"> <span class="posted-on"><a
+                                                            href="https://spindigit.com/2022/08/08/klug-counsel-pllc-commenced-operations-at-their-new-office-in-washington-dc/"
+                                                            rel="bookmark"><time class="entry-date published updated"
+                                                                datetime="2022-08-08T22:10:05-04:00">August 8,
+                                                                2022</time></a></span> </div>
+                                            </div><!-- .nv-post-content -->
+                                        </div><!-- .nv-single-post -->
+                                    </li>
+                                    <li>
+                                        <div class="nv-single-post nv-clearfix">
+                                            <div class="nv-post-thumb">
+                                                <a
+                                                    href="https://spindigit.com/2022/08/08/world-of-web3-wow-returns-for-its-3rd-global-eclectic-edition-summit-in-europe-this-november-1-3-2022/">
+                                                    <img width="400" height="600"
+                                                        src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20400%20600'%3E%3C/svg%3E"
+                                                        data-src="https://spindigit.com/wp-content/uploads/2022/08/world-of-web3-banner-lisbon-1920-x-1080-11372760654-400x600.jpg"
+                                                        class="attachment-news-vibrant-carousel-portrait size-news-vibrant-carousel-portrait wp-post-image lazy"
+                                                        alt="" /> </a>
+                                            </div><!-- .nv-post-thumb -->
+                                            <div class="nv-post-content">
+                                                <div class="post-cats-list">
+                                                    <span class="category-button nv-cat-190"><a
+                                                            href="https://spindigit.com/category/entertainment/">Entertainment</a></span>
+                                                    <span class="category-button nv-cat-227"><a
+                                                            href="https://spindigit.com/category/finance/">Finance</a></span>
+                                                    <span class="category-button nv-cat-228"><a
+                                                            href="https://spindigit.com/category/investment/">Investment</a></span>
+                                                    <span class="category-button nv-cat-215"><a
+                                                            href="https://spindigit.com/category/lifestyle/">Lifestyle</a></span>
+                                                    <span class="category-button nv-cat-116"><a
+                                                            href="https://spindigit.com/category/technology/">Technology</a></span>
+                                                </div>
+                                                <h3 class="nv-post-title small-size"><a
+                                                        href="https://spindigit.com/2022/08/08/world-of-web3-wow-returns-for-its-3rd-global-eclectic-edition-summit-in-europe-this-november-1-3-2022/">World
+                                                        of Web3 (WOW) Returns for its 3rd Global Eclectic Edition Summit
+                                                        in Europe this November 1 &#8211; 3 2022</a></h3>
+                                                <div class="nv-post-meta"> <span class="posted-on"><a
+                                                            href="https://spindigit.com/2022/08/08/world-of-web3-wow-returns-for-its-3rd-global-eclectic-edition-summit-in-europe-this-november-1-3-2022/"
+                                                            rel="bookmark"><time class="entry-date published updated"
+                                                                datetime="2022-08-08T10:25:13-04:00">August 8,
+                                                                2022</time></a></span> </div>
+                                            </div><!-- .nv-post-content -->
+                                        </div><!-- .nv-single-post -->
+                                    </li>
+                                    <li>
+                                        <div class="nv-single-post nv-clearfix">
+                                            <div class="nv-post-thumb">
+                                                <a
+                                                    href="https://spindigit.com/2022/08/08/achieve-your-social-media-goals-with-bulkfollows-easy-smm-panel/">
+                                                </a>
+                                            </div><!-- .nv-post-thumb -->
+                                            <div class="nv-post-content">
+                                                <div class="post-cats-list">
+                                                    <span class="category-button nv-cat-205"><a
+                                                            href="https://spindigit.com/category/business/">Business</a></span>
+                                                    <span class="category-button nv-cat-233"><a
+                                                            href="https://spindigit.com/category/computers/">Computers</a></span>
+                                                </div>
+                                                <h3 class="nv-post-title small-size"><a
+                                                        href="https://spindigit.com/2022/08/08/achieve-your-social-media-goals-with-bulkfollows-easy-smm-panel/">Achieve
+                                                        Your Social Media Goals with Bulkfollows Easy SMM Panel</a></h3>
+                                                <div class="nv-post-meta"> <span class="posted-on"><a
+                                                            href="https://spindigit.com/2022/08/08/achieve-your-social-media-goals-with-bulkfollows-easy-smm-panel/"
+                                                            rel="bookmark"><time class="entry-date published updated"
+                                                                datetime="2022-08-08T06:10:07-04:00">August 8,
+                                                                2022</time></a></span> </div>
+                                            </div><!-- .nv-post-content -->
+                                        </div><!-- .nv-single-post -->
+                                    </li>
+                                    <li>
+                                        <div class="nv-single-post nv-clearfix">
+                                            <div class="nv-post-thumb">
+                                                <a
+                                                    href="https://spindigit.com/2022/08/08/smestreet-gamechangers-forum-2022-launched-6on-international-msme-day/">
+                                                    <img width="1" height="1"
+                                                        src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201%201'%3E%3C/svg%3E"
+                                                        data-src="https://spindigit.com/wp-content/uploads/2022/08/smestreet-gamechangers-forum-2022268198987.png"
+                                                        class="attachment-news-vibrant-carousel-portrait size-news-vibrant-carousel-portrait wp-post-image lazy"
+                                                        alt="" /> </a>
+                                            </div><!-- .nv-post-thumb -->
+                                            <div class="nv-post-content">
+                                                <div class="post-cats-list">
+                                                    <span class="category-button nv-cat-189"><a
+                                                            href="https://spindigit.com/category/manufacturing/">Manufacturing</a></span>
+                                                    <span class="category-button nv-cat-194"><a
+                                                            href="https://spindigit.com/category/marketing/">Marketing</a></span>
+                                                    <span class="category-button nv-cat-196"><a
+                                                            href="https://spindigit.com/category/media/">Media</a></span>
+                                                    <span class="category-button nv-cat-250"><a
+                                                            href="https://spindigit.com/category/non-profit/">Non-profit</a></span>
+                                                    <span class="category-button nv-cat-202"><a
+                                                            href="https://spindigit.com/category/publishing/">Publishing</a></span>
+                                                </div>
+                                                <h3 class="nv-post-title small-size"><a
+                                                        href="https://spindigit.com/2022/08/08/smestreet-gamechangers-forum-2022-launched-6on-international-msme-day/">SMEStreet
+                                                        GameChangers Forum 2022 Launched on International MSME Day</a>
+                                                </h3>
+                                                <div class="nv-post-meta"> <span class="posted-on"><a
+                                                            href="https://spindigit.com/2022/08/08/smestreet-gamechangers-forum-2022-launched-6on-international-msme-day/"
+                                                            rel="bookmark"><time class="entry-date published"
+                                                                datetime="2022-08-08T05:05:06-04:00">August 8,
+                                                                2022</time><time class="updated"
+                                                                datetime="2022-08-09T01:54:58-04:00">August 9,
+                                                                2022</time></a></span> </div>
+                                            </div><!-- .nv-post-content -->
+                                        </div><!-- .nv-single-post -->
+                                    </li>
+                                    <li>
+                                        <div class="nv-single-post nv-clearfix">
+                                            <div class="nv-post-thumb">
+                                                <a
+                                                    href="https://spindigit.com/2022/08/07/china-asean-international-trade-digital-expo-kicked-off/">
+                                                    <img width="400" height="600"
+                                                        src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20400%20600'%3E%3C/svg%3E"
+                                                        data-src="https://spindigit.com/wp-content/uploads/2022/08/picture-11747024349-400x600.png"
+                                                        class="attachment-news-vibrant-carousel-portrait size-news-vibrant-carousel-portrait wp-post-image lazy"
+                                                        alt="" /> </a>
+                                            </div><!-- .nv-post-thumb -->
+                                            <div class="nv-post-content">
+                                                <div class="post-cats-list">
+                                                    <span class="category-button nv-cat-188"><a
+                                                            href="https://spindigit.com/category/automotive/">Automotive</a></span>
+                                                    <span class="category-button nv-cat-212"><a
+                                                            href="https://spindigit.com/category/electronics/">Electronics</a></span>
+                                                    <span class="category-button nv-cat-237"><a
+                                                            href="https://spindigit.com/category/engineering/">Engineering</a></span>
+                                                    <span class="category-button nv-cat-191"><a
+                                                            href="https://spindigit.com/category/event/">Event</a></span>
+                                                    <span class="category-button nv-cat-227"><a
+                                                            href="https://spindigit.com/category/finance/">Finance</a></span>
+                                                </div>
+                                                <h3 class="nv-post-title small-size"><a
+                                                        href="https://spindigit.com/2022/08/07/china-asean-international-trade-digital-expo-kicked-off/">China-ASEAN
+                                                        International Trade Digital Expo kicked off</a></h3>
+                                                <div class="nv-post-meta"> <span class="posted-on"><a
+                                                            href="https://spindigit.com/2022/08/07/china-asean-international-trade-digital-expo-kicked-off/"
+                                                            rel="bookmark"><time class="entry-date published updated"
+                                                                datetime="2022-08-07T03:40:05-04:00">August 7,
+                                                                2022</time></a></span> </div>
+                                            </div><!-- .nv-post-content -->
+                                        </div><!-- .nv-single-post -->
+                                    </li>
+                                    <li>
+                                        <div class="nv-single-post nv-clearfix">
+                                            <div class="nv-post-thumb">
+                                                <a
+                                                    href="https://spindigit.com/2022/08/07/china-asean-international-trade-digital-expo-kicked-off/">
+                                                    <img width="400" height="600"
+                                                        src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20400%20600'%3E%3C/svg%3E"
+                                                        data-src="https://spindigit.com/wp-content/uploads/2022/08/picture-11747024349-400x600.png"
+                                                        class="attachment-news-vibrant-carousel-portrait size-news-vibrant-carousel-portrait wp-post-image lazy"
+                                                        alt="" /> </a>
+                                            </div><!-- .nv-post-thumb -->
+                                            <div class="nv-post-content">
+                                                <div class="post-cats-list">
+                                                    <span class="category-button nv-cat-188"><a
+                                                            href="https://spindigit.com/category/automotive/">Automotive</a></span>
+                                                    <span class="category-button nv-cat-212"><a
+                                                            href="https://spindigit.com/category/electronics/">Electronics</a></span>
+                                                    <span class="category-button nv-cat-237"><a
+                                                            href="https://spindigit.com/category/engineering/">Engineering</a></span>
+                                                    <span class="category-button nv-cat-191"><a
+                                                            href="https://spindigit.com/category/event/">Event</a></span>
+                                                    <span class="category-button nv-cat-227"><a
+                                                            href="https://spindigit.com/category/finance/">Finance</a></span>
+                                                </div>
+                                                <h3 class="nv-post-title small-size"><a
+                                                        href="https://spindigit.com/2022/08/07/china-asean-international-trade-digital-expo-kicked-off/">China-ASEAN
+                                                        International Trade Digital Expo kicked off</a></h3>
+                                                <div class="nv-post-meta"> <span class="posted-on"><a
+                                                            href="https://spindigit.com/2022/08/07/china-asean-international-trade-digital-expo-kicked-off/"
+                                                            rel="bookmark"><time class="entry-date published updated"
+                                                                datetime="2022-08-07T03:40:05-04:00">August 7,
+                                                                2022</time></a></span> </div>
+                                            </div><!-- .nv-post-content -->
+                                        </div><!-- .nv-single-post -->
+                                    </li>
+                                    <li>
+                                        <div class="nv-single-post nv-clearfix">
+                                            <div class="nv-post-thumb">
+                                                <a
+                                                    href="https://spindigit.com/2022/08/04/jelenew%ef%bc%9athe-haute-couture-sports-style-mixes-that-changed-the-pattern-of-the-fashion-world/">
+                                                    <img width="400" height="600"
+                                                        src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20400%20600'%3E%3C/svg%3E"
+                                                        data-src="https://spindigit.com/wp-content/uploads/2022/08/kat-graham-in-jelenew-cycling-pants-and-ste-phane-rolland-haute-couture-attends-the-closing-ceremony607723852-1-400x600.jpg"
+                                                        class="attachment-news-vibrant-carousel-portrait size-news-vibrant-carousel-portrait wp-post-image lazy"
+                                                        alt=""
+                                                        data-srcset="https://spindigit.com/wp-content/uploads/2022/08/kat-graham-in-jelenew-cycling-pants-and-ste-phane-rolland-haute-couture-attends-the-closing-ceremony607723852-1-400x600.jpg 400w, https://spindigit.com/wp-content/uploads/2022/08/kat-graham-in-jelenew-cycling-pants-and-ste-phane-rolland-haute-couture-attends-the-closing-ceremony607723852-1-684x1024.jpg 684w"
+                                                        data-sizes="(max-width: 400px) 100vw, 400px" /> </a>
+                                            </div><!-- .nv-post-thumb -->
+                                            <div class="nv-post-content">
+                                                <div class="post-cats-list">
+                                                    <span class="category-button nv-cat-261"><a
+                                                            href="https://spindigit.com/category/apparel/">Apparel</a></span>
+                                                    <span class="category-button nv-cat-191"><a
+                                                            href="https://spindigit.com/category/event/">Event</a></span>
+                                                    <span class="category-button nv-cat-239"><a
+                                                            href="https://spindigit.com/category/fashion/">Fashion</a></span>
+                                                    <span class="category-button nv-cat-215"><a
+                                                            href="https://spindigit.com/category/lifestyle/">Lifestyle</a></span>
+                                                    <span class="category-button nv-cat-235"><a
+                                                            href="https://spindigit.com/category/sports/">Sports</a></span>
+                                                </div>
+                                                <h3 class="nv-post-title small-size"><a
+                                                        href="https://spindigit.com/2022/08/04/jelenew%ef%bc%9athe-haute-couture-sports-style-mixes-that-changed-the-pattern-of-the-fashion-world/">Jelenew：The
+                                                        haute couture sports style mixes that changed the pattern of the
+                                                        fashion world</a></h3>
+                                                <div class="nv-post-meta"> <span class="posted-on"><a
+                                                            href="https://spindigit.com/2022/08/04/jelenew%ef%bc%9athe-haute-couture-sports-style-mixes-that-changed-the-pattern-of-the-fashion-world/"
+                                                            rel="bookmark"><time class="entry-date published"
+                                                                datetime="2022-08-04T07:50:05-04:00">August 4,
+                                                                2022</time><time class="updated"
+                                                                datetime="2022-08-05T02:51:25-04:00">August 5,
+                                                                2022</time></a></span> </div>
+                                            </div><!-- .nv-post-content -->
+                                        </div><!-- .nv-single-post -->
+                                    </li>
+                                    <li>
+                                        <div class="nv-single-post nv-clearfix">
+                                            <div class="nv-post-thumb">
+                                                <a
+                                                    href="https://spindigit.com/2022/08/03/global-crypto-exchange-digifinex-to-list-emo-2/">
+                                                    <img width="400" height="600"
+                                                        src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20400%20600'%3E%3C/svg%3E"
+                                                        data-src="https://spindigit.com/wp-content/uploads/2022/08/press-release-digifinex1257884732-1-400x600.jpg"
+                                                        class="attachment-news-vibrant-carousel-portrait size-news-vibrant-carousel-portrait wp-post-image lazy"
+                                                        alt="" /> </a>
+                                            </div><!-- .nv-post-thumb -->
+                                            <div class="nv-post-content">
+                                                <div class="post-cats-list">
+                                                    <span class="category-button nv-cat-205"><a
+                                                            href="https://spindigit.com/category/business/">Business</a></span>
+                                                    <span class="category-button nv-cat-227"><a
+                                                            href="https://spindigit.com/category/finance/">Finance</a></span>
+                                                    <span class="category-button nv-cat-193"><a
+                                                            href="https://spindigit.com/category/internet/">Internet</a></span>
+                                                    <span class="category-button nv-cat-228"><a
+                                                            href="https://spindigit.com/category/investment/">Investment</a></span>
+                                                    <span class="category-button nv-cat-116"><a
+                                                            href="https://spindigit.com/category/technology/">Technology</a></span>
+                                                </div>
+                                                <h3 class="nv-post-title small-size"><a
+                                                        href="https://spindigit.com/2022/08/03/global-crypto-exchange-digifinex-to-list-emo-2/">Global
+                                                        crypto exchange DIGIFINEX to list EMO</a></h3>
+                                                <div class="nv-post-meta"> <span class="posted-on"><a
+                                                            href="https://spindigit.com/2022/08/03/global-crypto-exchange-digifinex-to-list-emo-2/"
+                                                            rel="bookmark"><time class="entry-date published updated"
+                                                                datetime="2022-08-03T07:10:04-04:00">August 3,
+                                                                2022</time></a></span> </div>
+                                            </div><!-- .nv-post-content -->
+                                        </div><!-- .nv-single-post -->
+                                    </li>
+                                </ul>
+                            </div><!-- .nv-block-posts-wrapper -->
+                        </div><!--- .nv-block-wrapper -->
+                    </section>
+                    <section id="news_vibrant_block_posts-9" class="widget news_vibrant_block_posts nv-clearfix">
+
+                        <div class="nv-block-wrapper block-posts nv-clearfix layout1">
+                            <div class="nv-block-posts-wrapper">
+                                <div class="nv-primary-block-wrap">
+
+                                <?php if(!empty($tec_post['first_tech_row'][0]['all_tech_post'])){?>
+                                    <?php 
+                                        $content = strip_tags(html_entity_decode($tec_post['first_tech_row'][0]['all_tech_post']['post_data']['content']));
+                                        $content = substr($content, 0, 1550);
+                                    ?>
+                                
+                                    <div class="nv-single-post nv-clearfix" style="width:140%; float:left;">
+                                        <div class="nv-post-thumb">
+                                            <a href="<?php echo $tec_post['first_tech_row'][0]['all_tech_post']['tech_url'];?>">
+                                                <img width="700" height="441"
+                                                    src="<?php if(!empty($tec_post['first_tech_row'][0]['all_tech_post']['tech_path'][0]['url'])){echo $tec_post['first_tech_row'][0]['all_tech_post']['tech_path'][0]['url'];}else{echo $settings[12]['setting_value'];}?>"                                                    data-sizes="(max-width: 700px) 100vw, 700px" onerror="myFunction(this)" loading="lazy"/> </a>
+                                        </div><!-- .nv-post-thumb -->
+                                        <div class="nv-post-content">
+                                            <h3 class="nv-post-title large-size"><a
+                                                    href="<?php echo $tec_post['first_tech_row'][0]['all_tech_post']['tech_url'];?>"><?php echo $tec_post['first_tech_row'][0]['all_tech_post']['post_data']['title'];?></a></h3>
+                                            <div class="nv-post-meta">
+                                                <span class="posted-on"><a href="<?php echo $tec_post['first_tech_row'][0]['all_tech_post']['tech_url'];?>"
+                                                        rel="bookmark"><time class="entry-date published updated"
+                                                            datetime="2022-08-09T08:00:05-04:00"><?php echo date("d M, Y", strtotime($tec_post['first_tech_row'][0]['all_tech_post']['post_data']['update_date']));?></a></span>
+                                            </div>
+                                            <div class="nv-post-excerpt">
+                                                <p>
+                                                    <?php print_r($content);?>...
+                                                    <a href="<?php echo $tec_post['first_tech_row'][0]['all_tech_post']['tech_url'];?>" class="readmore">Read More</a></p>
+                                            </div>
+                                        </div><!-- .nv-post-content -->
+                                    </div><!-- .nv-single-post -->
+                                    <?php }?>
+
+                                </div><!-- .nv-primary-block-wrap -->
+                                <div class="nv-secondary-block-wrap">
+                                    <div class="" id="add_box_sidebar">
+                                         <!-- <img src="</?php echo $add[0]['sidebar'] ?>" style="" id="image_add_sidebar"> -->
+                                         <code id="image_add_sidebar"><?php echo $add[0]['sidebar'] ?></code>
+                                    </div><!-- .nv-header-ads-area -->
+                                    </br></br>
+
+                                    <?php foreach($tec_post['second_tech_row'] as $tech_second){?>
+                                    <?php if(!empty($tech_second['all_tech_post'])){?>
+
+                                    <div class="nv-single-post nv-clearfix">
+                                        <div class="nv-post-thumb">
+                                            <a href="<?php echo $tech_second['all_tech_post']['tech_url'];?>">
+                                                <img width="272" height="100"
+                                                    src="<?php if(!empty($tech_second['all_tech_post']['tech_path'][0]['url'])){echo $tech_second['all_tech_post']['tech_path'][0]['url'];}else{echo $settings[12]['setting_value'];}?>"
+
+                                                    class="attachment-news-vibrant-block-thumb size-news-vibrant-block-thumb wp-post-image lazy"
+                                                    style="width:100%" onerror="myFunction(this)" loading="lazy"/> </a>
+                                        </div><!-- .nv-post-thumb -->
+                                        <div class="nv-post-content">
+                                            <h3 class="nv-post-title small-size"><a
+                                                    href="<?php echo $tech_second['all_tech_post']['tech_url'];?>"><?php echo substr($tech_second['all_tech_post']['post_data']['title'], 0, 70);?></a></h3>
+                                            <div class="nv-post-meta">
+                                                <span class="posted-on"><a
+                                                        href="<?php echo $tech_second['all_tech_post']['tech_url'];?>"
+                                                        rel="bookmark"><time class="entry-date published updated"
+                                                            datetime="2022-08-09T05:45:04-04:00"><?php echo date("d M, Y", strtotime($tech_second['all_tech_post']['post_data']['update_date']));?></a></span>
+                                            </div>
+                                        </div><!-- .nv-post-content -->
+                                    </div><!-- .nv-single-post -->
+                                    <?php }?>
+                                    <?php }?>
+                                </div><!-- .nv-secondary-block-wrap -->
+                            </div><!-- .nv-block-posts-wrapper -->
+                        </div><!--- .nv-block-wrapper -->
+                    </section>
+                </div><!-- .nv-home-top-section -->
+                <div class="nv-home-middle-section nv-clearfix">
+                    <div class="middle-left-aside">
+                        <section id="news_vibrant_featured_posts-11" class="widget news_vibrant_featured_posts">
+                            <div class="nv-block-wrapper featured-posts nv-clearfix">
+                                <div class="nv-featured-posts-wrapper">
+
+                             <?php foreach($tec_post['third_tech_row'] as $tech_third){?>
+                                <?php                                         
+                                    $content = strip_tags(html_entity_decode($tech_third['all_tech_post']['post_data']['content']));
+                                    $content = substr($content, 0, 150);
+                                ?>
+                                    <div class="nv-single-post-wrap nv-clearfix">
+                                        <div class="nv-single-post">
+                                            <div class="nv-post-thumb">
+                                                <a href="<?php if(!empty($tech_third['all_tech_post'])){echo $tech_third['all_tech_post']['tech_url'];}?>">
+                                                    <img width="272" height="204" src="<?php if(!empty($tech_third['all_tech_post']['tech_path'][0]['url'])){echo $tech_third['all_tech_post']['tech_path'][0]['url'];}else{echo $settings[12]['setting_value'];}?>"
+                                                        class="attachment-news-vibrant-block-thumb size-news-vibrant-block-thumb wp-post-image lazy"
+                                                        alt="" onerror="myFunction(this)" loading="lazy"/> </a>
+                                            </div><!-- .nv-post-thumb -->
+                                           
+                                            <div class="nv-post-content">
+                                                <h3 class="nv-post-title small-size"><a
+                                                        href="<?php if(!empty($tech_third['all_tech_post'])){ echo $tech_third['all_tech_post']['tech_url'];}?>"><?php if(!empty($tech_third['all_tech_post'])){ echo $tech_third['all_tech_post']['post_data']['title'];}?></a>
+                                                </h3>
+                                                <div class="nv-post-meta">
+                                                    <span class="posted-on"><a href="<?php if(!empty($tech_third['all_tech_post'])){ echo $tech_third['all_tech_post']['tech_url'];?>"
+                                                            rel="bookmark"><time class="entry-date published updated"
+                                                                datetime="2022-08-09T08:00:05-04:00"><?php echo date("d M, Y", strtotime($tech_third['all_tech_post']['post_data']['update_date']));}?></a></span>
+                                                </div> 
+                                                <div class="nv-post-excerpt">
+                                                <p><?php print_r($content);?>...
+                                                    <a href="<?php echo $tech_third['all_tech_post']['tech_url'];?>" class="readmore">Read More</a></p>
+                                                 </div>
+                                            </div><!-- .nv-post-content -->
+                                        </div> <!-- nv-single-post -->
+                                    </div><!-- .nv-single-post-wrap -->
+                                <?php }?>
+                                </div><!-- .nv-featured-posts-wrapper -->
+                            </div><!--- .nv-block-wrapper -->
+                        </section>
+                    </div><!-- .middle-aside -->
+                   
+                    <div class="middle-primary">
+                        <section id="news_vibrant_block_posts-11" class="widget news_vibrant_block_posts nv-clearfix">
+                            <div class="nv-block-wrapper block-posts nv-clearfix layout2">
+                                <div class="nv-block-posts-wrapper">
+                                    <div class="nv-primary-block-wrap">
+                                    <?php foreach($bus_post['first_bus_row'] as $bus_first){?>
+                                    <?php 
+                                        $content = strip_tags(html_entity_decode($bus_first['all_buisness_post']['post_data']['content']));
+                                        $content = substr($content, 0, 550);
+                                    ?>
+
+                                        <div class="nv-single-post nv-clearfix">
+                                            <div class="nv-post-thumb">
+                                                <a
+                                                    href="<?php echo $bus_first['all_buisness_post']['buisness_url'];?>">
+                                                    <img width="700" height="441"
+                                                        src="<?php if(!empty($bus_first['all_buisness_post']['buisness_path'][0]['url'])){echo $bus_first['all_buisness_post']['buisness_path'][0]['url'];}else{echo $settings[12]['setting_value'];}?>"
+                                                        data-srcset="https://spindigit.com/wp-content/uploads/2019/11/Advanced-Micro-Devices-AMD-stocks-price-1-700x441.jpg 700w, https://spindigit.com/wp-content/uploads/2019/11/Advanced-Micro-Devices-AMD-stocks-price-1-345x218.jpg 345w"
+                                                        data-sizes="(max-width: 700px) 100vw, 700px" onerror="myFunction(this)" loading="lazy"/> </a>
+                                            </div><!-- .nv-post-thumb -->
+                                            <div class="nv-post-content">
+                                                <h3 class="nv-post-title large-size"><a
+                                                        href="<?php echo $bus_first['all_buisness_post']['buisness_url'];?>"><?php echo substr($bus_first['all_buisness_post']['post_data']['title'], 0, 70);?></a></h3>
+                                                <div class="nv-post-meta">
+                                                    <span class="byline"> by <span class="author vcard"><a
+                                                                class="url fn n"
+                                                                href="https://spindigit.com/author/lela-netherton/">Lela
+                                                                Netherton</a></span></span><span class="posted-on"><a
+                                                            href="<?php echo $bus_first['all_buisness_post']['buisness_url'];?>"
+                                                            rel="bookmark"><time class="entry-date published updated"
+                                                                datetime="2019-11-25T06:14:24-05:00"><?php echo date("d M, Y", strtotime($bus_first['all_buisness_post']['post_data']['update_date']));?></a></span>
+                                                </div>
+                                                <div class="nv-post-excerpt">
+                                                    <p><?php print_r($content);?>...<a
+                                                            href="<?php echo $bus_first['all_buisness_post']['buisness_url'];?>"
+                                                            class="readmore">Read More</a></p>
+                                                </div>
+                                            </div><!-- .nv-post-content -->
+                                        </div><!-- .nv-single-post -->
+                                       <?php }?>
+                                    </div><!-- .nv-primary-block-wrap -->
+
+                                    <div class="nv-secondary-block-wrap">
+                                    <?php foreach($bus_post['second_bus_row'] as $bus_second){?>
+                                        <?php
+                                            $content = strip_tags(html_entity_decode($bus_second['all_buisness_post']['post_data']['content']));
+                                            $content = substr($content, 0, 230);
+                                            ?>
+                                        <div class="nv-single-post nv-clearfix">
+                                            <div class="nv-post-thumb">
+                                                <a href="<?php echo $bus_second['all_buisness_post']['buisness_url'];?>">
+                                                    <img width="272" height="204"
+                                                        src="<?php if(!empty($bus_second['all_buisness_post']['buisness_path'][0]['url'])){echo $bus_second['all_buisness_post']['buisness_path'][0]['url'];}else{echo $settings[12]['setting_value'];}?>"
+                                                        class="attachment-news-vibrant-block-thumb size-news-vibrant-block-thumb wp-post-image lazy" onerror="myFunction(this)" loading="lazy"/></a>
+                                            </div><!-- .nv-post-thumb -->
+                                            <div class="nv-post-content">
+                                                <h3 class="nv-post-title small-size"><a
+                                                        href="<?php echo $bus_second['all_buisness_post']['buisness_url'];?>"><?php echo substr($bus_second['all_buisness_post']['post_data']['title'], 0, 70);?></a></h3>
+                                                <div class="nv-post-meta">
+                                                    <span class="posted-on"><a
+                                                            href="<?php echo $bus_second['all_buisness_post']['buisness_url'];?>"
+                                                            rel="bookmark"><time class="entry-date published"
+                                                                datetime="2019-11-11T07:38:00-05:00"><?php echo date("d M, Y", strtotime($bus_second['all_buisness_post']['post_data']['update_date']));?><time class="updated"
+                                                                datetime="2020-08-28T09:46:42-04:00"><?php echo date("d M, Y", strtotime($bus_second['all_buisness_post']['post_data']['update_date']));?></a></span>
+                                                </div>
+                                                <div class="nv-post-excerpt">
+                                                    <p><?php print_r($content);?>...<a
+                                                            href="<?php echo $bus_second['all_buisness_post']['buisness_url'];?>"
+                                                            class="readmore">Read More</a></p>
+                                                </div>
+                                            </div><!-- .nv-post-content -->
+                                        </div><!-- .nv-single-post -->
+                                      <?php }?>
+                                    </div>
+                                </div><!-- .nv-block-posts-wrapper -->
+                            </div><!--- .nv-block-wrapper -->
+                        </section>
+                    </div><!-- .middle-primary -->
+                    <div class="middle-right-aside">
+                        <section id="news_vibrant_featured_posts-10" class="widget news_vibrant_featured_posts">
+                            <div class="nv-block-wrapper featured-posts nv-clearfix">
+                                <div class="nv-featured-posts-wrapper">                                    
+
+                                <?php foreach($bus_post['third_bus_row'] as $bus_third) {?>
+                                      <?php 
+                                            $content = strip_tags(html_entity_decode($bus_third['all_buisness_post']['post_data']['content']));
+                                            $content = substr($content, 0, 230);
+                                        ?>
+                                    <div class="nv-single-post-wrap nv-clearfix">
+                                        <div class="nv-single-post">
+                                            <div class="nv-post-thumb">
+                                                <a href="<?php echo $bus_third['all_buisness_post']['buisness_url'];?>"><img width="272" height="204"
+                                                    src="<?php if(!empty($bus_third['all_buisness_post']['buisness_path'][0]['url'])){echo $bus_third['all_buisness_post']['buisness_path'][0]['url'];}else{echo $settings[12]['setting_value'];}?>"
+                                                    class="attachment-news-vibrant-block-thumb size-news-vibrant-block-thumb wp-post-image lazy"
+                                                    alt="" onerror="myFunction(this)" loading="lazy"/> 
+                                                </a>
+                                            </div><!-- .nv-post-thumb -->
+                                            <div class="nv-post-content">
+                                                <h3 class="nv-post-title small-size"><a
+                                                        href="<?php echo $bus_third['all_buisness_post']['buisness_url'];?>"><?php echo substr($bus_third['all_buisness_post']['post_data']['title'],0,70);?></a>
+                                                </h3>
+                                                <div class="nv-post-meta">
+                                                    <span class="posted-on"><a
+                                                        href="<?php echo $bus_third['all_buisness_post']['buisness_url'];?>"
+                                                        rel="bookmark"><time class="entry-date published updated" datetime="2022-08-09T08:00:05-04:00"><?php echo date("d M, Y", strtotime($bus_third['all_buisness_post']['post_data']['update_date']));?></a></span>
+                                                </div>
+                                                <div class="nv-post-excerpt">
+                                                    <p><?php print_r($content);?>...<a
+                                                        href="<?php echo $bus_third['all_buisness_post']['buisness_url'];?>" class="readmore">Read More</a></p>
+                                                </div>
+                                            </div><!-- .nv-post-content -->
+                                        </div> <!-- nv-single-post -->
+                                    </div><!-- .nv-single-post-wrap -->
+                                <?php }?>
+
+                                </div><!-- .nv-featured-posts-wrapper -->
+                            </div><!--- .nv-block-wrapper -->
+                        </section>
+                    </div><!-- .middle-aside -->
+                </div><!-- .nv-home-middle-section -->
+
+
+                <div class="nv-home-bottom-section">
+                    <section id="news_vibrant_featured_posts-12" class="widget news_vibrant_featured_posts">
+                        <div class="nv-block-wrapper featured-posts nv-clearfix">                         
+                            <div class="nv-featured-posts-wrapper">
+                          <?php foreach($post['first_row'] as $first_row){ ?>
+                            <?php 
+                                $content = strip_tags(html_entity_decode($first_row['content']));
+                                $contents = substr($content, 0, 70);
+                            ?>
+                            <div class="nv-single-post-wrap nv-clearfix">
+                                    <div class="nv-single-post">
+                                        <div class="nv-post-thumb">
+                                            <a href="<?php echo $first_row['fetch_post']['url']?>">
+                                                <img width="272px" height="150px" src="<?php if(empty($first_row['fetch_post']['path']['url'])) { echo $settings[12]['setting_value'];
+                                                        }else{ echo $first_row['fetch_post']['path']['url'];} ?>" onerror="myFunction(this)" loading="lazy"/> </a>
+                                        </div><!-- .nv-post-thumb -->
+                                        <div class="nv-post-content">
+                                            <h3 class="nv-post-title small-size"><a href="<?php echo $first_row['fetch_post']['url']?>">
+                                                    <?php echo substr($first_row['title'], 0, 15);?></a></h3>
+                                            <div class="nv-post-meta">
+                                                <span class="posted-on"><a
+                                                        href="<?php echo $first_row['fetch_post']['url']?>"
+                                                        rel="bookmark"><time class="entry-date published updated"
+                                                            datetime="2022-08-09T08:00:05-04:00"><?php echo date("d M, Y", strtotime($first_row['update_date']));?></a></span>
+                                            </div>
+                                            <div class="nv-post-excerpt">
+                                                <p><?php print_r($contents);?>...<a
+                                                href="<?php echo $first_row['fetch_post']['url'];?>" class="readmore">Read More</a></p>
+                                            </div>
+                                        </div><!-- .nv-post-content -->
+                                    </div> <!-- nv-single-post -->
+                                </div>
+                               <?php }?>
+                            </div><!-- .nv-featured-posts-wrapper -->
+                        </div><!--- .nv-block-wrapper -->
+                    </section>
+
+                    <h4>business</h4>
+                    <section id="news_vibrant_featured_posts-13" class="widget news_vibrant_featured_posts">
+                        <div class="nv-block-wrapper featured-posts nv-clearfix">
+                            <div class="nv-featured-posts-wrapper">
+                            <?php foreach($post['second_row'] as $second_row){?>
+                                <?php    
+                                    $content = strip_tags(html_entity_decode($second_row['content']));
+                                    $contents = substr($content, 0, 70);
+                                ?>
+                                <div class="nv-single-post-wrap nv-clearfix">
+                                    <div class="nv-single-post">
+                                        <div class="nv-post-thumb">
+                                            <a href="<?php echo $second_row['fetch_post']['url']?>"><img width="272px" height="150px" src="<?php if(empty($second_row['fetch_post']['path']['url'])){echo $settings[12]['setting_value'];}else{echo $second_row['fetch_post']['path']['url'];}?>"                                                    
+                                                class="attachment-news-vibrant-block-thumb size-news-vibrant-block-thumb wp-post-image lazy" alt="" onerror="myFunction(this)" loading="lazy"/> </a>
+                                        </div><!-- .nv-post-thumb -->
+                                        <div class="nv-post-content">
+                                            <h3 class="nv-post-title small-size"><a href="<?php echo $second_row['fetch_post']['url']?>"><?php echo substr($second_row['title'], 0, 15);?></a></h3>
+                                            <div class="nv-post-meta">
+                                                <span class="posted-on"><a href="<?php echo $second_row['fetch_post']['url']?>" rel="bookmark"><time class="entry-date published updated"
+                                                datetime="2022-08-09T08:00:05-04:00"><?php echo date("d M, Y", strtotime($second_row['update_date']));?></a></span>
+                                            </div>
+                                            <div class="nv-post-excerpt">
+                                                <p><?php print_r($contents);?>...<a href="<?php echo $second_row['fetch_post']['url'];?>" class="readmore">Read More</a></p>
+                                            </div>
+                                        </div><!-- .nv-post-content -->
+                                    </div> <!-- nv-single-post -->
+                                </div><!-- .nv-single-post-wrap -->
+                            <?php }?>
+                        </div>
+                        <!--- .nv-block-wrapper -->
+                    </section>
+                </div>
+            </div><!-- .cv-container -->
+        </div><!-- #content -->

@@ -1,0 +1,80 @@
+
+</div>
+
+
+<script src="<?php echo base_url() ?>/assets/theme/newsfeed/assets/js/jquery.min.js"></script> 
+<script src="<?php echo base_url() ?>/assets/theme/newsfeed/assets/js/wow.min.js"></script> 
+<script src="<?php echo base_url() ?>/assets/theme/newsfeed/assets/js/bootstrap.min.js"></script> 
+<script src="<?php echo base_url() ?>/assets/theme/newsfeed/assets/js/slick.min.js"></script> 
+<script src="<?php echo base_url() ?>/assets/theme/newsfeed/assets/js/jquery.li-scroller.1.0.js"></script> 
+<script src="<?php echo base_url() ?>/assets/theme/newsfeed/assets/js/jquery.newsTicker.min.js"></script> 
+<script src="<?php echo base_url() ?>/assets/theme/newsfeed/assets/js/jquery.fancybox.pack.js"></script> 
+<script src="<?php echo base_url() ?>/assets/theme/newsfeed/assets/js/custom.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="jquery-3.6.1.min.js"></script>
+<script>
+$(document).ready(function(){
+        $('#single_page_content_2').find('a').each(function() {
+            // $(this).css('background-color','cyan');
+        });
+        $('a')
+            .filter('[href^="http"], [href^="//"]')
+            .not('[href*="' + window.location.host + '"]')
+            .attr({
+                rel: 'nofollow noopener',
+                target: '_blank'
+        })
+    });
+    </script>
+<script>
+    $(document).ready(function() {
+        // $('.single_page_content_2 > div >div').first().attr('id','child1');
+        // $("#child1 p:nth-child(3)").css('background-color','cyan');
+        var html = ''; 
+        // $('#child1').each(function() {
+        //     var $this = $(this);
+
+                  
+            html +=  '<?php if(($single["f_name"]=='issuewire')||($single["f_name"]=='Issuewire')||($single["matico"]=='y')){?>';
+            html +=  '<div class="single_page_content">';
+            html +=  '<h3>More on <?php echo $settings[0]["setting_value"] ?>:</h3>';
+            html +=  '<ul>';
+            html +=  '<?php foreach ($relatedPostRandom as $relpost) { ?>';
+            html +=  '<li><a href="<?php echo base_url() ."/". $relpost["seo_url"] ?>" target="_blank" ref="nofollow noopener"><?php echo $relpost["title"] ?></a></li>';
+            html +=  '<?php } ?>';
+            html +=  '</ul>';
+            html +=  '</div>';
+            html +=  '<?php }?>';
+            html +=  '<br />';
+
+        // $('.single_page_content_2 > div >div:eq(1) p:eq(0)').append(html);
+        $("#single_page_content_2 p:first").append(html);
+        
+     })    
+</script>
+<script>
+    
+    $("#sform, #sclose").hide();
+    $("#sbtn").click(function(){
+        $("#sform, #sclose").show();
+        $("#sbtn").hide();
+    });
+    $("#sclose").click(function(){
+        $("#sclose, #sform").hide();
+        $("#sbtn").show();
+    });
+    $(document).ready(function(){
+        $(".humberg_btn").click(function(){
+            $("#navdropdown").toggleClass('is_active');
+        })
+    })
+</script>
+<style>
+    .single_page_content_2 a{
+        color:#337ab7;
+    }
+</style>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<style>
+   #add_box_sidebar{
+        width: 300px;
+        /* border: 1px solid green; */
+        float: right;
+        height: 120px;
+        /* opacity: 0.1; */
+        margin-bottom: 55px;
+    }
+    #image_add_sidebar{
+        width:100%;
+        height:auto;
+    }
+</style>
+<section id="contentSection" class="container">
+    <div class="row">
+      <div class="col-lg-9 col-md-9 col-sm-9">
+        <div class="left_content" id="single_page_content">
+          <div class="contact_area" id="wid">
+           <!-- <h1>Hello</h1> -->
+           
+          <?php
+         //   print_r($one);
+          //die;
+        //  $this->extend('widgets/basic');
+          
+          // die;
+          ?>
+
+         
+
+
+            <h2><?php echo $singlepage["title"]; ?></h2>
+            <p><?php echo html_entity_decode(nl2br($singlepage["content"])) ?></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-3">
+        <aside class="right_content">
+          <div class="single_sidebar">
+
+
+          <div class="" id="add_box_sidebar">
+                                         <!-- <img src="</?php echo base_url() . "/assets/images/bluehostimage.png" ?>" style="" id="image_add_sidebar"> -->
+                                         <code id="image_add_sidebar"><?php echo $add[0]['sidebar'] ?></code>
+        </div><!-- .nv-header-ads-area -->
+             </br></br></br></br></br></br>
+
+
+            <h2><span>Popular Post</span></h2>
+            <ul class="spost_nav">
+                <?php foreach($latest_news as $let){ ?>
+              <li>
+                <div class="media"> <a href="<?php echo base_url().$let["seo_url"] ?>" class="media-left"> 
+                <img alt="<?php echo $let["title"] ?>" src="<?php echo $let["image"] ? $let["image"] : $settings[1]["setting_value"] ?>"> </a>
+                  <div class="media-body"> <a href="<?php echo base_url()."/".$let["seo_url"] ?>" class="catg_title"> <?php echo $let["title"] ?></a> </div>
+                </div>
+              </li>
+          <?php } ?>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>

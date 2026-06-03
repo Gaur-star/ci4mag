@@ -1,0 +1,104 @@
+
+  
+</style>
+<a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
+<div class="">
+  <header id="header">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 " style="background-color:#373c42">
+        
+        <div class="header_top">
+          <div class="header_top_left">
+            <!-- <ul class="top_nav">
+              </?php if (!empty($top_menu)) {
+                foreach ($top_menu as $tm) {
+              ?>
+                  <li><a href="</?php echo $tm["link"] ?>"></?php echo $tm["label"] ?></a></li>
+              <//?php }
+              //} ?>
+            </ul> -->
+          </div>
+          <div class="header_top_right">
+            <p><?php echo date("l, F d, Y") ?></p>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="header_bottom">
+          <div class="logo_area">
+            <a href="<?php echo base_url() ?>" class="logo">
+              <img src="https://spindigit.com/wp-content/uploads/2020/10/spindigitlogo.png" style="height:89;width:248;"></a>
+          </div>
+          <div class="" id="add_box_header">
+                <!-- <img src="</?php echo base_url() . "/assets/images/image_add.jpeg" ?>" style="" id="add_image_header"> -->
+                <div id="add_image_header"><?php echo $add[0]['header']; ?></div>
+          </div><!-- .nv-header-ads-area -->
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="navArea">
+
+<nav class="navbar navbar-inverse" role="navigation">
+  <div id="navbar" class="navbar-collapse" style="padding-inline: 20px; padding-left: 50px; padding-right: 50px;">
+  <div class="humberg_btn"><i class="fa fa-bars" aria-hidden="true"></i></div>
+    <ul class="nav navbar-nav main_nav" id="navdropdown">
+      <li style="margin-inline:1px" class="home"><a href="<?php echo base_url();?>"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+      <?php foreach($header_menu as $hm): ?>
+          <li style="margin-inline:1.2px; padding-inline:0px; <?php if(isset($cat_name) && $cat_name == $hm['slug']){ ?> background-color: #34b0fa !important; color:#fff !important; <?php } ?>"><a href="<?php echo base_url('category').'/'.$hm['slug'];?>"><?= $hm['categorie'] ?></a></li>
+      <?php endforeach ?>
+      <!-- <li style="margin-inline:1.2px; padding-inline:0px; <?php if(isset($cat_name) && $cat_name == "business-news"){ ?> background-color: #34b0fa !important; color:#fff !important; <?php } ?>"><a href="<?php echo base_url();?>/category/business-news">Business News</a></li>
+      <li style="margin-inline:1.2px; padding-inline:0px; <?php if(isset($cat_name) && $cat_name == "health-and-biotech"){ ?> background-color: #34b0fa !important; color:#fff !important; <?php } ?>"><a href="<?php echo base_url();?>/category/health-and-biotech">Health and Biotech</a></li>
+      <li style="margin-inline:1.2px; padding-inline:0px; <?php if(isset($cat_name) && $cat_name == "morning-updates"){ ?> background-color: #34b0fa !important; color:#fff !important; <?php } ?>"><a href="<?php echo base_url();?>/category/morning-updates">Morning Updates</a></li>
+      <li style="margin-inline:1.2px; padding-inline:0px; <?php if(isset($cat_name) && $cat_name == "technology"){ ?> background-color: #34b0fa !important; color:#fff !important; <?php } ?>"><a href="<?php echo base_url();?>/category/technology">Technology</a></li> -->
+      <?php
+      // if ($category) {
+      //   foreach ($category as $key => $cat) {
+      ?>
+          <!-- <li><a href="<?php //echo $cat["link"] ?>"> <?php //echo $cat["label"] ?></a></li> -->
+      <?php
+      //   }
+      // } ?>
+    </ul>
+    <!-- <div class="search_icon"><i class="fa fa-search" aria-hidden="true"></i></div> -->
+    <div class="search-form-main nv-clearfix d-flex" style="margin-left: auto; display:flex;">
+        <div style="margin-inline: 5px;" id="sform">
+              <form role="search" method="post" class="search-form" action="<?php echo base_url().'/Home/single'?>">
+                  <input type="search" class="search-field" placeholder="Suchen …" value="" name="s" id="s"
+                      title="Suche nach:" />
+                  <input type="submit" class="search-submit" value="Search" onclick="sech()"/>
+              </form>
+        </div>
+        
+        <div style="margin-inline: 5px;" id="sbtn">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </div>
+        <div style="margin-inline: 5px;" id="sclose">
+          <i class="fa fa-search" aria-hidden="true"></i>     
+        </div>
+    </div>
+  </div>
+</nav>
+</section>
+
+
+  <section id="newsSection">
+    <!-- <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="latest_newsarea"> <span>Latest News</span>
+          <ul id="ticker01" class="news_sticker">
+            <?php
+            if (!empty($latest_news)) {
+              foreach ($latest_news as $let) { ?>
+                <li><a href="<?php echo base_url() ."/". $let["seo_url"] ?>"><img src="<?php if(!empty($let["image"])){echo $let["image"];}else{echo base_url().'/'.$settings[7]['setting_value'];}?>" alt="<?php //echo $let["title"] ?>"> <?php echo $let["title"] ?></a></li>
+            <?php }
+            } ?>
+          </ul>
+
+        </div>
+      </div>
+    </div> -->
+  </section>

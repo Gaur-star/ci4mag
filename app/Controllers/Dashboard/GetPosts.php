@@ -1,0 +1,141 @@
+<?php
+namespace App\Controllers;
+
+use App\Models\Cron_model;
+use CodeIgniter\Controller;
+
+class GetPosts extends Controller
+{
+    public $Cron_model;
+
+    function index()
+    {
+        $this->Cron_model = new Cron_model();
+        $data["campaign"] = $this->Cron_model->getCampaign();           
+        $url = $data["campaign"][0]['campaign_url'];
+        $author = $data["campaign"][0]['author'];
+        $campaignId = $data["campaign"][0]['campaign_id'];
+        $invalidurl = false;
+        $feeds = "";
+        
+        libxml_use_internal_errors(true);
+        if (@simplexml_load_file($url)) {
+            $feeds = simplexml_load_file($url);
+
+        } else {
+            $getxml = $this->get_xml_from_url($url);
+            if ($getxml) {                
+                $feeds = simplexml_load_string($getxml);
+            }
+        }
+        if ($feeds)
+        {
+            $numofpost = 0;
+            $site = $feeds->channel->title;
+            $sitelink = $feeds->channel->link;
+
+            $count = 0;
+            $isinsertstart = false;
+
+            foreach ($feeds->channel->item as $item) 
+            {
+                $g_id = (array) $item->guid;
+                $g_id = $g_id[0]; 
+                $guid = $this->Cron_model->get_guid();
+
+                if(in_array($g_id, $guid))
+                {
+                    continue;
+                }
+
+                $id = (array)$item->guid;
+                $title = (array)$item->title;
+                $link = $item->link;
+                $description = (string)$item->description;
+                $postDate = $item->pubDate;
+                $category = "";
+
+                foreach ($item->category as $writeMe) 
+                {
+                    $category = $category . $writeMe . ",";
+                }
+                $post["title"] = $title;
+                $post["seo_url_text"] = $title;
+                $post["content"] = $description;
+                $post["date_"] = date("Y-m-d", strtotime($postDate));
+                $post["time_"] = date("H:i:s", strtotime($postDate));
+                $post["date_time"] = date("Y-m-d H:i:s", strtotime($postDate));
+                $post["update_date"] = date("Y-m-d H:i:s", strtotime($postDate));
+                $post["visibility"] = "p";
+                $post["author"] = $author;
+                if($author == 14){
+                    $post['news_sitemap'] = '1'; 
+                }else{
+                    $post['news_sitemap'] = '0'; 
+                }
+
+                $cat["categories"] = $category;
+    
+                $seo = explode("/", $link[0]);
+                $guid_check = $id;
+                if($guid_check != 'https://spindigit.com/')
+                {
+                    $post["seo_url"] = rtrim(preg_replace("/\d/u", "", $seo[3]) , "-");
+                }else{$post["seo_url"] =  $seo[3];
+                }
+                $post["guid"] =   $id;
+                $cat_guid =  $id[0];
+                $p['post'] = $post;
+                $parser = xml_parser_create();
+                xml_parse_into_struct($parser, $description, $values);
+                
+                foreach ($values as $key => $val)
+                {
+                    if ($val['tag'] == 'IMG') {
+                        $first_src = $val['attributes']['SRC'];
+                        break;
+                    } else {
+                        $first_src = "";
+                    }
+                }
+                $insert_id = $this->Cron_model->insert_post_data($p, $first_src, $cat);                
+
+                if ($insert_id) {
+                $numofpost++; 
+                $insert_cat = $this->Cron_model->insert_cat_data($cat, $insert_id);  
+                }
+                
+                $count++;
+                if($count >= 5){
+                    break;
+                }
+            }
+
+            if ($numofpost > 0) {
+                $campaign["total_post"] = $numofpost;
+                $campaign["last_run"] = date("Y-m-d H:i:s");
+                $this->Cron_model->campaignUpdate($campaignId, $campaign);
+            }
+            
+        }else{
+            echo "Failed loading XML\n";
+            foreach (libxml_get_errors() as $error) {
+                echo "\t", $error->message;
+            }
+        }
+    }
+
+    function get_xml_from_url($url)
+    {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
+
+        $xmlstr = curl_exec($ch);
+        curl_close($ch);
+
+        return $xmlstr;
+    }
+}

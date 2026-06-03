@@ -1,0 +1,123 @@
+<style>
+  .single_page_content img{
+    height:360px;
+    width:810px!important;;
+    object-fit:contain;
+  }
+</style>
+  <?php 
+  // if(!empty($post_preview))
+  // {
+  //   echo "<pre>";
+  //   print_r($post_preview);die;
+  // }
+
+
+  ?>
+<section id="contentSection">
+  <div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-8">
+      <div class="left_content">
+        <div class="single_page">
+          
+        <?php 
+        //  echo "<pre>";
+        //  print_r($single);die;
+        
+        ?>
+
+
+          <h3 style="text-align:center"><?php if(isset($_SESSION['single_preview'])&&(!empty($post_preview[0]['title']))){echo $post_preview[0]['title'];}else{echo $single["title"];}?></h3>
+          <div class="post_commentbox">
+            <!-- <a href="#"><i class="fa fa-user"></i> <?php //if(($single["f_name"]!='issuewire')&&($single["f_name"]!='Issuewire')){echo $single["f_name"];}?></a> -->
+            <span><i class="fa fa-calendar"></i><?php echo date("d/M/y", strtotime($single["date_"])) ?></span>
+            <?php if ($single["tags"]) {
+              echo '<a href="#"><i class="fa fa-tags"></i>';
+              foreach ($single["tags"] as $tag) {
+               echo $tag["keyword"] . ",";
+             }
+              echo '</a>';
+            } ?>
+
+          </div>
+          <div class="single_page_content">
+          <!-- <img src="http://wp2ci.com/download.jpeg"> -->
+              <?php
+
+              if(isset($_SESSION['single_preview'])&&(!empty($post_preview[0]['content'])))
+              {
+                echo html_entity_decode(nl2br($post_preview[0]["content"]));
+              }
+              else{
+                echo html_entity_decode($single["content"]);
+              }
+
+              // print_r($the_content);die;
+              ?>
+          </div>
+
+          <?php if(($single["f_name"]=='issuewire')||($single["f_name"]=='Issuewire')||($single["matico"]=='y')){?>
+          <div class="single_page_content">
+            <h3>More on<?php echo $settings[0]["setting_value"] ?>:</h3>
+            <ul>
+
+              <?php //foreach ($relatedPostRandom as $relpost) { ?>
+                <li><a href="<?php //echo base_url() ."/". $relpost["seo_url"] ?>" target="_blank"><?php //echo $relpost["title"] ?></a></li>
+              <?php //} ?>
+            </ul>
+          </div>
+          <?php }?>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <aside class="right_content">
+
+
+        <!-- <div class="single_sidebar">
+          <h2><span>Popular Post</span></h2>
+          <ul class="spost_nav">
+            <?php // foreach ($popular as $pop) { ?>
+              <li>
+                <div class="media wow fadeInDown">
+                  <a href="<?php //echo base_url() ."/". $pop["seo_url"] ?>" class="media-left">
+
+                    <img alt="" src="<?php //echo $pop["image"] ? $pop["image"] : $settings[12]["setting_value"] ?>">
+                  </a>
+                  <div class="media-body"> <a href="<?php //echo base_url() ."/". $pop["seo_url"] ?>" class="catg_title"> <?php //echo $pop["title"] ?></a> </div>
+                </div>
+              </li>
+            <?php //} ?>
+
+          </ul>
+        </div> -->
+
+
+        <div class="single_sidebar">
+          <h2><span>Related Post</span></h2>
+          <ul class="spost_nav">
+            <?php
+
+             if (isset($relatedPost)) {
+
+               foreach ($relatedPost as $let) { ?>
+                <li>
+                   <div class="media"> <a href="<?php  echo base_url() ."/". $let["seo_url"] ?>" class="media-left"> <img alt="<?php echo $let["title"] ?>" src="<?php   //echo $let["url"] ? $let["url"] : $settings[12]["setting_value"] ?>"> </a> 
+                  <div class="media"> <a href="<?php echo base_url() ."/". $let["seo_url"] ?>" class="media-left"> <img alt="<?php echo $let["title"] ?>" src="<?php  if(isset($let["url"])){echo $let["url"];}else{echo base_url().'/'.$settings[12]["setting_value"];}?>"> </a>
+                    <div class="media-body"> <a href="<?php echo base_url() ."/". $let["seo_url"] ?>" class="catg_title"> <?php echo $let["title"] ?></a> </div>
+                  </div>
+                </li> 
+            <?php }
+            }
+            ?>
+          </ul>
+        </div>
+      </aside>
+
+
+    </div>
+  </div>
+</section>

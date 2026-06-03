@@ -1,0 +1,340 @@
+<script>
+  function myFunction(ele) {
+  ele.setAttribute('src', '<?php echo base_url('assets/setting-image/spindigit_default.jpg');?>');
+  }
+</script> 
+    
+    <!-- =========breadcumb start======== -->
+    <main class="breadcumb_sec">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <nav aria-label="breadcrumb" class="breadcrumb_area">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="<?= base_url(); ?>">Home</a></li>
+                          <li class="breadcrumb-item active" aria-current="page"><?= $single["title"]; ?></li>
+                        </ol>
+                      </nav>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ========single post sec start===== -->
+    <main class="single_post_sec">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12 col-lg-8">
+                <div class="single_post_item">
+                <?php 
+                  foreach($single['post_tags'] as $categorie) { ?>
+                    <a href="<?php echo base_url().'/category/' .$categorie?>" class="post_cat"><?= $categorie; ?></a>
+                    <?php } ?>
+                    <h2><?php if(isset($_SESSION['single_preview'])&&(!empty($post_preview[0]['title']))){echo $post_preview[0]['title'];}else{echo $single["title"];}?></h2>
+                    <ul class="author_listing">                
+                        <li>
+                          <div class="author_listing_icon"><i class="fa-solid fa-clock"></i></div>
+                          <span><?= date("d M, Y", strtotime($single['date_']));?></span>
+                        </li>                    
+                      </ul>                 
+                      <div class="single_post_content" id="content">
+                        <p>  
+                          <?php                        
+                            if(isset($_SESSION['single_preview'])&&(!empty($post_preview[0]['content'])))
+                            {
+                              echo html_entity_decode(($post_preview[0]["content"]));
+                            }
+                            else{
+                              echo html_entity_decode(($single["content"]));
+                            }
+                          ?>
+                        </p>                  
+                      </div>                  
+
+                      <!-- <div class="tags_btns">
+                        <span>Tags:</span>
+                        <a href="" class="btn tag_btn"># Business</a>
+                        <a href="" class="btn tag_btn"># Corporate</a>
+                        <a href="" class="btn tag_btn"># Services</a>
+                        <a href="" class="btn tag_btn"># Customer</a>
+                      </div> -->
+
+                      <!-- <div class="share_social">
+                        <a href="#" class="share_social_btn facebook"> <i class="fa-brands fa-facebook-f"></i> <span class="ts-social-title">Facebook</span></a>
+                        <a href="#" class="share_social_btn twitter"> <i class="fa-brands fa-twitter"></i> <span class="ts-social-title">Twitter</span></a>
+                        <a href="#" class="share_social_btn gplus"> <i class="fa-brands fa-google-plus-g"></i> <span class="ts-social-title">Google +</span></a>
+                        <a href="#" class="share_social_btn pinterest"> <i class="fa-brands fa-pinterest"></i> <span class="ts-social-title">Pinterest</span></a>
+                      </div> -->
+                      <!-- <div class="post-navigation">
+                        <div class="post_item">
+                        </?php if(!empty($prePost['seo_url'])) { ?>
+                            <a href="</?= base_url(). '/'. $prePost['seo_url'];?>">
+                                <span><i class="fa-solid fa-chevron-left"></i>Previous Post</span>                               
+                                <b></?= $prePost['title'];?></b>
+                            </a>
+                            </?php }?>
+                        </div>
+                        <div class="post_item align-right">
+                          </?php if(!empty($nextPost['seo_url'])) { ?>
+                            <a href="</?php if($nextPost['seo_url']){ echo base_url(). '/'. $nextPost['seo_url'];}?>">
+                                <span>Next Post <i class="fa-solid fa-angle-right"></i></span>
+                                <b></?= $nextPost['title'];?></b>
+                            </a>
+                            </?php } ?>
+                        </div>
+                      </div> -->
+
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <!-- <div class="section_title bgblack">
+                            <span>Related Posts</span>
+                          </div> -->
+                        </div>
+                      
+                        <div class="col-sm-12">                         
+                          <!-- <div class="related_slider owl-carousel">
+                            </?php if (isset($relatedPostRandom)) { foreach ($relatedPostRandom as $let) {  
+                                if( $let["title"] != $single["title"] ){?>
+                            <div class="latest_news_column">                              
+                              <div class="latest_news_item">                                
+                                <a href="</?php echo base_url() ."/". $let["seo_url"]; ?>" class="latest_news_img" title=""><img src="</?php if(!empty($let["url"])) { echo $let["url"]; }else{ echo base_url().'/'.$settings[12]["setting_value"]; } ?>" alt="" onerror="myFunction(this)"></a>
+                                <a href="</?php echo base_url().'/'.$let['seo_url'];?>" class="latest_news_title" title=""></?php echo $let['title'];?></a>
+                                <ul class="author_listing">
+                                  <li>
+                                    <div class="author_listing_icon"><i class="fa-solid fa-clock"></i></div>
+                                    <span></?= date("d M, Y", strtotime($let['date'])) ?></span>
+                                  </li>
+                                </ul>
+                              </div>                            
+                            </div>
+                            </?php } } }?>   
+                          </div> -->
+                        </div>
+                      </div>
+                </div>
+              </div>
+
+
+            <div class="col-sm-12 col-lg-4 right_bar">
+              <div class="row">
+                <!-- <div class="col-sm-12">
+                  <div class="section_title bgblack">
+                    <span>Follow Us</span>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="follow_bar">
+                    <a href=""><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href=""><i class="fa-brands fa-twitter"></i></a>
+                    <a href=""><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href=""><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href=""><i class="fa-solid fa-rss"></i></a>
+                    <a href=""><i class="fa-brands fa-skype"></i></a>
+                  </div>
+                </div> -->
+  
+                <div class="col-sm-12">
+                  <div class="section_title bgblack">
+                    <span>Latest news</span>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="popular_area">
+                    <div class="thumb_medium_post">
+                      <a href="<?= base_url().'/'. $latest_news[0]['seo_url']; ?>" class="thumb_medium_img"><img src="<?= $latest_news[0]['url']; ?>" alt="" class="img-fluid"></a>
+                      <div class="thumb_medium_post_overley">
+                        <a href="" class="post_cat">Health</a>
+                        <a href="<?= base_url().'/'. $latest_news[0]['seo_url']; ?>" class="thumb_medium_post_title"><?= $latest_news[0]['title']; ?></a>
+                        <ul class="author_listing">
+                          <li>
+                            <div class="author_listing_icon"><i class="fa-solid fa-clock"></i></div>
+                            <span><?= date("d M, Y", strtotime($latest_news[0]['date_'])); ?></span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <ul class="thumb_listing">
+                      <li>
+                          <a href="<?= base_url().'/'. $latest_news[1]['seo_url']; ?>" class="thumb_img"><img src="<?= $latest_news[1]['url']; ?>" alt=""></a>
+                          <div class="thumb_content">
+                            <a href="<?= base_url().'/'. $latest_news[1]['seo_url']; ?>" class="thumb_title"><?= $latest_news[1]['title']; ?></a>
+                            <ul class="author_listing no_pad">
+                              <li>
+                                <div class="author_listing_icon"><i class="fa-solid fa-clock"></i></div>
+                                <span><?= date("d M, Y", strtotime($latest_news[1]['date_'])); ?></span>
+                              </li>
+                            </ul>
+                          </div>
+                      </li>
+    
+                      <li>
+                        <a href="<?= base_url().'/'. $latest_news[2]['seo_url']; ?>" class="thumb_img"><img src="<?= $latest_news[2]['url']; ?>" alt=""></a>
+                        <div class="thumb_content">
+                          <a href="<?= base_url().'/'. $latest_news[2]['seo_url']; ?>" class="thumb_title"><?= $latest_news[2]['title']; ?></a>
+                          <ul class="author_listing no_pad">
+                            <li>
+                              <div class="author_listing_icon"><i class="fa-solid fa-clock"></i></div>
+                              <span><?= date("d M, Y", strtotime($latest_news[2]['date_'])); ?></span>
+                            </li>
+                          </ul>
+                        </div>
+                    </li>
+    
+                    <li>
+                      <a href="<?= base_url().'/'. $latest_news[3]['seo_url']; ?>" class="thumb_img"><img src="<?= $latest_news[3]['url']; ?>" alt=""></a>
+                      <div class="thumb_content">
+                        <a href="<?= base_url().'/'. $latest_news[3]['seo_url']; ?>" class="thumb_title"><?= $latest_news[3]['title']; ?></a>
+                        <ul class="author_listing no_pad">
+                          <li>
+                            <div class="author_listing_icon"><i class="fa-solid fa-clock"></i></div>
+                            <span><?= date("d M, Y", strtotime($latest_news[3]['date_'])); ?></span>
+                          </li>
+                        </ul>
+                      </div>
+                  </li>
+    
+                  <li>
+                    <a href="<?= base_url().'/'. $latest_news[4]['seo_url']; ?>" class="thumb_img"><img src="<?= $latest_news[4]['url']; ?>" alt=""></a>
+                    <div class="thumb_content">
+                      <a href="<?= base_url().'/'. $latest_news[4]['seo_url']; ?>" class="thumb_title"><?= $latest_news[4]['title']; ?></a>
+                      <ul class="author_listing no_pad">
+                        <li>
+                          <div class="author_listing_icon"><i class="fa-solid fa-clock"></i></div>
+                          <span><?= date("d M, Y", strtotime($latest_news[4]['date_'])); ?></span>
+                        </li>
+                      </ul>
+                    </div>
+                </li>
+                    </ul>
+                  </div>
+                </div>
+                <!-- <div class="col-sm-12">
+                  <div class="section_title bgblack">
+                    <span>Trending News</span>
+                  </div>
+                </div> -->
+                <!-- <div class="col-sm-12">
+                  <div class="trending_slider owl-carousel owl-loaded owl-drag">
+                    
+                    
+                  <div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(-832px, 0px, 0px); transition: all 0s ease 0s; width: 2496px;"><div class="owl-item cloned" style="width: 416px;"><div class="trending_item">
+                      <div class="thumb_medium_post">
+                        <a href="<//?= base_url() . '/' . $trending[0]['seo_url']; ?>" class="thumb_medium_img"><img src="</?= $trending[0]['url'];?>" alt="" class="img-fluid"></a>
+                        <div class="thumb_medium_post_overley">
+                          <a href="" class="post_cat"></?= $trending[0]['categorie'] ?></a>
+                          <a href="</?= base_url() . '/' . $trending[0]['seo_url']; ?>" class="thumb_medium_post_title"></?= $trending[0]['title']; ?></a>
+                          <ul class="author_listing">
+                            <li>
+                              <div class="author_listing_icon"><i class="fa-solid fa-clock"></i></div>
+                              <span></?= date("d M, Y", strtotime($trending[0]['date_']));?></span>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div></div><div class="owl-item cloned" style="width: 416px;"><div class="trending_item">
+                      <div class="thumb_medium_post">
+                        <a href="</?= base_url() . '/' . $trending[1]['seo_url']; ?>" class="thumb_medium_img"><img src="</?= $trending[1]['url'];?>" alt="" class="img-fluid"></a>
+                        <div class="thumb_medium_post_overley">
+                          <a href="" class="post_cat"></?= $trending[1]['categorie'] ?></a>
+                          <a href="</?= base_url() . '/' . $trending[1]['seo_url']; ?>" class="thumb_medium_post_title"></?= $trending[1]['title']; ?></a>
+                          <ul class="author_listing">
+                            <li>
+                              <div class="author_listing_icon"><i class="fa-solid fa-clock"></i></div>
+                              <span></?= date("d M, Y", strtotime($trending[1]['date_']));?></span>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div></div><div class="owl-item active" style="width: 416px;"><div class="trending_item">
+                      <div class="thumb_medium_post">
+                        <a href="</?= base_url() . '/' . $trending[2]['seo_url']; ?>" class="thumb_medium_img"><img src="</?= $trending[2]['url'];?>" alt="" class="img-fluid"></a>
+                        <div class="thumb_medium_post_overley">
+                          <a href="" class="post_cat"></?= $trending[2]['categorie'] ?></a>
+                          <a href="</?= base_url() . '/' . $trending[2]['seo_url']; ?>" class="thumb_medium_post_title"></?= $trending[2]['title']; ?></a>
+                          <ul class="author_listing">
+                            <li>
+                              <div class="author_listing_icon"><i class="fa-solid fa-clock"></i></div>
+                              <span> </?= date("d M, Y", strtotime($trending[2]['date_']));?></span>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div></div><div class="owl-item" style="width: 416px;"><div class="trending_item">
+                      <div class="thumb_medium_post">
+                        <a href="</?= base_url() . '/' . $trending[3]['seo_url']; ?>" class="thumb_medium_img"><img src="</?= $trending[3]['url'];?>" alt="" class="img-fluid"></a>
+                        <div class="thumb_medium_post_overley">
+                          <a href="" class="post_cat"></?= $trending[3]['categorie'] ?></a>
+                          <a href="</?= base_url() . '/' . $trending[3]['seo_url']; ?>" class="thumb_medium_post_title"></?= $trending[3]['title']; ?></a>
+                          <ul class="author_listing">
+                            <li>
+                              <div class="author_listing_icon"><i class="fa-solid fa-clock"></i></div>
+                              <span></?= date("d M, Y", strtotime($trending[3]['date_']));?></span>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div></div><div class="owl-item cloned" style="width: 416px;"><div class="trending_item">
+                      <div class="thumb_medium_post">
+                        <a href="</?= base_url() . '/' . $trending[4]['seo_url']; ?>" class="thumb_medium_img"><img src="</?= $trending[4]['url'];?>" alt="" class="img-fluid"></a>
+                        <div class="thumb_medium_post_overley">
+                          <a href="" class="post_cat"></?= $trending[4]['categorie'] ?></a>
+                          <a href="</?= base_url() . '/' . $trending[4]['seo_url']; ?>" class="thumb_medium_post_title"></?= $trending[4]['title']; ?></a>
+                          <ul class="author_listing">
+                            <li>
+                              <div class="author_listing_icon"><i class="fa-solid fa-clock"></i></div>
+                              <span></?= date("d M, Y", strtotime($trending[4]['date_']));?></span>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div></div><div class="owl-item cloned" style="width: 416px;"><div class="trending_item">
+                      <div class="thumb_medium_post">
+                        <a href="</?= base_url() . '/' . $trending[5]['seo_url']; ?>" class="thumb_medium_img"><img src="</?= $trending[5]['url'];?>" alt="" class="img-fluid"></a>
+                        <div class="thumb_medium_post_overley">
+                          <a href="" class="post_cat"></?= $trending[5]['categorie'] ?></a>
+                          <a href="</?= base_url() . '/' . $trending[5]['seo_url']; ?>" class="thumb_medium_post_title"></?= $trending[5]['title']; ?></a>
+                          <ul class="author_listing">
+                            <li>
+                              <div class="author_listing_icon"><i class="fa-solid fa-clock"></i></div>
+                              <span> </?= date("d M, Y", strtotime($trending[5]['date_']));?></span>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div></div></div></div><div class="owl-nav"><button type="button" role="presentation" class="owl-prev"><i class="fa-solid fa-angle-left"></i></button><button type="button" role="presentation" class="owl-next"><i class="fa fa-angle-right"></i></button></div><div class="owl-dots disabled"></div></div>
+                </div> -->
+                <div class="col-sm-12">
+                  <!-- <div class="section_title bgblack mt-30">
+                    <span>Newsletter</span>
+                  </div> -->
+                </div>
+                <!-- <div class="col-sm-12">
+                  <div class="newsletter_area">
+                    <h4>Subscribe Newsletter!</h4>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis architecto nemo.</p>
+                    <input type="text" class="form-control" placeholder="E-Mail Address">
+                    <button class="btn submitbtn" aria-label="">Submit</button>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    <!-- ========single post sec close===== -->
+
+
+        <!-- =========ads sec=============== -->
+        <section class="ads_sec">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-12">
+                <a href="" class="ads_inner">
+                  <img src="<?= base_url('assets/newtheme/images/ads_img.jpeg'); ?>" alt="" class="img-fluid">
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- =========ads sec=============== -->
+

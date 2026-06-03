@@ -1,0 +1,1105 @@
+<style>
+  .panel {
+    border: 1px solid #cecdcd;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+
+  .panel .panel-heading {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+
+  .panel .panel-body {
+    padding: 10px;
+  }
+
+  .modal-dialog {
+    margin: 3% 5%;
+  }
+
+  .modal-content {
+    width: 90vw;
+  }
+
+  .image-list {
+    width: 100%;
+    max-height: 190px;
+    border: 5px solid #dfdfdf;
+    margin: 10px;
+    cursor: pointer;
+  }
+
+  .tab-content {
+    height: 55vh;
+    overflow: scroll;
+  }
+
+  .gallery-img-checkbox:checked+.label-gallery-img {
+    border: 1px solid black;
+  }
+
+  .catagory-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .catagory-list li {
+    border-bottom: 1px solid #dbdbdb;
+    padding: 10px;
+  }
+
+  div.editable {
+    width: 100%;
+    height: 200px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 10px;
+    resize: both;
+    overflow: auto;
+  }
+
+  #keyword {
+    height: 100%;
+    width: 100%
+  }
+
+  
+</style>
+<div class="content-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-outline card-info">
+          <div class="card-header">
+            <h3>Add New Post</h3>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-8">
+                <?php 
+                    $session = session();
+                    $data_value['value'] = $session->get('value');
+                ?>  
+                  <div class="col-12">
+                    <?php 
+                    $session = session();
+                    echo $session->getFlashdata("msg");
+                    $post_data = $session->getFlashdata("post_data");
+                    ?>
+                    <!-- </?php foreach ($id as $max_id) {    ?> -->
+                      <input type="hidden" name="id" id="id" class="newsletter_input" placeholder="Enter your post title" value="<?php echo $id[0]['max_id']; ?>" onkeyup="myFunction()">
+                    <!-- </?php } ?> -->
+                    <input type="hidden" id='last_id' name='last_id' value="<?php echo isset($_SESSION['last_id']) ? $_SESSION['last_id'] : ''; ?>">
+                    <input type="hidden" id="preview_id" name="preview_id" value="<?php echo isset($_SESSION['preview_id']) ? $_SESSION['preview_id'] : ''; ?>">
+                    <div class="form-group">
+                      <label for="title">
+                        Post or Blog Title <span style='color:red;'>*</span>
+                      </label>
+                      <span id="title_error" style="color:red"></span>
+                      <input type="text"  name="title" id="title" class=" form-control" required placeholder="Enter your post title"  value="<?php if(isset($data_value['value']['title'])){echo $data_value['value']['title'];}?>">
+                      <input type="hidden" id="actionInput" value="" name="action">
+                    </div>
+
+                    <div class="form-group" style="<?php echo isset($post_data['sugest_title']) ? "block" : 'none'; ?>" id="s_title">
+                      <label for="sugest_title" style="font-weight:0px">
+                        Post or Blog URL <span style='color:red;'>*</span><small id="uerror" class="text-danger"></small>
+                      </label>
+                      <span id="source_error" style="color:red"></span>
+                      <input type="text" name="sugest_title" id="sugest_title" class="newsletter_input form-control" required placeholder="Url" value="<?php if(!empty($data_value['value']['seo_url'])){echo $data_value['value']['seo_url'];} ?>">
+                      <input type="hidden" name="seo_url_no" value="0">
+                    </div>
+
+                    <div class="row"><!--The row starts here -->
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-12">
+                    <div class="form-group">
+                     <b> Add Visibilty</b>
+                    </div>
+                    <div class="form-group"><!--The code starts here -->
+
+                    <select class="form-control" name="visibility" id="visibility" required>
+                      <option selected value="p">Public</option>
+                      <option  value="h">Hidden</option>
+                    </select>
+
+                    </div><!--The code ends here -->
+                    </div>
+                    </div><!--The row ends here -->
+                    <div class="form-group">
+                     <b>Description</b>
+                    </div>
+
+                    <!----------ckeditor-div----------->
+                      <div class="form-group">
+                          <textarea placeholder="Content" id="source"  name="content" class="form-control ckeditor" rows="200" cols="500" value="<?php 
+                            if(!empty($data_value['value']['content']))
+                            {
+                            echo $data_value['value']['content'];
+                            }?>" required><?php 
+                            if(!empty($data_value['value']['content']))
+                            {
+                            echo $data_value['value']['content'];} ?>
+                            </textarea>
+                      </div>
+                    <!----------ckeditor----------->
+                  </div>
+
+                  <?php
+                    $d = date("Y/m/d");
+                    $d_create = date_create($d);
+                    $date = date_format($d_create,$permalink); 
+                  ?>
+
+              </div>
+              <div class="col-md-4">
+                <div class="mb-2">
+                  <div class="panel">
+                    <div class="panel-heading">Publish</div>
+                    <div class="panel-body">
+                      <div class="form-group">
+                        <?php  if ($roleId == 1) { ?>
+                          <label for="author">Author:</label>
+                          <select name="author" id="author" class="form-control">
+                            <?php foreach (get_author() as $author) { ?>
+                              <option value="<?php echo $author['uid']; ?>" <?php echo isset($post_data['author']) ? "selected" : "" ?>>&nbsp;<?php echo $author['f_name'] . " " . $author['l_name']; ?></option>
+                            <?php } ?>
+                          </select>
+                        <?php  } ?>
+                      </div>
+                      <div class="row">
+                        <div class="col-12">
+                          <label for="author">Publish</label>
+                        </div>
+                        <div class="col-6">
+                          <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" name="date_" id="date_"/>
+                            <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="input-group date" id="time_" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#time_" name="time_"  id="time"/>
+                            <div class="input-group-append" data-target="#time_" data-toggle="datetimepicker">
+                              <div class="input-group-text"><i class="far fa-clock"></i></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12 mt-4">
+                          <label for="site_map">Include this post in site map</label>
+                          <input name="site_map" id="site_map" type="checkbox" value="" checked>
+                        </div>
+                        <div class="col-12 mt-4">
+                          <label for="newssitemap">Include this post in news sitemap</label>
+                          <input name="newssitemap" id="newssitemap" type="checkbox" value="" checked>
+                        </div>
+                        <div class="col-6 mt-4">
+                          <label for="no_follow">No follow</label>
+                          <input name="no_follow" id="no_follow" type="checkbox" value="0">
+                        </div>
+                        <div class="col-6  mt-4">
+                          <label for="no_index">No Index</label>
+                          <input name="no_index" id="no_index" type="checkbox" value="0">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-4">
+                          <button id="preview-btn" class="btn btn-sm btn-primary btn-block" type="button" onclick="pre_view()">
+                            Preview
+                          </button>
+                        </div>
+                        <div class="col-4">
+                          <button class="btn btn-sm btn-primary btn-block" type="button" id="publish" onclick="check_title('<?php print_r($id[0]['max_id']);?>')">
+                            Publish
+                          </button>
+                          <div id="loader" style="display:none;"></div>
+                        </div>
+                        <div class="col-4">
+                          <button class="btn btn-sm btn-primary btn-block" id="save_draft" onclick="draft_post('<?php print_r($id[0]['max_id']);?>')" disabled>
+                            Draft
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-2">
+                  <div class="panel">
+                    <div class="panel-heading">Feature Image</div>
+                    <div class="panel-body">
+                      <input type='hidden' name='image' id='image'  value="" style="display:none"/>
+                      <label class="form-group" id="preview" style="height:250px;width:100%; overflow:hidden;">
+                        <img id="preview_img" src="<?php echo base_url() . "/assets/admin-image/noimage.png" ?>" onclick="addImage()" class="img-thumbnail" style="width:100%;height: 250px;cursor: pointer;">
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-2">
+                  <div class="panel">
+                    <div class="panel-heading">Categories</div>
+                    <div class="panel-body">
+                      <div class="catagory-select">
+                      </div>
+                      <input class="form-control mt-2" id="category_filter" value="" onkeyup="catagoryFilter()">
+                      <button class="btn btn-sm btn-primary mt-2"><a href="<?php echo base_url(). '/admin/category'?>" style="color:white;">Categories</a></button>
+                    </div>
+                    <div class="panel-body" style="height: 300px;overflow: scroll;">
+                      <ul class="catagory-list" id="catagorycheckbox">
+                        <?php
+                        foreach ($cat as $catdata) { 
+                          ?>
+                          <li>            
+                            <input type="checkbox" id="<?php echo $catdata['id'] ?>" class="catagory-checkbox" name="cat[]" id="cat[]" value="<?php echo $catdata['id'] ?>" data-id="" onclick="catagoryCheckbox()" data-name="<?php echo $catdata['categorie'] ?>" <?php
+                                if (isset($post_data["cat"])) {
+                                    }
+                                ?>> 
+                            <label for="<?php echo $catdata['id']?>"><?php echo $catdata["categorie"]?></label>                                                                                                                                                                                
+                          </li>
+                        <?php } ?>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-2">
+                  <div class="panel">
+                    <div class="panel-heading">Type Tags</div>
+                    <div class="panel-body">
+                      <input type="hidden" name="keyword_list" id="keyword_list" value="<?php echo isset($post_data['keyword_list']) ? $post_data['keyword_list'] : "" ?>">
+                      <div class="editable">
+                        <div id="tag_list">
+                          <?php
+                          if (isset($post_data['keyword_list']) && !empty($post_data['keyword_list'])) {
+                            $keywordList = explode(",", $post_data['keyword_list']);
+                            foreach ($keywordList as $key => $kl) {
+                              if ($kl) {
+                                echo "<span class='badge badge-secondary tags-btn' onclick='removeTag(this)' data-tagIndex='" . $key . "'> " . $kl . " <i class='fa fa-times' aria-hidden='true'></i></span> ";
+                              }
+                            }
+                          }
+                          ?>
+                        </div>
+                        <div contenteditable="true" id="keyword"></div>
+                      </div>
+                      <div style="color:gray;">Press enter after every tag</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-2">
+                  <div class="panel">
+                    <div class="panel-heading">Meta Tags</div>
+                    <div class="panel-body">
+                      <div class="form-group">
+                        <label for="meta_tag">
+                          Meta Tags ( <span style='color:green;'>optional</span> )
+                        </label>
+                        <input type="text" placeholder="Enter Meta tag" name="meta_tag" id="meta_tag" class="form-control" value="<?php if(!empty($data_value['value']['meta_tag'])){echo $data_value['value']['meta_tag'];} ?>">
+                      </div>
+                      <div class="form-group">
+                        <label for="meta_desc">
+                          Meta Description ( <span style='color:green;'>optional</span> )
+                        </label>
+                        <textarea class="form-control" placeholder="Enter Meta description" name="meta_desc" id="meta_desc" rows="5" value="<?php if(!empty($data_value['value']['meta_desc'])){echo $data_value['value']['meta_desc'];} ?>"><?php echo isset($post_data['meta_desc']) ? $post_data['meta_desc'] : "" ?></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--------------------categorie------------------------>
+
+<!---------------------end keyword-------------------->
+
+<div class="modal" id="image_gallery">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Add Media</h4>
+        <input type='file' name='image' id='image' onchange='readURL(this);' style="padding:2px;background:#f2f2f2;background-image: url('paper.gif');visibility:hidden;" class="newsletter_input form-control-lg form-control"/>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-9">
+            <ul class="nav nav-tabs">
+              <li class="nav-item"><a class="nav-link active" id="list-gallery-tab" data-toggle="tab" href="#list-gallery">Library</a></li>
+              <li class="nav-item"><a class="nav-link" id="image-upload-tab" data-toggle="tab" href="#image-upload">Upload Image</a></li>
+            </ul>
+            <div class="tab-content" id="gallery-content">
+              <div id="list-gallery" class="tab-pane container active">
+                <div id="img-gallery" class="row">
+                </div>
+              </div>
+              <div id="image-upload" class="tab-pane container">
+                <div id="img-upload-section" class="row">
+                  <div class="col-12">
+                    <form id="media-upload" action="<?php echo base_url() ?>/admin/admin/imageUpload" enctype="multipart/form-data">
+                      <div class="form-group">
+                        <label for="inputmediafile">File input</label>
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputmediafile" name="img">
+                            <label class="custom-file-label" for="inputmediafile">
+                              Choose file
+                            </label>
+                          </div>
+                          <div class="input-group-append">
+                            <input class="input-group-text" id="uploadmedia-btn" type="submit" value="Upload">
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="col-12">
+                    <div class="progress">
+                      <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                        <span class="sr-only">0% Complete</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="insertImage()">Insert into post</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  <?php if (isset($post_data['keyword_list']) || !empty($post_data['keyword_list'])) { ?>
+    var insert_tags = <?php
+        $keyword_array = explode(",", $post_data['keyword_list']);
+        echo json_encode($keyword_array);
+        ?>;
+  <?php } else { ?>
+    var insert_tags = [];
+  <?php } ?>
+  $(document).ready(function() {
+    function remove_duplicate_char(str)
+    {
+      var seo_url="";
+      for(var i=1;i<str.length;i++)
+      {
+        if(str[i]=="-")
+        {
+          seo_url += str[i];
+          if(str[i+1]=="-")
+          {
+            i++;
+          }
+        }
+        else
+        {
+          seo_url+=str;
+        }
+      }
+      return seo_url;
+    }
+
+    $("#title").keyup(function() {
+      document.getElementById('s_title').style.display = 'block';
+      var title = document.getElementById('title').value.toLowerCase();
+      title = title.trim();
+      var s = title.replace(/[^a-z0-9\/]/gi, '-');
+      s = s.replace(/-+/gi,'-');
+      document.getElementById('sugest_title').value = s;
+    });
+
+    $("#title").change(function() {
+      document.getElementById('s_title').style.display = 'block';
+      var title = document.getElementById('title').value.toLowerCase();
+      title = title.trim();
+      var s = title.replace(/[^a-z0-9\/]/gi, '-');
+      s = s.replace(/-+/gi,'-');
+      document.getElementById('sugest_title').value = s;
+    });
+    $("#sugest_title").keyup(function() {
+      var sugest_title = document.getElementById('sugest_title').value.toLowerCase();
+      var s = sugest_title.replace(/[^a-z0-9\/]/g, "-");
+      s = s.replace(/-+/gi,'-');
+      document.getElementById('sugest_title').value = s;
+    });
+    var tagIndex = 0;
+    $("#keyword").keypress(function(e) {
+      if (e.keyCode == 13) {
+        e.preventDefault();
+
+        var tags = $(this).text();
+        insert_tags.push(tags);
+        $("input[name='keyword_list']").val(insert_tags);
+        $(this).empty();
+        tagIndex = insert_tags.length - 1;
+        addtags(insert_tags);
+      }
+    });
+
+    var today = new Date();
+    date = today.getMonth()+1+"/"+today.getDate()+"/"+today.getFullYear();
+    $("#date_").val(date);
+    var time = today.
+    time = today.toLocaleString('en-US',{hour: 'numeric', minute: 'numeric', hour12: true});
+    $('#time').val(time);
+    $('#reservationdate').datetimepicker({
+      format: 'L'
+    });
+    $('#time_').datetimepicker({
+      format: 'LT'
+    });
+
+    $("#inputmediafile").change(function(e) {
+
+      $(".custom-file-label").html(e.target.files[0].name);
+    });
+
+    $("#media-upload").on("submit", function(e) {
+      e.preventDefault();
+      var formData = new FormData(this);
+      $.ajax({
+        xhr: function() {
+          var xhr = new window.XMLHttpRequest();
+          xhr.upload.addEventListener("progress", function(evt) {
+            if (evt.lengthComputable) {
+              var percentComplete = evt.loaded / evt.total;
+              percentComplete = parseInt(percentComplete * 100);
+              $(".progress-bar").css("width", percentComplete + "%")
+              if (percentComplete === 100) {
+              }
+            }
+          }, false);
+          return xhr;
+        },
+        type: 'POST',
+        url: $(this).attr('action'),
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+          $.ajax({
+            url: "<?php echo base_url() ."/admin/media_library/media_library" ?>",
+            success: function(res) {
+              $("#img-gallery").html(res);
+              modal_open = true;
+              $("#image-upload").removeClass("active");
+              $("#list-gallery").addClass("active");
+              $("#image-upload-tab").removeClass("active");
+              $("#list-gallery-tab").addClass("active");
+            }
+          });
+        },
+        error: function(data) {
+        }
+      });
+    });
+    catagoryCheckbox();
+  });
+
+  function appendTags(tagIndex, tags) {
+    $("#tag_list").append(" <span class='badge badge-secondary tags-btn' onclick='removeTag(this)' data-tagIndex='" + tagIndex + "'> " + tags + " <i class='fa fa-times' aria-hidden='true'></i></span> ");
+  }
+
+  function addtags(tags) {
+    $tg = '';
+    for (i = 0; i < tags.length; i++) {
+      $tg = $tg + " <span class='badge badge-secondary tags-btn' onclick='removeTag(this)' data-tagIndex='" + i + "'> " + tags[i] + " <i class='fa fa-times' aria-hidden='true'></i></span> ";
+    }
+    $("#tag_list").html($tg);
+  }
+  var modal_open = false;
+  var page;
+  var maxPage;
+
+  function removeTag(e) {
+    if (insert_tags.length > 0) {
+      insert_tags.splice(e.getAttribute("data-tagIndex"), 1);
+    } else {
+      insert_tags = [];
+    }
+    $("input[name='keyword_list']").val(insert_tags);
+    addtags(insert_tags);
+  }
+
+  function addImage() {
+      $("#image_gallery").modal("toggle");
+  }
+
+  function insertImage() {
+    $(".gallery-img-checkbox:checked").each(function(){
+      $('#preview_img').attr('src', $(this).val());
+      $('#image').attr('value', $(this).val());
+    });
+  }
+
+  $(function() {
+    if (!modal_open) {
+      $('#image_gallery').on('shown.bs.modal', function(e) {
+        page = 0;
+        maxPage = '<?php echo $img_no_page ?>';
+        $.ajax({
+          url: "<?php echo base_url() . "/admin/media_library/media_library" ?>",
+          success: function(res) {
+            $("#img-gallery").html(res);
+            page = 1;
+            modal_open = true;
+          }
+        });
+      });
+    }
+
+    $(".tab-content").scroll(function() {
+      if (page < maxPage) {
+        if ($(".tab-content").scrollTop() > 400) {
+          page = page + 1;
+          $.post('<?php echo base_url() ."/"."admin/media_library/media_library/" ?>' + page, function(res) {
+            $("#img-gallery").append(res);
+          });
+        }
+      }
+    });
+
+    if ($("#title").val()) {
+      activeButton();
+    }
+    $("#title").on("keyup", function() {
+      activeButton();
+    });
+    $("#publish").on("click", function() {
+    })
+  });
+
+  function activeButton() {
+    if ($("#title").val()) {
+      $("#publish").prop("disabled", false);
+      $("#save_draft").prop("disabled", false);      
+    } else {
+      $("#publish").prop("disabled", true);
+      $("#save_draft").prop("disabled", true);
+    }
+  }
+
+  function readURL(input) {
+    if (input.files && input.files[0]) {      
+      var reader = new FileReader();
+      document.getElementById('preview').style.display = 'block';
+      reader.onload = function(e) {
+        $('#preview_img').attr('src', e.target.result);        
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+  $("#image").change(function() {
+  });
+
+  function catagoryCheckbox() {
+    cat_id =[];
+    var catagory_list = "";
+    $.each($("input[name='cat[]']:checked"), function() {
+     cat_id.push($(this).val());
+      catagory_list += "<span class='badge badge-pill badge-primary'>" + $(this).attr("data-name") + "</span>";
+    });
+    $(".catagory-select").html(catagory_list);
+  }
+
+  function myFunction() {
+    document.getElementById('s_title').style.display = 'block';
+    var title = document.getElementById('title').value.toLowerCase();
+    var s = title.replace(/[^a-z0-9\/]/gi, '-');
+    document.getElementById('sugest_title').value = s;   
+  }
+
+  function catagoryFilter() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById('category_filter');
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("catagorycheckbox");
+    li = ul.getElementsByTagName('li');
+
+    // Loop through all list items, and hide those who don't match the search query
+    for (i = 0; i < li.length; i++) {
+      a = li[i];
+      txtValue = a.textContent || a.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        li[i].style.display = "";
+      } else {
+        li[i].style.display = "none";
+      }
+    }
+  }
+
+
+  function pre_view()
+  {
+    var id = document.getElementById('id').value;
+    var title = document.getElementById('title').value;
+    var content = CKEDITOR.instances['source'].getData();
+    var seo_url=document.getElementById('sugest_title').value;
+    var image = document.getElementById('image').value;
+    var author = document.getElementById('author').value;
+    var d = new Date();
+    var y=d.getFullYear();
+    var m=d.getMonth()+1;
+    if(m.toString().length<2)
+    {
+      var m = '0'+m;
+    }
+    var day=d.getDate();
+    if(day.toString().length<2)
+    {
+      var day = '0'+day;
+    }
+    var date=y+"/"+m+"/"+day;
+    if((title.length==0))
+    {
+      document.getElementById('title_error').innerHTML='Title is required';
+    }
+    else{
+    $.ajax({
+      url:'<?php echo base_url();?>/admin/admin/post_add_preview/' + id,
+      type:'post',
+      data:{content:content,
+        date:date,
+        title:title,
+        seo_url:seo_url,
+        image:image,
+        author:author
+      },
+      
+      success:function(data)
+      {      
+        window.open('<?php echo base_url();?>/post_preview/' + date + '/' + seo_url + '/' + id, '_blank');           
+      }
+    });
+  }
+  }
+
+  // var intervalID;
+  // window.addEventListener('load',function(){
+  //   intervalID = setInterval(check_title, 2000);
+  // });
+  // function check_title()
+  // {
+  //   var seo_url = document.getElementById('sugest_title').value;
+  //   if(seo_url){
+  //     $.ajax({
+  //         url:'</?php echo base_url("admin/checkurl");?>',
+  //         type: 'POST',
+  //         data: {
+  //           'url' : seo_url
+  //         },
+  //         success: function (data) {
+  //           if(data == 'new'){
+  //             document.getElementById('uerror').innerText = "";
+  //             $("#publish").prop("disabled", false);
+  //             $("#save_draft").prop("disabled", false);
+  //             clearInterval(intervalID);
+  //           }else{
+  //             document.getElementById('uerror').innerText = "BLOG URL already present";
+  //             $("#publish").prop("disabled", true);
+  //             $("#save_draft").prop("disabled", true);              
+  //           }
+  //         },
+  //         });
+  //   }
+      
+  // }
+
+    // var intervalID;
+    // window.addEventListener('load',function(){
+      // intervalID = setInterval(check_title, 2000);
+    // });
+  function check_title($id)
+  {
+    var seo_url = document.getElementById('sugest_title').value;
+    var id = $id;
+    if(seo_url){
+      $.ajax({
+          url:'<?php echo base_url("admin/checkurl");?>',
+          type: 'POST',
+          data: {
+             'url' : seo_url,
+            'id' : id,
+          },
+          success: function (data) {
+            console.log(data);
+            if(data == "new"){
+              publish_post(id);
+              // document.getElementById('uerror').innerText = "";
+              // $("#publish").prop("disabled", false);
+              // $("#save_draft").prop("disabled", false);
+              // clearInterval(intervalID);
+            }else{
+              document.getElementById('uerror').innerText = "BLOG URL already present";
+              $("#publish").prop("disabled", false);
+              $("#save_draft").prop("disabled", true);              
+            }
+          },
+          });
+    }
+      
+  }
+ 
+  var last_dreaft_id = 0;
+  var draft_working = false;
+  var intervalID;
+  window.addEventListener('load',function(){
+    intervalID = setInterval(myFun, 3000);
+  });
+
+  function myFun()
+  {
+    if(draft_working==true)
+    {
+      return;
+    }
+    var title = document.getElementById('title').value;
+    var seo_url = document.getElementById('sugest_title').value;
+    var image = document.getElementById('image').value;
+    var keyword_list = document.getElementById('keyword_list').value;
+    var source = CKEDITOR.instances['source'].getData();
+    cat_id =[];
+    $.each($("input[name='cat[]']:checked"), function() {    
+     cat_id.push($(this).val());    
+    });
+    if(cat_id.length==0)
+    {
+      cat_id.push(1);
+    }
+
+    if(document.getElementById('meta_desc').value=='')
+    {
+      var meta_desc = 0; 
+    }else{
+      var meta_desc = document.getElementById('meta_desc').value;
+    }
+    if(document.getElementById('meta_tag').value=='')
+    {
+      var meta_tag = 0; 
+    }else{
+      var meta_tag = document.getElementById('meta_tag').value;
+    }
+
+    var visibility = 'h';
+    const date = new Date();
+    var d = date.getDate();
+    var month = date.getMonth()+1;
+    if(month.toString().length<2)
+    {
+      var m = '0'+month;
+    }
+    else{
+      var m = month;
+    }
+    var y = date.getFullYear();
+    var hour = date.getHours();
+    var minute = date.getMinutes();
+    var seconds = date.getSeconds();
+    var date_= y+'-'+m+'-'+d;
+    var time_ = hour+':'+minute+':'+seconds;
+    var update_date = date_;
+    var nofollow = 0;
+    var seo_url_no = 0;
+    var seo_url_text = title;
+    var post_parent = 0;
+    var date_time = date_ +' '+ time_;
+    draft_working = true;
+    if(title != '' || source != ''){
+        $.ajax({
+        url:'<?php echo base_url()."/admin/addPost";?>',
+        type:'post',
+        data:{title:title,seo_url:seo_url, content:source, last_dreaft_id:last_dreaft_id,visibility:visibility,date_:date_,time_:time_,update_date:update_date,nofollow:nofollow,seo_url_no:seo_url_no,post_parent:post_parent,seo_url_text:seo_url_text,image:image,
+        cat:cat_id,keyword_list:keyword_list, meta_tag:meta_tag,meta_desc:meta_desc,date_time:date_time},
+        success:function(data)
+        {
+        draft_working = false;
+        if(last_dreaft_id == 0) {
+        last_dreaft_id = data;
+        }
+        }
+        });
+    }
+  }
+
+
+
+
+  function publish_post(id)
+  {
+    clearInterval(intervalID);
+    let fd = new FormData(); 
+    var title = document.getElementById('title').value;
+    var visibility = 'p';
+    var sugest_title = document.getElementById('sugest_title').value;
+    var author = document.getElementById('author').value;
+    var source = CKEDITOR.instances['source'].getData();    
+    var tag = document.getElementById('keyword_list').value;
+    var image = document.getElementById('image').value;
+    var site_m = document.getElementById('site_map');
+    var news_sitem = document.getElementById('newssitemap');
+    var nofollow = document.getElementById('no_follow');
+    var indexed = document.getElementById('no_index');
+    fd.append('title',title);
+    fd.append('visibility','p');
+    fd.append('seo_url',sugest_title);
+    fd.append('content',source);
+    fd.append('image',image);
+
+    if(site_m.checked==true)
+    {
+      site_m.setAttribute("value","1");
+      site_map = site_m.value;
+    }else{
+      site_m.setAttribute("value","0");
+      site_map = site_m.value;
+    }
+
+    if(news_sitem.checked==true)
+    {
+      news_sitem.setAttribute("value","1");
+      news_sitemap = news_sitem.value;
+    }else{
+      news_sitem.setAttribute("value","0");
+      news_sitemap = news_sitem.value;
+    }
+    if(nofollow.checked==true)
+    {
+      nofollow.setAttribute("value","1");
+      nofollow = nofollow.value;
+    }else{
+      nofollow.setAttribute("value","0");
+      nofollow = nofollow.value;
+    }
+    if(indexed.checked==true)
+    {
+      indexed.setAttribute("value","1");
+      indexed = indexed.value;
+    }else{
+      indexed.setAttribute("value","0");
+      indexed = indexed.value;
+    }
+    if(document.getElementById('meta_desc').value=='')
+    {
+      var meta_desc = 0; 
+    }else{
+      var meta_desc = document.getElementById('meta_desc').value;
+    }
+    fd.append('meta_desc',meta_desc);
+    if(document.getElementById('meta_tag').value=='')
+    {
+      var meta_tag = 0; 
+    }else{
+      var meta_tag = document.getElementById('meta_tag').value;
+    }
+    fd.append('meta_tag',meta_tag);
+    var d = new Date();
+    var y=d.getFullYear();
+    var m=d.getMonth()+1;
+    if(m.toString().length<2)
+    {
+      var m = '0'+m;
+    }
+
+    var day=d.getDate();
+    var date_=y+"/"+m+"/"+day;
+    fd.append('date_',date_);
+
+    cat_id =[];
+    $.each($("input[name='cat[]']:checked"), function() {
+    
+     cat_id.push($(this).val());
+    
+    });
+    if(cat_id.length==0)
+    {
+      cat_id.push(1);
+    }
+
+    fd.append('site_map',site_map);
+    fd.append('news_sitemap',news_sitemap);
+    fd.append('cat',cat_id);
+    fd.append('tag',tag);
+    fd.append('nofollow',nofollow);
+    fd.append('indexed',indexed);
+    fd.append('flag','1');
+
+    if((title.length==0))
+    {
+      document.getElementById('title_error').innerHTML='Title is required';
+    }
+    else if((sugest_title.length==0))
+    {
+      document.getElementById('source_error').innerHTML='Blog Url is required';
+    }
+    else{
+      var btn = document.getElementById('publish');
+      btn.setAttribute('disabled','true');
+      var loder = document.getElementById('loader');
+      loder.style.display = 'block';
+        $.ajax({
+          url:'<?php echo base_url();?>/admin/admin/post_add_publish/' + id,
+          type:'post',
+          data:fd,
+          processData: false,
+          contentType: false,
+          cache: false,
+          success:function(data)
+          {
+            btn.removeAttribute('disabled');
+            loder.style.display = 'none';
+            alert('Post-published successfully...');
+            window.location = '<?php echo base_url();?>/admin/posts';
+          }
+        });  
+  }  
+  }
+
+  function draft_post($id)
+  {
+    var title = document.getElementById('title').value;
+    var visibility = 'h';
+    var sugest_title = document.getElementById('sugest_title').value;
+    var source = CKEDITOR.instances['source'].getData();
+    var tag = document.getElementById('keyword_list').value;
+    var site_m = document.getElementById('site_map');
+    var news_sitem = document.getElementById('newssitemap');
+    var image = document.getElementById('image').value;
+    if(site_m.checked==true)
+    {
+      site_m.setAttribute("value","1");
+      site_map = site_m.value;
+    }else{
+      site_m.setAttribute("value","0");
+      site_map = site_m.value;
+    }
+
+    if(news_sitem.checked==true)
+    {
+      news_sitem.setAttribute("value","1");
+      news_sitemap = news_sitem.value;
+    }else{
+      news_sitem.setAttribute("value","0");
+      news_sitemap = news_sitem.value;
+    }
+
+    if(document.getElementById('meta_desc').value=='')
+    {
+      var meta_desc = 0; 
+    }else{
+      var meta_desc = document.getElementById('meta_desc').value;
+    }
+    if(document.getElementById('meta_tag').value=='')
+    {
+      var meta_tag = 0; 
+    }else{
+      var meta_tag = document.getElementById('meta_tag').value;
+    }
+
+    var d = new Date();
+    var y=d.getFullYear();
+    var m=d.getMonth()+1;
+    if(m.toString().length<2)
+    {
+      var m = '0'+m;
+    }
+
+    var day=d.getDate();
+    var date_=y+"/"+m+"/"+day;
+
+    cat_id =[];
+    $.each($("input[name='cat[]']:checked"), function() {
+    
+     cat_id.push($(this).val());
+    
+    });
+    if(cat_id.length==0)
+    {
+      cat_id.push(1);
+    }
+
+
+    if((title.length==0))
+    {
+      document.getElementById('title_error').innerHTML='Title is required';
+    }
+
+    else
+    {
+    $.ajax({
+      url:'<?php echo base_url();?>/admin/admin/post_add_publish/' + $id,
+      type:'post',
+      data:{ 
+        title:title,
+        visibility:visibility,
+        seo_url:sugest_title,
+        content:source,
+        meta_desc:meta_desc,
+        date_:date_,
+        meta_tag:meta_tag,
+        site_map:site_map,
+        news_sitemap:news_sitemap,
+        cat:cat_id,
+        tag:tag,
+        image:image
+      },
+      success:function(data)
+      {
+        alert('Post saved in draft');
+        window.location = '<?php echo base_url("admin/posts?vi=draft"); ?>';
+        return;
+      }
+    });  
+  }  
+}
+</script>
+
+
+<!-- /////////////////////////////////////-------CK EDITOR-------------/////////////////////////////////// -->
+
+<script src="<?php echo base_url();?>/assets/ckeditor/ckeditor.js"></script>
+<script>
+  $(document).ready(function(){
+    for (key in CKEDITOR.instances) { CKEDITOR.instances[key].destroy(true); }
+    CKEDITOR.replace('content',{
+					height: 600,
+    filebrowserUploadUrl: '<?php echo base_url();?>/home/upload_ck',
+    filebrowserBrowseUrl: '<?php echo base_url();?>/home/upload_ck_file_browser',
+    filebrowserUploadMethod: "form",
+     });     
+  });
+
+  
+function my_edit_browse_text(){
+  document.querySelector(".cke_toolbar .cke_button__image_icon").addEventListener('click', ()=>{
+      console.log('asd');
+      setTimeout(()=>{
+        document.querySelector('[title="Browse Server"]').innerHTML = 'Upload Image';
+      }, 100)
+     })
+}  
+
+</script>
+
+
+

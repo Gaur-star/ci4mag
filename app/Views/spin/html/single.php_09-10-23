@@ -1,0 +1,119 @@
+<script>
+  function myFunction(ele) {
+  ele.setAttribute('src', '<?php echo base_url('assets/setting-image/spindigit_default.jpg');?>');
+}
+  </script>
+
+
+<section id="contentSection" class="container">
+<!-- side-body -->
+  <div class="row" style="display: flex; flex-direction: row-reverse;">
+    <div class="col-sm-3">
+      <div class="row">
+        <div class="col-sm-12">
+          <aside class="right_content">
+            <div class="single_sidebar">        
+              <div class="" id="add_box_sidebar">
+                <code id="image_add_sidebar"><?php echo $add[0]['sidebar'] ?></code>
+              </div><!-- .nv-header-ads-area -->
+              </br>
+              <div class="sidebar_div">
+                <h4 class="widget">Latest News</h4>
+                <ul class="spost_nav">
+                  <?php if (isset($cat_latest_post)) {
+                    foreach ($cat_latest_post as $cat) { 
+                    if($cat['post']['title'] != $single["title"] ) { ?>
+                    <li>
+                    <div class="media">
+                      <a href="<?php echo base_url().'/'.$cat['url'];?>" class="media-left">
+                        <img src="<?php if(!empty($cat['path'])) { echo $cat['path'][0]['url']; }else{ echo base_url().'/'.$settings[12]['setting_value'];
+                        } ?>" class="attachment-news-vibrant-block-thumb size-news-vibrant-block-thumb wp-post-image lazy" alt="" /> 
+                      </a>
+                    </div>      
+                    <div class="media-body">
+                      <h3 class="nv-post-title"><a href="<?php echo base_url().'/'.$cat['url'];?>"><?php echo $cat['post']['title'];?></a></h3>
+                      <div class="nv-post-meta">
+                        <span class="posted-on"><a href="<?php echo base_url().'/'.$cat['url'];?>" rel="bookmark" class="catg_title"><time class="entry-date published updated" datetime="2022-08-12T10:05:05-04:00"><?php echo date("d M, Y", strtotime($cat['post']['update_date']))?></time></a></span>
+                      </div>
+                    </div>                                                        
+                    </li>
+                  <?php } } } ?>
+                </ul>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>    
+    </div>  
+    <!-- side-body-end -->
+
+    <!-- main-body -->
+    <div class="col-sm-9" id="single_page_content">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="left_content">
+            <div class="single_page">
+              <h1><?php if(isset($_SESSION['single_preview'])&&(!empty($post_preview[0]['title']))){echo $post_preview[0]['title'];}else{echo $single["title"];}?></h1>
+              <div class="post_tags">
+                <?php 
+                  foreach($single['post_tags'] as $categorie) { ?>
+                  <a href="<?php echo base_url().'/category/' .$categorie?>"><button class="button-xsmall pure-button"><?php echo $categorie; ?></button></a>
+                <?php } ?>
+              </div>
+              <div class="post_commentbox">
+                  <a href="#"><?php if(($single["f_name"]!='issuewire')&&($single["f_name"]!='Issuewire')){?><i class="fa fa-user"></i><?= $single["f_name"];}?></a>
+                  <span><i class="fa fa-calendar"></i><?php echo date("d M, y", strtotime($single["date_"])) ?></span><?php if ($single["tags"]) { echo '<a href="#"><i class="fa fa-tags"></i>';
+                    foreach ($single["tags"] as $tag) { echo $tag["keyword"] . ","; } echo '</a>'; } ?>
+              </div>
+              <div class="single_page_content_2" id="single_page_content_2">                
+                <?php                        
+                  if(isset($_SESSION['single_preview'])&&(!empty($post_preview[0]['content'])))
+                  {
+                    echo html_entity_decode(($post_preview[0]["content"]));
+                  }
+                  else{
+                    echo html_entity_decode(($single["content"]));
+                  }
+                ?>
+              </div>
+              <br>
+              <div style="clear:both"></div>
+                
+              <div class="bottom-nav-bar">
+                <?php if(!empty($prePost)){ ?><div class="nav-previous"><a href="<?php echo base_url()."/".$prePost['seo_url']?>"><?php echo $prePost['title'];?></a></div><?php }else{ ?> <div class="nav-noshow"> <?php }?>                      
+                <?php if(!empty($nextPost)){ ?><div class="nav-next"><a href="<?php echo base_url()."/".$nextPost['seo_url']?>"><?php echo $nextPost['title'];?></a></div><?php }else{ ?> <div class="nav-noshow"><?php }?>                      
+              </div>
+              <br><br>
+              <div class="related_post">
+                <h4 class="widget">Related Post</h4>
+                <ul class="spost_nav">                
+                  <?php if (isset($relatedPostRandom)) { foreach ($relatedPostRandom as $let) {  
+                    if( $let["title"] != $single["title"] ){?>
+                  <li>
+                    <div class="media">
+                      <div>
+                        <a href="<?php echo base_url() ."/". $let["seo_url"] ?>" class="media-bottom"> 
+                        <img src="<?php if(!empty($let["url"])) { echo $let["url"]; }else{ echo base_url().'/'.$settings[12]["setting_value"]; } ?>"  onerror="myFunction(this)"> </a>
+                      </div>  
+                      </br>
+                      <div class="media-body">
+                        <h3 class="nv-post-title"><a href="<?php echo base_url().'/'.$let['seo_url'];?>"><?php echo $let['title'];?></a></h3>
+                        <div class="nv-post-meta">
+                          <span class="posted-on"><a href="<?php echo base_url().'/'.$let['seo_url'];?>" rel="bookmark" class="catg_title"><time class="entry-date published updated" datetime="2022-08-12T10:05:05-04:00"><?php echo date("d M, Y", strtotime($let['update_date']))?></time></a></span>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <?php } } }?>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>              
+    <!-- main-body-ends -->
+
+   
+  </div>
+</section>

@@ -1,0 +1,81 @@
+<style>
+    #footer{
+        background: #333 none repeat scroll 0 0;
+        margin-top: 40px;
+        color: #cfcfcf;
+    }
+</style>
+
+<footer id="footer" style="">
+  <div class="footer_top">
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="nv-footer-widget wow fadeInLeft" data-wow-duration="0.5s">
+                        <section id="text-14" class="widget widget_text">
+                            <h4 class="widget-title">About Us</h4>
+                            <div class="textwidget">
+                                <p>Spindigit.com is an online media publication company of highly skilled and
+                                    advanced editors. Our mission is to gather important news from all over the
+                                    globe and provide creative content to the readers.</p>
+                            </div>
+                        </section>
+                </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="nv-footer-widget wow fadeInLeft" data-woww-duration="1s">
+                        <section id="pages-8" class="widget widget_pages">
+                            <h4 class="widget-title">Pages</h4>
+                            <ul>
+                                <li class="page_item page-item-6"><a
+                                        href="<?php echo base_url(). '/about-us'?>">About Us</a></li>
+                                <li class="page_item page-item-8"><a
+                                        href="<?php echo base_url(). '/contact-us'?>">Contact us</a></li>
+                                <li class="page_item page-item-10"><a
+                                        href="<?php echo base_url(). '/disclaimer'?>">Disclaimer</a></li>
+                                <li class="page_item page-item-2834 current_page_item">
+                                    <!-- <a href="<?php echo base_url(). '/aria-current="page"';?>">Home</a></li> -->
+                                    <a href="<?php echo base_url();?>">Home</a></li>
+                                <li class="page_item page-item-3"><a
+                                        href="<?php echo base_url(). '/privacy-policy'?>">Privacy Policy</a></li>
+                                <li class="page_item page-item-491"><a
+                                        href="<?php echo base_url(). '/update_post'?>">Update Post</a></li>
+                            </ul>
+
+                        </section>
+                </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4">
+     
+                <section id="text-15" class="widget widget_text">
+                    <h4 class="widget-title">Contact Us</h4>
+                    <div class="textwidget">
+                        <p>Office Number 11, 269 Bays Mountain Trl, Kingsport, TN, 37660, United States
+                            of America</p>
+                        <p>Phone: +1 276 452 1111<br />
+                            Email: info@spindigit.com</p>
+                    </div>
+                </section>
+
+                                
+      </div>
+
+    </div>
+           
+  </div>
+            
+  <div class="footer_bottom">
+    <!-- <p class="copyright"><?//php echo $settings[9]["setting_value"] ?></p> -->
+            <div class="bottom-footer nv-clearfix">
+                <div class="cv-container">
+                    <div class="site-info">
+                        <span class="nv-copyright-text">
+                            &copy; Spindigit, All Right Reserved </span>
+                        <!--<span class="sep"> | </span>-->
+                    </div><!-- .site-info -->
+                    <nav id="footer-navigation" class="footer-navigation" role="navigation">
+                    </nav><!-- #site-navigation -->
+                </div><!-- .cv-container -->
+            </div> <!-- bottom-footer -->
+
+  </div>
+</footer>
