@@ -773,10 +773,6 @@ class Front_model extends Model
 
     // function get_tech_post()           old function 
     // {
-    //   $builder = $this->db->table("permalink_list");
-    //   $builder->where("status", "active");
-    //   $res = $builder->get();
-    //   $perma = $res->getRowArray();
            
     //   $sql = "SELECT `post_categories`.`post_id` FROM `posts`, `post_categories` WHERE `post_categories`.`post_id` = `posts`.`id` AND `posts`.`visibility` = 'p' ORDER BY 'id'";
     //   $res = $this->db->query($sql);
