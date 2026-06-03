@@ -880,10 +880,6 @@ class Front_model extends Model
 
     function get_tech_post($limit)
     {
-    //   $builder = $this->db->table("permalink_list");
-    //   $builder->where("status", "active");
-    //   $res = $builder->get();
-    //   $perma = $res->getRowArray();
   
     //   $sql="SELECT `post_id` FROM `post_categories` WHERE `categorie_id`=116 ORDER BY `id` DESC";
     //   $res = $this->db->query($sql);
