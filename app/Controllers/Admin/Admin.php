@@ -865,47 +865,6 @@ class Admin extends Controller
                 return $checkurl;
 
         }
-        // public function contact_us_details(){
-        //         // $this->blog_add_model = new Blog_add_model();
-        // //     var_dump($this->blog_add_model);
-        //         // $this->blog_add_model->get_permalink();
-        //         // $session = session();
-        //         // $validation =  \Config\Services::validation();
-        //         $request = \Config\Services::request();
-        //         // $validation->setRules([
-        //         //         'name' => 'required|trim',
-        //         //         'email' => 'required',
-        //         //         'phone' => 'required',
-        //         //         'subject' => 'required',
-        //         //         'message' => 'required',
-        //         // ]);
-        //         // if (!$validation->withRequest($request)->run()) {
-        //         //         $this->session->setFlashdata("msg", '<div class="alert alert-danger alert-dismissible fade show" role="alert' . $validation->listErrors() . '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        //         //         <span aria-hidden="true">&times;</span> </button></div>');
-        //         //         return redirect()->to(base_url() . "/contact-us");
-        //         // } else {
-        //                 // echo "gg";  die;
-
-
-        //                 $data['name'] = filter_var(trim($request->getPost("name")), FILTER_SANITIZE_STRING);
-        //                 $data['email'] = filter_var(trim(htmlentities($request->getPost("email"))), FILTER_SANITIZE_STRING);                
-        //                 $data['phone'] = filter_var(htmlentities($request->getPost("phone")));                        
-        //                 $data['subject'] = filter_var($request->getPost("subject"), FILTER_SANITIZE_STRING);
-        //                 $data['message'] = filter_var($request->getPost("message"), FILTER_SANITIZE_STRING);        
-        //                 $data['date'] = date("Y-m-d H:i:s"); 
-
-
-        //                 // print_r($data);  die;
-        //                 // $data = 'hello';
-        //                 $res = $this->blog_add_model->contact_us_detail();
-        //                 // echo $res; 
-
-        //                 // $this->session->setFlashdata("msg", '<div class="alert alert-danger alert-dismissible fade show" role="alert' . $validation->listErrors() . '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        //                 // <span aria-hidden="true">&times;Thank You For Contacting Us</span> </button></div>');
-        //                 // return redirect()->to(base_url() . "/contact_us");
-                          
-        //         // }
-
-        // }
+       
       
 }
