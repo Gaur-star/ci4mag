@@ -69,8 +69,10 @@ class Blog_edit extends Controller
       $data['pages'] = $this->blog_edit_model->paginate(4);
       $data['pager'] = $this->blog_edit_model->pager;         
       } else {
-        if(!$this->login){          return redirect()->to(base_url() . "/login");        }
-        // $data = $this->blog_edit_model->count_post($this->login);
+        if(!$this->login){          
+          return redirect()->to(base_url() . "/login");        
+          }
+        
         $data = $this->blog_edit_model->count_post();
         $data["total"] = $this->blog_edit_model->blog_count($filter);
         $data['blog'] = $this->blog_edit_model->posts($page, $filter);
@@ -87,13 +89,8 @@ class Blog_edit extends Controller
     $data['u_firstname'] = $this->fname;    
 
     echo view('admin/header',$data);
-    if($this->roleId == 1){
-      echo view('admin/sidebar');
-      echo view('admin/post_list', $data);
-    }else{
-      echo view('admin/sidebar_other');
-      echo view('admin/post_list', $data);
-    }    
+    echo view('admin/sidebar');
+    echo view('admin/post_list', $data);
     echo view('admin/footer');
     
   }
