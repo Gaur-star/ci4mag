@@ -42,14 +42,10 @@ class Admin extends Controller
                 helper('webbuild_usable');
                 helper('get_permalink');
                 $this->roleId  = $this->login_model->get_role($this->login)['role'];
-                // var_dump($this->blog_add_model);die;
+                
         }
 
-        /**
-         * index
-         * @link 
-         * @return void
-         */
+
         public function index()
         {
                 $count_per_page = 5;
@@ -72,18 +68,9 @@ class Admin extends Controller
                 $data['roleId'] = $this->roleId;
                 $data['last_id'] = $this->blog_add_model->get_last_post_id();
                 $data["permalink"] = getPermalink();
-                // echo "<pre>";
-                // print_r($data);
-                // die;
                 echo view('admin/header', $data);
-                if($data['roleId'] == 1){
-                        echo view('admin/sidebar');
-                        echo view('admin/addPost', $data);
-                }else{
-                        echo view('admin/sidebar_other');
-                        echo view('admin/addPost', $data);
-                }
-                
+                echo view('admin/sidebar');
+                echo view('admin/addPost', $data);
                 echo view('admin/footer');
         }
 
@@ -181,10 +168,10 @@ class Admin extends Controller
                         return redirect()->to(base_url() . "/admin/addPost");
                 }
         }
-        ///////////////////////////////////////////////////
+
+
         public function post_edit($post_id = '')
         {
-             //   echo "ssssssss";die;
                 $count_per_page = 20;
                 helper("webbuild_usable");
                 $data["stylesheets"][] = "/assets/richtext/richtext.min.css";
@@ -421,9 +408,6 @@ class Admin extends Controller
                 $res = $this->blog_add_model->uploadImage($img);
                 return $res;
         }
-
-
-
 
         public function trash($page = 1)
         {
@@ -685,8 +669,6 @@ class Admin extends Controller
                 echo "<pre>";
                 print_r($result);
         }
-
-        ////////// Update post under preview
 
         public function preview($id)
         {
