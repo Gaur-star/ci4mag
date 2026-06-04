@@ -30,13 +30,8 @@ class Matico extends Controller
     $data["campaign"] = $this->Matico_model->getCampaign();
     $data['u_firstname'] = $this->fname;
     echo view('admin/header', $data);
-    if($this->role == 1){
-      echo view('admin/sidebar');
-      echo view('admin/getCampaign',$data);
-    }else{
-      echo view('admin/sidebar_other');
-      echo view('admin/getCampaign',$data);
-    }    
+    echo view('admin/sidebar');
+    echo view('admin/getCampaign',$data);   
     echo view('admin/footer');
   }
 
@@ -45,14 +40,10 @@ class Matico extends Controller
     $data['u_firstname'] = $this->fname;
     helper("webbuild_usable");
     echo view('admin/header',$data);
-    if($this->role == 1){
     echo view('admin/sidebar');
     echo view('admin/addCampaign');
-  }else{ 
-    echo view('admin/sidebar_other');
-    echo view('admin/addCampaign');
-  }
     echo view('admin/footer');
+    
   }
 
   function addCampaignProcess()
