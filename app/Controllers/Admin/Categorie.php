@@ -30,11 +30,7 @@ class Categorie extends Controller
 
   public function category_list()
   {
-    // if(isset($_GET['page'])){
-    //   $page = $_GET['page'];
-    // }else{
-    //   $page = 1;
-    // }
+    
     $pager = \Config\Services::pager();
     $request =service('request');
     $request = \Config\Services::request();    
@@ -58,15 +54,11 @@ class Categorie extends Controller
     $data['pager'] = $this->categorie_model->pager;
 
     echo view('admin/header',$data);
-    if($this->role == 1){
-      echo view('admin/sidebar');
-      echo view('admin/category', $data);
-    }else{
-      echo view('admin/sidebar_other');
-      echo view('admin/category', $data);
-    }
-    
+    echo view('admin/sidebar');
+    echo view('admin/category', $data);
     echo view('admin/footer');
+
+
   }
 
   
