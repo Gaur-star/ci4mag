@@ -26,38 +26,6 @@ class Post_model extends Model
     }
 
 
-    /** old code is below */
-
-
-    // public function insert_post_data($post, $first_src, $category)
-    // {
-    //     $db = db_connect();
-    //     $builder = $db->table('posts');
-    //     $builder->where('guid', $post['guid']);
-    //     $post_check = $builder->get();
-    //     if ($builder->countAll() == 0) {
-    //         //return "sssss";die;
-    //         if ($first_src) {
-    //             $builder = $this->db->table('media');
-    //             $builder->insert(['url' => $first_src, 'active' => 1, 'create_date' => date('Y-m-d H:i:s')]);
-    //             $post['image'] = $db->insertId();
-    //         }
-    //         $builder = $this->db->table('posts');
-    //         $insert_id = $builder->insert($post);
-    //         if ($insert_id) {
-    //             $this->insert_cat_data($category, $insert_id);
-    //         }
-    //         return $insert_id;
-    //     } else {
-    //         return false;
-    //     }
-    // }
-
-
-
-    /** My new code is below */
-
-
     public function insert_post_data($p, $first_src, $cat)
     {
         // return $cat;
