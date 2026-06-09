@@ -79,13 +79,8 @@ class Page extends Controller
     $data['permalink']=getPermalink();
 
     echo view('admin/header',$data);
-    if($this->roleId == 1){
-      echo view('admin/sidebar');
-      echo view('admin/pageList',$data);
-    }else{
-      echo view('admin/sidebar_other');
-      echo view('admin/pageList',$data);
-    }    
+    echo view('admin/sidebar');
+    echo view('admin/pageList',$data);
     echo view('admin/footer');
   }
 
