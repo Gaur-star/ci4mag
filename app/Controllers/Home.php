@@ -9,9 +9,6 @@ class Home extends BaseController
         return view('Welcome Home');
     }
 
-    public function Home(){
-        echo "U at Home function";
-    }
 }
 
 ?>

@@ -15,10 +15,7 @@ class Logout extends Controller {
 	{
         $session = session();
         $session->destroy();
-        // session_destroy();
-      //  $_SESSION['login']='logout';
         return redirect()->to(base_url("login"));
-        // redirect(base_url()."login");
     }
    
 	
