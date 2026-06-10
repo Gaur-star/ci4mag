@@ -9,11 +9,7 @@ class Campaign extends Controller
     public $Post_model;
     public function __construct()
     {
-    
-        // $this->load->library('');
         $this->Post_model = new Post_model();
-
-        // $this->load->model('Post_model');
         helper('cookie');
     }    
     /**
@@ -25,12 +21,7 @@ class Campaign extends Controller
     {
         $request = \Config\Services::request();
         $campaignId = $request->getPost("id");
-        // print_r($campaignId);
-        // die;
         $res = $this->Post_model->getCampaign($campaignId);
-        //  echo "<pre>";
-        //  print_r($res);
-        //  die;
         $url = $res['campaign_url'];
         $author = $res["author"];
         $invalidurl = false;
@@ -55,15 +46,10 @@ class Campaign extends Controller
             $site = $feeds->channel->title;
             $sitelink = $feeds->channel->link;
             foreach ($feeds->channel->item as $item) {
-                //  print_r($link);die;
                 $id = (array)$item->guid;
                 $title = (array)$item->title;
                 $link = $item->link;
-                //  print_r($link);die;
                 $description = (string)$item->description;
-                //  var_dump($description);
-                //  print_r($description);
-                //  die;
                 $postDate = $item->pubDate;
                 $category = "";
 
@@ -73,7 +59,6 @@ class Campaign extends Controller
                 $post["title"] = $title;
                 $post["seo_url_text"] = $title;
                 $post["content"] = $description;
-                // print_r($post["title"]);die;
                 $post["date_"] = date("Y-m-d", strtotime($postDate));
                 $post["time_"] = date("H:i:s", strtotime($postDate));
                 $post["date_time"] = date("Y-m-d H:i:s", strtotime($postDate));
@@ -84,12 +69,7 @@ class Campaign extends Controller
                     $post['news_sitemap'] = '1'; 
                 }else{
                     $post['news_sitemap'] = '0'; 
-                }
-                // echo "<pre>";
-                // print_r($author);
-                // die;
-                // $post["matico"] = "y";
-                                
+                }                                
 
                 $cat["categories"] = $category;
 
@@ -98,8 +78,6 @@ class Campaign extends Controller
                 $post["guid"] =   $id;
                 $cat_guid =  $id[0];
                 $p['post'] = $post;
-
-                // print_r($cat);
 
                 $parser = xml_parser_create();
                 xml_parse_into_struct($parser, $description, $values);
@@ -114,30 +92,16 @@ class Campaign extends Controller
                     }
                 }
 
-                //  print_r($first_src);
                 $insert_id = $this->Post_model->insert_post_data($p, $first_src, $cat);
-                // echo "sssssss";die;
-                //  print_r($insert_id);
 
                  if ($insert_id) {
                     $numofpost++; 
                     $insert_cat = $this->Post_model->insert_cat_data($cat, $insert_id);  
                  }
-
-
-              // print_r($insert_cat);
                
             }
-            // $ch = curl_init() ; 
-            // curl_setopt($ch, CURLOPT_URL,"http://wp2ci4.com/admin/matico") ;  
-            // $res = curl_exec($ch) ;  
-            // print_r($res);
-            // die;
-            // echo $numofpost;
-            // die;
-           //  echo $numofpost;die;
+      
             if ($numofpost > 0) {
-             //  echo "ppppp";die;
                 $campaign["total_post"] = $numofpost;
                 $campaign["last_run"] = date("Y-m-d H:i:s");
                 $this->Post_model->campaignUpdate($campaignId, $campaign);
