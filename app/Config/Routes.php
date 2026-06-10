@@ -206,7 +206,6 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($rou
 
 
   $routes->get('/', 'Dashboard\Home::spin');
-  // $routes->get('category/(:any)/', 'Dashboard\Home::catagory_post/$1');
   $routes->get('category/(:any)', 'Dashboard\Home::catagoryPost/$1');
   $routes->get('clear_cache', 'Dashboard\Home::claercache');
   $routes->get('/author/(:any)', 'Dashboard\Home::author_post/$1') ;

@@ -422,15 +422,9 @@ class Admin extends Controller
                 $data['pager'] = $this->blog_add_model->pager;
                 $data['u_firstname'] = $session->get('f_name');
 
-                echo view('admin/header', $data);
-                if($this->roleId == 1){
-                        echo view('admin/sidebar');
-                        echo view('admin/trash', $data);
-                }else{
-                        echo view('admin/sidebar_other');
-                        echo view('admin/trash', $data);
-                }
-                
+                echo view('admin/header', $data);               
+                echo view('admin/sidebar');
+                echo view('admin/trash', $data);      
                 echo view('admin/footer');
         }
         
@@ -461,16 +455,12 @@ class Admin extends Controller
                         $data['role_id'] = $session->get('role');
                         $data["permalink"] = getPermalink();
                         echo view('admin/header', $data);                       
-                        if($data['role_id'] == 1){
-                                echo view('admin/dashboard');
-                                echo view('admin/sidebar');
-                        }else{
-                                echo view('admin/dashboard_other');
-                                echo view('admin/sidebar_other');
-                        }                        
+                        echo view('admin/dashboard');
+                        echo view('admin/sidebar');                                            
                         echo view('admin/footer');
                 }
         }
+
         public function new_page()
         {
                 helper("webbuild_usable");
@@ -485,15 +475,11 @@ class Admin extends Controller
                 $data["img_no_page"] = $this->blog_add_model->countImgPage($count_per_page);
                 $data['u_firstname'] = $this->fname;
                 echo view('admin/header', $data);
-                if($this->roleId == 1){
-                        echo view('admin/sidebar');
-                        echo view('admin/new_page');
-                }else{
-                        echo view('admin/sidebar_other');
-                        echo view('admin/new_page');
-                }
+                echo view('admin/sidebar');
+                echo view('admin/new_page');
                 echo view('admin/footer');
         }
+
         public function pageCreated()
         {
                 $request = \Config\Services::request();
@@ -598,12 +584,8 @@ class Admin extends Controller
                         $data["files"] = glob('*.sql');
                         $data['u_firstname'] = $this->fname;
                         echo view('admin/header', $data);
-                        if($this->role == 1){
                         echo view('admin/sidebar');
-                        echo view('admin/importpage', $data);
-                }else{ echo view('admin/sidebar_other');
-                        echo view('admin/importpage', $data);
-                }
+                        echo view('admin/importpage', $data);               
                         echo view('admin/footer');
                 }
         }
