@@ -12,11 +12,7 @@ class Campaign extends Controller
         $this->Post_model = new Post_model();
         helper('cookie');
     }    
-    /**
-     * insertPost fetch the xml from diffrent location and insert that as post ;
-     *
-     * @return void
-     */
+  
     function insertPost()
     {
         $request = \Config\Services::request();
