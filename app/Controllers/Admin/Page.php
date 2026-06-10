@@ -44,25 +44,11 @@ class Page extends Controller
     $pag = $request->getVar('page');
     if($pag == ''){ $page = 1 ; }else{ $page = $pag; }
     $perpage = 3;  
-    // $pager = \Config\Services::pager();
     $filter['search'] = filter_var($request->getVar('search'),FILTER_SANITIZE_STRING);
     $filter['author'] = filter_var($request->getVar('author'),FILTER_SANITIZE_STRING);
 
-    // if($this->roleId != 1)
-    // {
-    //   if(!$this->login)
-    //   {
-    //     return redirect()->to(base_url() . "/login");
-    //   }
-    //     $data = $this->page_model->pageCount($this->login);
-    //     $data = $this->page_model->getPage($page,$perpage,$this->login,$filter);
-    //     $data['page'] = $this->page_model->paginate(3);
-    //     $data['pager'] = $this->page_model->pager;
-    // }
-
     if ($this->roleId != 1) {
     $data = $this->page_model->pageCount($this->login);
-    // $data['pages'] = $this->page_model->getPage($page, $perpage, $this->login,$filter);
     $data['pages'] = $this->page_model->getPage($page, $perpage,$filter);
     $data['page'] = $this->page_model->paginate(5);
     $data['pager'] = $this->page_model->pager;    

@@ -25,7 +25,6 @@ class Page_not_found extends Controller
             $cat = ''
         );
         $getHomepageCat = $this->front_model->getHomepageCat();
-        // print_r($getHomepageCat);die;
         foreach ($getHomepageCat as $key => $homecat) {
             $data['homepagepost'][$key]['post'] = $this->front_model->getNews(
                 $page = 1,
@@ -35,10 +34,5 @@ class Page_not_found extends Controller
             $data['homepagepost'][$key]['post_title'] = $homecat['categorie'];
         }
         echo "404";
-        // $this->load->view('theme/' . THEME . '/header', $data);
-        // $this->load->view('theme/' . THEME . '/menu');
-        // $this->load->view('theme/' . THEME . '/404');
-        // $this->load->view('theme/' . THEME . '/bottom');
-        // $this->load->view('theme/' . THEME . '/footer');
     }
 }

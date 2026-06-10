@@ -115,10 +115,6 @@ class Home extends Controller
        $data['science_post'] = $this->front_model->get_science_post($limit = '4');
        $data['categories'] = $this->front_model->get_all_cat();
 
-        //    echo "<pre>";
-        //    print_r($data['popular']);
-        //    die;
-
         echo view("spin/html/header", $data);
         echo view("spin/html/body", $data);
         echo view("spin/html/footer", $data);     
@@ -156,9 +152,6 @@ class Home extends Controller
         $data['trending'] = $this->front_model->trendingPost();
         $data['settings'] = $this->front_model->getSetting();
         $data['cat_name'] = $cat;   
-        // echo "<pre>";
-        // print_r($data['cat_post']);
-        // die();
         echo view("spin/html/header.php", $data);
         echo view("spin/html/category.php", $data);
         echo view("spin/html/footer.php", $data);
@@ -494,8 +487,6 @@ class Home extends Controller
         $data['cat_latest_post'] = $this->front_model->cat_latest_post();
         $data['categories'] = $this->front_model->get_all_cat();
         $title = trim($titles);
-    //    echo $title;
-    //    die();
         if($title)
         {  $title_present = $this->front_model->search_title($title);       
             if(!empty($title_present)){
@@ -556,9 +547,6 @@ class Home extends Controller
         $data['trending'] = $this->front_model->trendingPost();
         $data['settings'] = $this->front_model->getSetting();
         $data['cat_name'] = '';   
-        // echo "<pre>";
-        // print_r($data);
-        // die();
 
         echo view("spin/html/header.php", $data);
         echo view("spin/html/searchPage.php", $data);

@@ -16,19 +16,14 @@ class Sitemap extends Controller
     function __construct()
     {
      $this->front_model = new Front_model();
-
-   //  helper('xml');
     }
 
     function index($page)
     {
-        // echo $page;die;
 
         $uri = service('uri');
         $uri = $uri->getSegment(2);
-              // echo $uri;die;
         $len = strlen($uri);
-      //  echo $uri;die;
         if($len==12)
         {
             $page = substr($uri,7,1);
@@ -36,31 +31,15 @@ class Sitemap extends Controller
         else{
             $page = substr($uri,7,2);
         }
-        // echo $page;die;
         $response = service('response');
-       //  $response->set_content_type('text/xml');
-       // $response->setContentType('text/xml');
-         //$response->setBody('Content-type', 'text/xml');
-       $response->setHeader('Content-type', 'text/xml');
-
-
-                // $url = "https://allnewsstories.com/wpconv_saurav/wp_to_ci4/";
-
-      //  echo $page;die;
+        $response->setHeader('Content-type', 'text/xml');
         $file_name = './sitemap/' . 'latest_sitemap'.$page.'.xml';
         $offset = ($page - 1)*100;      
         $data['all_posts'] = $this->front_model->fetch_all_post($offset);
-       // echo "<pre>";
-       // print_r($data['all_posts']);die;
 
          $str = '<?xml version="1.0" encoding="UTF-8"?>
          <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">';
          foreach($data['all_posts'] as $key=>$value){
-        //   echo "<pre>";
-        //   print_r($value["all_post"]['images']);die;
-        // $img = $value["all_post"]["images"][0]["url"];
-        // $img_text = $value["all_post"]["images"][0]["alt_text"];
-        ////////////////////////////////////////////////////////////////////////////////////////////////////
 
            $content = '';
            $freq = '';
@@ -112,13 +91,8 @@ class Sitemap extends Controller
                 $content .= '1.0'."\n";
             }
 
-//    echo $content;die;    '</image:image></url>'
-        
-        ///////////////////////////////////////////////////////////////////////////////////////////////////
            $str.= '<url>
                   <loc language="">';
-                // $str.= "https://allnewsstories.com/wpconv_saurav/wp_to_ci4/".$value["all_post"]["url"].'</loc>';
-                //  $str.= "https://w2ci.inewsguru.com/".$value["all_post"]["url"].'</loc>';
                  $str.= base_url().'/'.$value["all_post"]["url"].'</loc>';
 
                  $str.= '<lastmod>'.$value["date_time"].'</lastmod>';
@@ -126,8 +100,6 @@ class Sitemap extends Controller
                  $str.= '<priority>'.$content.'</priority>';
                  if((!empty($value["all_post"]["images"])) && (!empty($value["all_post"]["images"][0]["url"])))
                  {
-                    // $value["all_post"]["images"][0]["url"];
-                    // $str.= '<'
                     $str.= '<image:image>';
                     $str.= '<image:loc>'.$value["all_post"]["images"][0]["url"].'</image:loc>';
                     $str.= '<image:caption>'.$value["all_post"]["images"][0]["alt_text"].'</image:caption>';
@@ -148,29 +120,16 @@ class Sitemap extends Controller
 
     
     function pages(){
-        //  echo base_url();die;
          $data = $this->front_model->pages_count();
-        //  echo "<pre>";
-        //  print_r($data);die;
          $file_name = './sitemap/listing_sitemap.xml';
-        //  $count = count($data['posts']);
-        //  $final = floor($count/100) +1;
          $response = service('response');
          $response->setHeader('Content-type', 'text/xml');      
          $str = '<?xml version="1.0" encoding="UTF-8"?>
          <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
          foreach($data as $page){
-            // echo "<pre>";
-            //  print_r($page);die;
-            // $str.= '<sitemap><loc>'. base_url().'/posts/sitemap-page/'.$page['seo_url'].'.xml';
             $str.= '<sitemap><loc>'. base_url().'/'.$page['seo_url'];
             $str.='</loc></sitemap>';
          }
-        //  for($start=1;$start<=$final;$start++)
-        // {
-        //     $str.= '<sitemap><loc>'. base_url().'/posts/sitemap-page'.$start.'.xml';
-        //     $str.='</loc></sitemap>';
-        // }
         $str.='</sitemapindex>';
         $fh_post = fopen($file_name, "w");
         fwrite($fh_post, $str);
@@ -179,7 +138,6 @@ class Sitemap extends Controller
     }
     
         function main(){
-        //  echo base_url();die;
          $file_name = './sitemap/listing_sitemap.xml';
 
          $response = service('response');
@@ -201,20 +159,11 @@ class Sitemap extends Controller
   
     function home()
     {
-        //echo base_url();die;
-       // $start = 1;
         $data['posts'] = $this->front_model->post_count();
-        // echo "<pre>";
-        // print_r($data['posts']);die;
         $file_name = './sitemap/listing_sitemap.xml';
         $count = count($data['posts']);
-        // echo "<pre>";
-        // print_r($count);die;
         $final = floor($count/100) +1;
-        //  echo $final;die;
         $response = service('response');
-        // echo "<pre>";
-        // print_r($response);die;
         $response->setHeader('Content-type', 'text/xml');  
        
         $str = '<?xml version="1.0" encoding="UTF-8"?>
@@ -222,18 +171,11 @@ class Sitemap extends Controller
        
         for($start=$final;$start>=1;$start--)
         {
-           // $str.= '<sitemap><loc>https://allnewsstories.com/wpconv_saurav/wp_to_ci4/posts/sitemap'.$start.'.xml';
-            //  $str.= '<sitemap><loc>http://localserver.com/wp2ci/posts/sitemap'.$start.'.xml';
             $str.= '<sitemap><loc>'. base_url().'/posts/sitemap'.$start.'.xml';
-            //  $data['urls'][] =  base_url().'/posts/sitemap'.$start.'.xml';
-            // $str.= '<sitemap><loc>https://beta.spindigit.com/posts/sitemap'.$start.'.xml';
-            // $str.= '<sitemap><loc>https://w2ci.inewsguru.com/posts/sitemap'.$start.'.xml';
             $str.='</loc></sitemap>';
         }
 
-        // echo "<pre>"; print_r($data['urls']); die;
         $str.='</sitemapindex>';
-        // $data['title_bottom'] = '</sitemapindex>';
         $fh_post = fopen($file_name, "w");
         fwrite($fh_post, $str);
         fclose($fh_post);
@@ -245,17 +187,11 @@ class Sitemap extends Controller
 
     function sitemap_news()
     {
-       // echo "sss";die;
-
-
         $response = service('response');
         $response->setHeader('Content-type', 'text/xml'); 
 
         $data['sitemap_news'] = $this->front_model->sitemap_news_post();
-        $data['perma'] = $this->front_model->sitemap_perma();
-        // echo "<pre>";
-        // print_r($data['sitemap_news']);die;
- 
+        $data['perma'] = $this->front_model->sitemap_perma(); 
 
         $str = '<?xml version="1.0" encoding="UTF-8"?>';
         $str.='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">';
@@ -268,14 +204,9 @@ class Sitemap extends Controller
                     
                     $d = $res['date_'];
                     $d_create = date_create($d);
-                    $date = date_format($d_create,$data['perma']['linkformat']);
-                    // $t = html_entity_decode($res["title"],ENT_HTML5 ,"UTF-8");
-                    // $t = var_dump(html_entity_decode($res["title"]));
-    
+                    $date = date_format($d_create,$data['perma']['linkformat']);    
     
                     $str.='<url>';
-                    // $str.='<loc>';
-                    // $str.= 'http://beta.spindigit.com/'.$date.'/'.$res["seo_url"].'</loc>';
                     $str.= '<news:news>';
                     $str.='<news:publication>';
                     $str.= '<news:name>Spindigit</news:name>';
@@ -283,7 +214,6 @@ class Sitemap extends Controller
                     $str.='</news:publication>';
                     $str.='<news:publication_date>'.$res["date_"]." ".$res["time_"].'</news:publication_date>';
                     $str.='<news:title>'.$res["title"].'</news:title>';
-                //   $str.='<news:title>'."xyz".'</news:title>';
                     $str.='<news:keywords/>';
                     $str.='</news:news>';
                     $str.='</url>';
@@ -310,10 +240,6 @@ class Sitemap extends Controller
         echo $str;
 
     }
-
-
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     

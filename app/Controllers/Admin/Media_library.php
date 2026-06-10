@@ -49,14 +49,8 @@ class Media_library extends Controller
         $data['search_media'] = $this->media_edit_model->search_media($media_name);
       }  
       echo view('admin/header', $data);
-      if($this->role == 1){
-        echo view('admin/sidebar');
-        echo view('admin/medialist',$data);
-      }else{
-        echo view('admin/sidebar_other');
-        echo view('admin/medialist',$data);
-      }
-     
+      echo view('admin/sidebar');
+      echo view('admin/medialist',$data);     
       echo view('admin/footer');
   }
 
