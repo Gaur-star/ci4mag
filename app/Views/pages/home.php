@@ -1,1 +1,0 @@
-Hello, This is home page of template folder.
