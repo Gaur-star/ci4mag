@@ -9,8 +9,6 @@ class Settings_model extends Model
   {
     $builder = $this->db->table('setting');
     $query = $builder->get();
-    // echo $this->db->getLastQuery();
-    // die;
     return $query->getResultArray();
   }
   public function settings_edit_process($postData)
@@ -27,8 +25,6 @@ class Settings_model extends Model
   }
   function setting_update($update)
   {
-    // echo "<pre>";
-    // print_r($update);
     foreach ($update as $key => $up) {
       if ($up) {
         $builder = $this->db->table('setting');
