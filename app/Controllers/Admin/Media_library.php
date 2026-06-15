@@ -10,6 +10,8 @@ class Media_library extends Controller
   public $login;
   public $media_edit_model;
   public $session;
+  public $fname;
+  public $role;
   
   function __construct()
   {

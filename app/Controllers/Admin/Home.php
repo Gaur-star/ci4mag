@@ -14,6 +14,10 @@ class Home extends Controller
     public $front_model;
     public $form_validation;
     public $session;
+    public $blog_add_model;
+    public $roleId;
+    public $login;
+    public $userdata;
     
     function __construct()
     {

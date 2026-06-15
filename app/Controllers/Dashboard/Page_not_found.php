@@ -40,7 +40,7 @@ class Page_not_found extends Controller
         );
         $data['trending'] = $this->front_model->trendingPost();
         $data['cat_latest_post'] = $this->front_model->cat_latest_post();
-        $data['popular'] = $this->front_model->getPopularNews();
+        $data['popular'] = $this->front_model->getPopularNews($limit = '4');
         $getHomepageCat = $this->front_model->getTopcat();
         $data["title"] = $data['settings'][0]["setting_value"];
         if ($data['settings'][4]["setting_value"]) {
