@@ -32,11 +32,6 @@ class Page_not_found extends Controller
         $data['add'] = $this->front_model->add_data();
         $data['header_menu'] = $this->front_model->get_header_menu(4);
         $data['categories'] = $this->front_model->get_all_cat();
-        // $data['relatedPost'] = $this->front_model->getRelatedPost(
-        //     $id,
-        //     $limit = 5,
-        //     $rand = 0
-        // );
 
         $data['latest_news'] = $this->front_model->getNews(
             $page = 1,
@@ -64,31 +59,7 @@ class Page_not_found extends Controller
             );
             $data['homepagepost'][$key]['post_title'] = $homecat['categorie'];
         }
-        // if ($populars) {
-        //     $i = 0;
-        //     foreach ($populars as $Key => $popular) {
-        //         $data['popular'][$i]['title'] = $popular['title'];
-        //         $data['popular'][$i]['seo_url'] = $popular['seo_url'];
-        //         if (isset($popular['image'])) {
-        //             $data['popular'][$i]['image'] = $popular['image'];
-        //         } else {
-        //             $data['popular'][$i]['image'] = base_url() . $data['settings'][1]['setting_value'];
-        //         }
-        //         $i++;
-        //     }
-        // }
-        // echo "<pre>";
-        // print_r($data['header_menu']);die;
-        // $this->load->view('theme/' . THEME . '/header', $data);
-        // $this->load->view('theme/' . THEME . '/menu');
-        // $this->load->view('theme/' . THEME . '/404');
-        // $this->load->view('theme/' . THEME . '/bottom');
-        // $this->load->view('theme/' . THEME . '/footer');
-        // echo view("theme/newsfeed/header",$data);
-        // echo view("theme/newsfeed/menu");
-        // echo view("theme/newsfeed/404",$data);
-        // echo view("theme/newsfeed/bottom");        
-        // echo view("theme/newsfeed/footer");
+        
         echo view("theme/newsfeed/header", $data);
         echo view("theme/newsfeed/404",$data);
         echo view("theme/newsfeed/footer", $data);

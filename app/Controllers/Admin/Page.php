@@ -150,6 +150,7 @@ class Page extends Controller
     $view = \Config\Services::renderer();
     $data['widgets'] =  view('widgets/basic',array(),['saveData' => true]);
     $p['one']=$id;
+    
     echo view('theme/newsfeed/header');  
     echo view('theme/newsfeed/menu');
     echo view('theme/newsfeed/page',$p);

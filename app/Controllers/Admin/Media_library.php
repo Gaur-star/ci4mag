@@ -10,6 +10,7 @@ class Media_library extends Controller
   public $login;
   public $media_edit_model;
   public $session;
+  
   function __construct()
   {
     $this->session = session();

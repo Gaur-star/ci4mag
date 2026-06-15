@@ -110,6 +110,7 @@ class Campaign extends Controller
         }
 
     }
+    
     function get_xml_from_url($url)
     {
         $ch = curl_init();

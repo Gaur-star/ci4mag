@@ -14,6 +14,7 @@ class Home extends Controller
     public $front_model;
     public $form_validation;
     public $session;
+    
     function __construct()
     {
         $this->library_model = new Library_model();
