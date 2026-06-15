@@ -8,6 +8,7 @@ use App\Models\Login_model;
 class Login extends Controller
 {
     public $login_model;
+    
     function __construct()
     {
         $login_model = new Login_model();
