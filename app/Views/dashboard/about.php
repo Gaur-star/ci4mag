@@ -1,4 +1,8 @@
-<?= $this->extend('layout/main') ?>
+<?= 
+"hi";
+die();
+
+$this->extend('layout/main') ?>
 
 
 <?= $this->section('cssLinks') ?>
