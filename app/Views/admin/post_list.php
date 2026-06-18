@@ -1,3 +1,9 @@
+
+<?= $this->extend('layout/admin') ?>
+
+
+<?= $this->section('cssLinks') ?>
+
 <style>
   .pagination-page {
     margin-bottom: 20px;
@@ -50,16 +56,20 @@
     }
 </style>
 
+
+<?= $this->endSection() ?>
+
+
+
+
+<?= $this->section('content') ?>
+
+
 <div class="content-wrapper">
   <div class="container-fluid">
     <div class="row mb-3 ">
       <div class="col-2 mt-3">
 
-      <?php  
-      // echo "<pre>";
-      // print_r($blog);
-      // die;
-      ?>
         <h3>Posts</h3>
       </div>
       <div class="col-3 mt-3 addpost">
@@ -98,9 +108,7 @@
             <select name="cat" id="order" class="form-control">
               <option value="">All Categories</option>
               <?php
-             // print_r($category);
               if ($catagory) {
-              //  print_r($catagory["id"]);die;
                 foreach ($catagory as $cat) { //echo $cat["id"]."sssssss";?>
                   <option value="<?php echo $cat["id"] ?>" <?php echo (($searchdetail["category"] == $cat["id"]) ? "selected" : "") ?>><?php echo $cat["categorie"] ?></option>
               <?php }
@@ -125,11 +133,7 @@
           <!-- <button class="btn btn-outline-primary" type="submit">SUBMIT</button> -->
         </form>
       </div>
-      <?php 
-      // echo "<pre>";
-      // print_r($blog);die;
-      
-      ?>
+
       <div class="col-6 mt-2">
 
         <!-- <a href="</?php echo base_url("admin/posts") ?>">All <span class="fade-color"> (</?php echo $totalpost ?>)</span></a> -->
@@ -171,21 +175,12 @@
             <!-- <td>Views</td> -->
           </tr>
           <?php
-       //   $post_id = array();
+
           $count = 0;
           $all_post=$blog;
-
-          // foreach($pages as $new_blogs)
-          // {
-          //   array_push($all_post, $new_blogs);
-          // }
-          // echo "<pre>";
-          // print_r($all_post['keyword']);die;
           foreach ($all_post as $blogdata) {
-
-            //  echo "<pre>";
-            //  print_r($blogdata['seo_url']);die;
             $count = $count + 1;
+
           ?>
             <tr>
               <td><input type="checkbox" class="bulkaction" value="<?php echo $blogdata['id'];?>"></td>
@@ -209,10 +204,7 @@
               </td>
               <td style="color:#0099ff;">
                 <a href="<?php //echo base_url() . "/admin/posts/?author="?> <?php //echo $blogdata['author'];?>">
-                  <?php //echo $blogdata['fname'];
-                        //  echo "<pre>";
-                        //  print_r($blogdata);
-                        //  echo $blogdata['author'];
+                  <?php 
                          if(!empty($blogdata['fname'])){echo $blogdata['fname'];}
                   ?>
                 </a>
@@ -289,12 +281,16 @@
   </div>
 
 </div>
+
+<?= $this->endSection() ?>
+
+
+<?= $this->section('scriptLinks') ?>
+
 <script type="text/javascript">
   var url = "<?php echo base_url();?>";
 
   function delete_post(id) {
-    // alert(1);
-    //confirm("Do you want to delete this?");
     var r = confirm("Do you want to Add this in Trash?");
     if (r == true)
       window.location = url + "/admin/blog_edit/blog_delete/" + id;
@@ -326,59 +322,6 @@
 
   });
 
-
-  // function add_post_preview()
-  // {
-   // return console.log('ssssss');
-   
-  //   var title = 'Untitled';
-  //   var seo_url = 'untitled';
-
-
-  //   var visibility = 'h';
-  //   //////////////////////////////////
-  //   const date = new Date();
-  //   var d = date.getDate();
-  //   var month = date.getMonth()+1;
-  //   if(month.toString().length<2)
-  //   {
-  //     var m = '0'+month;
-  //   }
-  //   else{
-  //     var m = month;
-  //   }
-  //   var y = date.getFullYear();
-
-  //   var hour = date.getHours();
-  //   var minute = date.getMinutes();
-  //   var seconds = date.getSeconds();
-  //   /////////////////////////////////
-  //    var date_= y+'-'+m+'-'+d;
-  //    var time_ = hour+':'+minute+':'+seconds;
-  //    var update_date = date_;
-  //    var nofollow = 0;
-  //    var seo_url_no = 0;
-  //    var seo_url_text = title;
-  //    var post_parent = 0;
-  //    $.ajax({
-  //      url:'<?php // echo base_url()."/admin/addPost";?>',
-  //      type:'post',
-  //      data:{title:title,seo_url:seo_url,visibility:visibility,date_:date_,time_:time_,update_date:update_date,nofollow:nofollow,seo_url_no:seo_url_no,post_parent:post_parent,seo_url_text:seo_url_text},
-  //      success:function(data)
-  //      {
-  //       // console.log(data);
-  //      //  location.href='<?php //echo base_url();?>/admin/posts'
-  //        // return;
-  //      }
-  //    });
-  //  // console.log(post_parent);
-  // }
-  // function add_post_preview()
-  // {
-  //   $.ajax({
-  //        url:'<?php  //echo base_url()."/admin/addPost";?>',
-  //        type:'post',
-  //   });
-  // }
-
 </script>
+
+<?= $this->endSection() ?>
