@@ -88,10 +88,7 @@ class Blog_edit extends Controller
     $data["permalink"]=getPermalink();    
     $data['u_firstname'] = $this->fname;    
 
-    echo view('admin/header',$data);
-    echo view('admin/sidebar');
     echo view('admin/post_list', $data);
-    echo view('admin/footer');
     
   }
 

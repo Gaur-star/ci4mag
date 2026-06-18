@@ -1,4 +1,11 @@
- <style>
+ 
+ 
+<?= $this->extend('layout/admin') ?>
+
+
+<?= $this->section('cssLinks') ?>
+
+<style>
    .pagination-page {
      margin-bottom: 20px;
    }
@@ -34,6 +41,13 @@
      display: block;
    }
  </style>
+
+ <?= $this->endSection() ?>
+
+
+
+
+<?= $this->section('content') ?>
 
  <div class="content-wrapper">
    <div class="content-header">
@@ -203,6 +217,14 @@
          </div>
      </div>
  </div>
+
+
+ <?= $this->endSection() ?>
+
+
+<?= $this->section('scriptLinks') ?>
+
+
  <script>
    $(document).ready(function() {
      $("#categorie").keyup(function() {
@@ -230,3 +252,5 @@
    }
   
  </script>
+
+<?= $this->endSection() ?>

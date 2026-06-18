@@ -68,10 +68,8 @@ class Admin extends Controller
                 $data['roleId'] = $this->roleId;
                 $data['last_id'] = $this->blog_add_model->get_last_post_id();
                 $data["permalink"] = getPermalink();
-                echo view('admin/header', $data);
-                echo view('admin/sidebar');
+
                 echo view('admin/addPost', $data);
-                echo view('admin/footer');
         }
 
         public function blog_add_process()
@@ -454,10 +452,8 @@ class Admin extends Controller
                         $data['u_firstname'] = $session->get('f_name');
                         $data['role_id'] = $session->get('role');
                         $data["permalink"] = getPermalink();
-                        echo view('admin/header', $data);                       
-                        echo view('admin/dashboard');
-                        echo view('admin/sidebar');                                            
-                        echo view('admin/footer');
+                                               
+                        echo view('admin/dashboard', $data);
                 }
         }
 

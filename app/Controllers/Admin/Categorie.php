@@ -53,11 +53,7 @@ class Categorie extends Controller
     $data['pages'] = $this->categorie_model->paginate(10);
     $data['pager'] = $this->categorie_model->pager;
 
-    echo view('admin/header',$data);
-    echo view('admin/sidebar');
     echo view('admin/category', $data);
-    echo view('admin/footer');
-
 
   }
 
