@@ -55,7 +55,6 @@
   }
 
   .catagory-list li {
-    /* font-weight: bold; */
     border-bottom: 1px solid #dbdbdb;
     padding: 10px;
   }
@@ -84,8 +83,7 @@
 <?= $this->section('content') ?>
 
 <div class="content-wrapper">
-  <!-- <?php //echo php_info();die;
-        ?> -->
+
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
@@ -99,13 +97,8 @@
               <div class="col-md-8">
 
                 <?php
-                //  echo "sssssssss";die;
                 $session = session();
                 $data_value['value'] = $session->get('value');
-
-                // echo "<pre>";
-                // print_r($data_value['value']);
-                // die;
                 ?>
                 <!-- <form action="</?php echo base_url() ?>/admin/admin/blog_add_process" method="post" class="newsletter_form1" id="addNewPostForm" enctype='multipart/form-data'> -->
 
@@ -182,9 +175,9 @@
                                                                                                                                           if (!empty($data_value['value']['content'])) {
                                                                                                                                             echo $data_value['value']['content'];
                                                                                                                                           } ?>"><?php
-                                  if (!empty($data_value['value']['content'])) {
-                                    echo $data_value['value']['content'];
-                                  } ?>
+                                                                                                                                                if (!empty($data_value['value']['content'])) {
+                                                                                                                                                  echo $data_value['value']['content'];
+                                                                                                                                                } ?>
                           </textarea>
                   </div>
                   <!----------ckeditor----------->
@@ -319,7 +312,7 @@
                                                                                                                                                                                                                                                   echo  in_array($catdata['id'], $post_data["cat"]) ? "checked" : "";
                                                                                                                                                                                                                                                 }
                                                                                                                                                                                                                                                 ?>> <?php //echo $data_value['value']['cat[]'] 
-                                                                                                                                                                                                                ?>
+                                                                                                                                                                                                                                                    ?>
                             <label for="<?= $catdata['id'] ?>"><?= $catdata["categorie"] ?></label>
                           </li>
                         <?php } ?>
@@ -469,7 +462,7 @@
 
 <?= $this->section('scriptLinks') ?>
 
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+
 <script>
   <?php if (isset($post_data['keyword_list']) || !empty($post_data['keyword_list'])) { ?>
     var insert_tags = <?php
@@ -974,8 +967,7 @@
       news_sitem.setAttribute("value", "0");
       news_sitemap = news_sitem.value;
     }
-    // console.log(site_map);
-    // return;
+  
     if (nofollow.checked == true) {
       nofollow.setAttribute("value", "1");
       nofollow = nofollow.value;
@@ -1032,8 +1024,6 @@
     fd.append('news_sitemap', news_sitemap);
     fd.append('cat', cat_id);
     fd.append('tag', tag);
-    //fd.append('image',image);
-    // fd.append('file',file);
     fd.append('nofollow', nofollow);
     fd.append('indexed', indexed);
 
@@ -1135,13 +1125,9 @@
 
     } else {
       $.ajax({
-        // url:'<? //php echo base_url()."/admin/admin/post_add_publish"; 
-                ?>',
         url: '<?= base_url(); ?>/admin/admin/post_add_publish/' + $id,
         type: 'post',
         data: {
-          //  id:<?php //echo $last_id[0]['id'];
-                  ?>,
           title: title,
           visibility: visibility,
           seo_url: sugest_title,
@@ -1151,15 +1137,12 @@
           meta_tag: meta_tag,
           site_map: site_map,
           news_sitemap: news_sitemap,
-          // seo_url_text:title,
           cat: cat_id,
           tag: tag,
           image: image
         },
         success: function(data) {
           alert('Post saved in draft');
-          // window.location = '<? //php echo base_url();
-                                ?>/admin/posts';
           window.location = '<?= base_url("admin/posts?vi=draft"); ?>';
           return;
         }

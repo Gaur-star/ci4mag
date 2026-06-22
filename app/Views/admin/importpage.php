@@ -54,7 +54,7 @@
                     <h1>1.Clear Old Data</h1>
                 </div>
                 <div class="col-md-12">
-                    <a href="<?php echo base_url() .
+                    <a href="<?= base_url() .
                         '/admin/import/truncat'; ?>" class="btn btn-danger">Clear Old Data</a>
                 </div>
             </div>
@@ -63,14 +63,14 @@
                     <h1>2.Select Database and Import</h1>
                 </div>
                 <div class="col-md-12">
-                    <form class="form-inline" action="<?php echo base_url() .
+                    <form class="form-inline" action="<?= base_url() .
                         '/admin/import'; ?>" method="post">
                         <div class="input-group col-md-4">
                             <select name="db_name" class="form-control" required>
                                 <?php if ($files) { ?>
                                     <option value="">Select Sql File</option>
                                     <?php foreach ($files as $f) { ?>
-                                        <option value="<?php echo $f; ?>"><?php echo $f; ?></option>
+                                        <option value="<?= $f; ?>"><?= $f; ?></option>
                                     <?php } ?>
                                 <?php } else { ?>
                                     <option value="">Upload .Sql File to root</option>
@@ -107,7 +107,7 @@
                     <h1>4.Delete temp files and tables</h1>
                 </div>
                 <div class="col-md-12">
-                    <a href="<?php echo base_url() .
+                    <a href="<?= base_url() .
                         '/admin/import/deleteImportedTables'; ?>" class="btn btn-warning">Delete temp files and tables</a>
                 </div>
             </div>
@@ -214,7 +214,7 @@ function update_post()
     // return;
    
     $.ajax({
-        url: '<?php echo base_url() ."/admin/import/updateDatabase"?>',
+        url: '<?= base_url() ."/admin/import/updateDatabase"?>',
         type:'post',
         data:{count:count,mediaurl:mediaurl},
         success:function(response)

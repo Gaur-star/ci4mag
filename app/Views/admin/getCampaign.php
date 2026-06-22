@@ -131,18 +131,18 @@
                 ?>
                 <?php foreach ($campaign as $key=>$camp) { ?>
                     <tr>
-                      <td><?php echo $key+1 ?></td>
+                      <td><?= $key+1 ?></td>
                       <td>
-                        <?php echo $camp['campaig_name']; ?>
-                        <?php echo anchor('admin/matico/campaignUpdate/' . $camp['campaign_id'], '<span class=abc style=font-size:12px;color:#0099ff;>&nbsp;Edit&nbsp;</span>'); ?>
-                        <?php echo anchor('admin/matico/deleteCampaignProcess/' . $camp['campaign_id'], '<span class=abc style=font-size:12px;color:#0099ff;>&nbsp;Delete&nbsp;</span>'); ?>
+                        <?= $camp['campaig_name']; ?>
+                        <?= anchor('admin/matico/campaignUpdate/' . $camp['campaign_id'], '<span class=abc style=font-size:12px;color:#0099ff;>&nbsp;Edit&nbsp;</span>'); ?>
+                        <?= anchor('admin/matico/deleteCampaignProcess/' . $camp['campaign_id'], '<span class=abc style=font-size:12px;color:#0099ff;>&nbsp;Delete&nbsp;</span>'); ?>
                       </td>
-                      <td><?php echo $camp['campaign_url']; ?></td>
-                      <td><?php echo $camp['f_name']." ".$camp['l_name']; ?></td>
-                      <td><button type="button" data-id="" onclick="startCampaign('<?php echo $camp['campaign_id'] ?>')">Start</button></td>
-                      <td><?php echo $camp['total_post']; ?></td>
-                       <td><?php echo $camp['post_status']; ?></td>
-                      <td><?php echo $camp['last_run']; ?></td>
+                      <td><?= $camp['campaign_url']; ?></td>
+                      <td><?= $camp['f_name']." ".$camp['l_name']; ?></td>
+                      <td><button type="button" data-id="" onclick="startCampaign('<?= $camp['campaign_id'] ?>')">Start</button></td>
+                      <td><?= $camp['total_post']; ?></td>
+                       <td><?= $camp['post_status']; ?></td>
+                      <td><?= $camp['last_run']; ?></td>
                      
                     </tr>
                 <?php } ?>
@@ -188,7 +188,7 @@
     function startCampaign(id){
       document.getElementById("ploader").style.display = "flex";
         $.ajax({
-        url:"<?php echo base_url();?>/campaign/insertPost",
+        url:"<?= base_url();?>/campaign/insertPost",
         data:{id:id},
         type:"post",   
         success:function(data){
@@ -199,7 +199,7 @@
           document.getElementById('success').innerText = 'Sucessfully campign added';
           document.getElementById('success').style.display = 'block';
           setTimeout(function(){
-            location.href="<?php echo base_url()."/admin/matico"?>";
+            location.href="<?= base_url()."/admin/matico"?>";
           },3000);
 
            // return;

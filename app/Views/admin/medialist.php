@@ -180,13 +180,13 @@
   <div class="container-fluid">
     <h1 class="text-center">Media Gallery</h1>
 
-    <form class="form-inline my-2 my-lg-0 mt-3" method="get" action="<?php echo base_url().'/admin/media'?>">
+    <form class="form-inline my-2 my-lg-0 mt-3" method="get" action="<?= base_url().'/admin/media'?>">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="media_search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
     
  <?php if(empty($search_media)){?>
-    <form action="<?php echo base_url() ?>/admin/media_library/uploadImg" method="post" enctype='multipart/form-data' class="mt-3">
+    <form action="<?= base_url() ?>/admin/media_library/uploadImg" method="post" enctype='multipart/form-data' class="mt-3">
       <div class="row mb-3">
         <div class="col-12">
           <?php 
@@ -203,12 +203,12 @@
 
         <div class="col-2">
           <label for="mediaupload">
-            <img src="<?php echo base_url() . "/assets/images/image-gallery.png" ?>" style="width: 75px" id="imguplodpreview">
+            <img src="<?= base_url() . "/assets/images/image-gallery.png" ?>" style="width: 75px" id="imguplodpreview">
           </label>
           <input type="file" id="mediaupload" name="fileUpload" style="display:none">
         </div>
         <div class="col-3 mt-2">
-          <button class="" type="submit" style="border: 0;background-color: transparent;width: 150px;"><img src="<?php echo base_url() . "/assets/images/upload.png" ?>" style="width: 200px;"></button>
+          <button class="" type="submit" style="border: 0;background-color: transparent;width: 150px;"><img src="<?= base_url() . "/assets/images/upload.png" ?>" style="width: 200px;"></button>
         </div>
         <div class="col-12 pagination-page mt-5">
           <?php
@@ -254,7 +254,7 @@
                 <img src="<?php  echo  $media['url'] ?>" width="100%" height="200px">
   
                 <div class="pageaction">
-                  <?php echo anchor('admin/media_library/delete/' . $media['id'], '<span class=abc style=font-size:12px;color:#0099ff;>&nbsp;Delete&nbsp;</span>'); ?>
+                  <?= anchor('admin/media_library/delete/' . $media['id'], '<span class=abc style=font-size:12px;color:#0099ff;>&nbsp;Delete&nbsp;</span>'); ?>
                 </div>
               </div>
               <?php
@@ -278,7 +278,7 @@
               <img src="<?php  echo  $imglink ?>" width="100%" height="200px">
 
               <div class="pageaction">
-                <?php echo anchor('admin/media_library/delete/' . $m['id'], '<span class=abc style=font-size:12px;color:#0099ff;>&nbsp;Delete&nbsp;</span>'); ?>
+                <?= anchor('admin/media_library/delete/' . $m['id'], '<span class=abc style=font-size:12px;color:#0099ff;>&nbsp;Delete&nbsp;</span>'); ?>
               </div>
             </div>
           <?php 

@@ -44,11 +44,11 @@
                         <div class="row">
                             <div class="col-md-4 dashboardView">
                                 <div>All-time views</div>
-                                <div><b><?php echo $totalvisit ?></b></div>
+                                <div><b><?= $totalvisit ?></b></div>
                             </div>
                             <div class="col-md-4 dashboardView">
                                 <div>Views today</div>
-                                <div><b><?php echo $todayview ?></b></div>
+                                <div><b><?= $todayview ?></b></div>
                             </div>
                             <div class="col-md-4 dashboardView">
                                 <div>Best overall day</div>
@@ -80,15 +80,15 @@
                             <?php foreach ($recent as $re) { ?>
                                 <tr>
                                     <td>
-                                        <!-- <a href="<?php echo base_url("admin/admin/post_edit/" . $re["id"]) ?>"><?php echo $re["title"] ?> -->
+                                        <!-- <a href="<?= base_url("admin/admin/post_edit/" . $re["id"]) ?>"><?= $re["title"] ?> -->
                                         <?php
                                         $d = $re['date'];
                                         $d_create = date_create($d);
                                         $date = date_format($d_create, $permalink);
                                         $text = $re["seo_url"];
                                         ?>
-                                        <a href="<?php echo base_url() . "/" . $date . "/" . $text ?>"
-                                            target="_blank"><?php echo $re['title'] ?></a>
+                                        <a href="<?= base_url() . "/" . $date . "/" . $text ?>"
+                                            target="_blank"><?= $re['title'] ?></a>
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -120,8 +120,8 @@
                                             $date = date_format($d_create, $permalink);
                                             $text = $t['seo_url'];
                                             ?>
-                                            <a href="<?php echo base_url() . "/" . $date . "/" . $text ?>"
-                                                target="_blank"><?php echo $t['title'] ?></a>
+                                            <a href="<?= base_url() . "/" . $date . "/" . $text ?>"
+                                                target="_blank"><?= $t['title'] ?></a>
                                         </td>
                                         <td>
                                             <?php // echo $t["visit"] ?>
@@ -147,13 +147,13 @@
                                 <?php foreach ($blockedips as $bip) { ?>
                                     <tr>
                                         <td>
-                                            <?php echo $bip["ip"] ?>
+                                            <?= $bip["ip"] ?>
                                         </td>
                                     </tr>
                                 <?php } ?>
                                 <tr>
                                     <td>
-                                        <a href="<?php echo base_url("admin/ipblocklist") ?>">More Detail</a>
+                                        <a href="<?= base_url("admin/ipblocklist") ?>">More Detail</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -177,7 +177,7 @@
     <script>
         $(function () {
             var bar_data = {
-                data: <?php echo (isset($dailyVisit["y"]) ? json_encode($dailyVisit["y"]) : "") ?>,
+                data: <?= (isset($dailyVisit["y"]) ? json_encode($dailyVisit["y"]) : "") ?>,
                 bars: {
                     show: true
                 }
@@ -197,7 +197,7 @@
                 },
                 colors: ['#3c8dbc'],
                 xaxis: {
-                    ticks: <?php echo (isset($dailyVisit["y"]) ? json_encode($dailyVisit["x"]) : "") ?>
+                    ticks: <?= (isset($dailyVisit["y"]) ? json_encode($dailyVisit["x"]) : "") ?>
                 }
             })
         });

@@ -67,7 +67,7 @@
 <div class="content-wrapper">
 
     <div class="container-fluid">
-        <form class="form-horizontal" action="<?php echo base_url("/") . "/admin/admin/addMainMenu" ?>" method="post">
+        <form class="form-horizontal" action="<?= base_url("/") . "/admin/admin/addMainMenu" ?>" method="post">
             <div class="row">
                 <div class="col-8 mt-2">
                     <input type="text" class="form-control" placeholder="Enter menu name" name="menu_name" required>
@@ -83,7 +83,7 @@
 
         </form>
         <hr>
-        <form action="<?php echo base_url() . "/admin/admin/updateMenu" ?>" method="post">
+        <form action="<?= base_url() . "/admin/admin/updateMenu" ?>" method="post">
 
             <div class="row">
 
@@ -94,7 +94,7 @@
                     <div class="col-12">
                         <select class="form-control" name="menu">
                             <?php foreach ($menu_list as $ml) {  ?>
-                                <option value="<?php echo $ml['menu_id'] ?>" <?php echo ($current == $ml['menu_id']) ? "selected" : "" ?>><?php echo $ml['menu_name'] . "(" . $ml['menu_order'] . ")" ?></option>
+                                <option value="<?= $ml['menu_id'] ?>" <?= ($current == $ml['menu_id']) ? "selected" : "" ?>><?= $ml['menu_name'] . "(" . $ml['menu_order'] . ")" ?></option>
                             <?php    } ?>
                         </select>
                     </div>
@@ -108,8 +108,8 @@
                     <ul class="menupages">
                         <?php foreach ($menu_datalist as $md) { ?>
                             <li>
-                                <?php echo $md['label']; ?>
-                                <span><a href="<?php echo base_url("/") . "/admin/admin/deleteMenu/" . $md['menu_list']."/".$current; ?>">X</a></span>
+                                <?= $md['label']; ?>
+                                <span><a href="<?= base_url("/") . "/admin/admin/deleteMenu/" . $md['menu_list']."/".$current; ?>">X</a></span>
                             </li>
                         <?php } ?>
                         <li style="display: flex;">
@@ -136,7 +136,7 @@
                         <?php foreach ($category_list as $cl) { ?>
 
                             <li>
-                                <input type="checkbox" name="category_add[]" value="<?php echo $cl['id'] . "|" . $cl['categorie']; ?>"> <?php echo $cl['categorie']; ?>
+                                <input type="checkbox" name="category_add[]" value="<?= $cl['id'] . "|" . $cl['categorie']; ?>"> <?= $cl['categorie']; ?>
                             </li>
 
                         <?php } ?>
@@ -154,7 +154,7 @@
 
                         <?php foreach ($page_list as $pl) { ?>
 
-                            <li><input type="checkbox" name="page_add[]" value="<?php echo $pl['id'] . "|" . $pl['title']; ?>"> <?php echo $pl['title']; ?></li>
+                            <li><input type="checkbox" name="page_add[]" value="<?= $pl['id'] . "|" . $pl['title']; ?>"> <?= $pl['title']; ?></li>
 
                         <?php } ?>
                     </ul>
@@ -178,7 +178,7 @@
     $(document).ready(function() {
 
         $("select").on("change", function() {
-            location.href = "<?php echo base_url("admin/admin/menupage?m=") ?>" + $(this).val();
+            location.href = "<?= base_url("admin/admin/menupage?m=") ?>" + $(this).val();
         });
     });
 </script>

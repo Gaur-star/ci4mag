@@ -61,7 +61,7 @@
            ?>
          </div>
          <div class="col-sm-6">
-          <form action="<?php echo base_url('admin/category')?>" method="GET" class='form-inline'>
+          <form action="<?= base_url('admin/category')?>" method="GET" class='form-inline'>
             <div class="input-group">
             <input type="text" name="search" id="search" class="form-control" placeholder="Search Category">
             <div class="input-group-append">
@@ -85,9 +85,9 @@
                  echo $session->getFlashdata("msg") ?>
                  <div class="newsletter_title"><b style="color:#595959;">Add New categorie</b></div>
                  <?php if ($edit_id) { ?>
-                   <form action="<?php echo base_url('/') .'/'."/admin/categorie/update_category/" . $page_no . "/" . $edit_id ?>" method="post" class="newsletter_form">
+                   <form action="<?= base_url('/') .'/'."/admin/categorie/update_category/" . $page_no . "/" . $edit_id ?>" method="post" class="newsletter_form">
                    <?php } else { ?>
-                     <form action="<?php echo base_url() .'/'."admin/categorie/categorie_add_process/" . $page_no ?>" method="post">
+                     <form action="<?= base_url() .'/'."admin/categorie/categorie_add_process/" . $page_no ?>" method="post">
                      <?php } ?>
 
                      <div class="form-group">
@@ -103,7 +103,7 @@
                        <select name="p_categorie" class="form-control">
                          <option value="0">None</option>
                          <?php foreach ($catagory_list as $catdata) { ?>
-                           <option value="<?php echo $catdata['id'] ?>" <?php //echo ($catagory_detail["p_categorie"] == $catdata['id']) ? "selected" : "" ?>><?php echo $catdata['categorie']; ?></option>
+                           <option value="<?= $catdata['id'] ?>" <?php //echo ($catagory_detail["p_categorie"] == $catdata['id']) ? "selected" : "" ?>><?= $catdata['categorie']; ?></option>
                          <?php } ?>
                        </select>
                      </div>
@@ -133,7 +133,7 @@
              <div class="container">
                <div class="row">
                  <div class="col-4">
-                   <form action='<?php echo base_url(); ?>/admin/category' class='form-inline'>
+                   <form action='<?= base_url(); ?>/admin/category' class='form-inline'>
                      <!--form class="form-inline ml-3"-->
                      <!-- <div class="input-group">
                        <input name="search" class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
@@ -178,21 +178,21 @@
                      ?>
                      <tr>
                        <td>
-                         <div><?php echo $catdata["categorie"];?></div>
-                         <div class="edit-catagory"> <a href="<?php echo base_url()."/admin/category_edit/".$page_no."/".$catdata['id'] ?>">Edit</a> <a href="#" onclick="delete_catagory('<?php echo $catdata['id'] ?>')">Delete</a> </div>
+                         <div><?= $catdata["categorie"];?></div>
+                         <div class="edit-catagory"> <a href="<?= base_url()."/admin/category_edit/".$page_no."/".$catdata['id'] ?>">Edit</a> <a href="#" onclick="delete_catagory('<?= $catdata['id'] ?>')">Delete</a> </div>
                        </td>
-                       <td><?php echo $catdata["slug"];?></td>
-                       <td><?php echo $catdata["post_count"];?></td>
+                       <td><?= $catdata["slug"];?></td>
+                       <td><?= $catdata["post_count"];?></td>
                      </tr>
                    <?php 
                    } 
                   }else{?>
                       <tr>
                        <td>
-                         <div><?php echo $catagory_list[0]['categorie'];?></div>
-                         <div class="edit-catagory"> <a href="<?php echo base_url()."/admin/category_edit/".$page_no."/".$catagory_list[0]['id'] ?>">Edit</a> <a href="#" onclick="delete_catagory('<?php echo $catagory_list[0]['id'] ?>')">Delete</a> </div>
+                         <div><?= $catagory_list[0]['categorie'];?></div>
+                         <div class="edit-catagory"> <a href="<?= base_url()."/admin/category_edit/".$page_no."/".$catagory_list[0]['id'] ?>">Edit</a> <a href="#" onclick="delete_catagory('<?= $catagory_list[0]['id'] ?>')">Delete</a> </div>
                        </td>
-                       <td><?php echo $catagory_list[0]["slug"];?></td>
+                       <td><?= $catagory_list[0]["slug"];?></td>
                        <td><?php  echo $catagory_list[0]["post_count"];?></td>
                      </tr>
                   <?php }?>
@@ -247,7 +247,7 @@
    function delete_catagory($catagory_id) {
      var x = confirm("Do You Want to delete?");
      if (x) {
-       window.location.href = "<?php echo base_url() . "/admin/categorie/catagory_delete/" . $page_no . "/" ?>" + $catagory_id;
+       window.location.href = "<?= base_url() . "/admin/categorie/catagory_delete/" . $page_no . "/" ?>" + $catagory_id;
      }
    }
   

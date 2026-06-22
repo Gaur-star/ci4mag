@@ -67,7 +67,7 @@
           <h1 class="m-0 text-dark">Page List</h1>
         </div>
         <div class="col-sm-10 float-left">
-          <a href="<?php echo base_url('admin/new_page')?>"><button class="btn btn-outline-primary">Add New Page</button></a>   
+          <a href="<?= base_url('admin/new_page')?>"><button class="btn btn-outline-primary">Add New Page</button></a>   
         </div>
       </div>
     </div>
@@ -76,7 +76,7 @@
   <div class="content-header">
     <div class="row">
       <div class="col-6">
-      <a href="<?php echo base_url('admin/trash_pages');?>" class="mx-5">Trash <span>(<?php echo count($trash_count);?>)</span></a>
+      <a href="<?= base_url('admin/trash_pages');?>" class="mx-5">Trash <span>(<?= count($trash_count);?>)</span></a>
       </div>
       <!-- <div class="col-3">
         <div class="pagination-page">
@@ -88,7 +88,7 @@
         </div>  
       </div> -->
       <div class="col-3">
-        <form action='<?php echo base_url(); ?>/admin/page' method='get' class='form-inline'>
+        <form action='<?= base_url(); ?>/admin/page' method='get' class='form-inline'>
           <div class="input-group">
             <input name="search" class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
             <div class="input-group-append">
@@ -121,24 +121,24 @@
          <?php $text=$pagedata['seo_url'];?>
           <tr class="page-list">
             <td>
-              <div><?php echo $pagedata['title']; ?></div>
+              <div><?= $pagedata['title']; ?></div>
               <div class="pageaction">
-                <a href="<?php echo base_url()."/".$text;?>" target="_blank">View</a>
-                <a href="<?php echo base_url('admin/page/pageEdit/') ."/". $pagedata['id']?>">Edit</a>
+                <a href="<?= base_url()."/".$text;?>" target="_blank">View</a>
+                <a href="<?= base_url('admin/page/pageEdit/') ."/". $pagedata['id']?>">Edit</a>
                 <!-- <?php //echo anchor(base_url().'/admin/page/pageEdit/' . $pagedata['id'], '<span class=abc style=font-size:12px;color:#0099ff;>&nbsp;Edit&nbsp;</span>'); ?> -->
-                <!-- <a href="<?php echo base_url('admin/page/delete') ."/". $pagedata['id']?>">Delete</a> -->
-                <a href="#" onclick="add_trash_page(<?php echo $pagedata['id'];?>)">Trash</a>
+                <!-- <a href="<?= base_url('admin/page/delete') ."/". $pagedata['id']?>">Delete</a> -->
+                <a href="#" onclick="add_trash_page(<?= $pagedata['id'];?>)">Trash</a>
                 <!-- <?php //echo anchor(base_url().'admin/page/delete/' . $pagedata['id'], '<span class=abc style=font-size:12px;color:#0099ff;>&nbsp;Delete&nbsp;</span>'); ?> -->
               </div>
             </td>
             <td>
-                <a href="<?php echo base_url().'/admin/page?author=' . $pagedata['author'] ?>"><?php echo $pagedata['author']; ?></a>
+                <a href="<?= base_url().'/admin/page?author=' . $pagedata['author'] ?>"><?= $pagedata['author']; ?></a>
             </td>
             <td>
-                <a href="<?php echo base_url()."/".$pagedata['seo_url']; ?>"><?php echo $pagedata['seo_url']; ?></a>
+                <a href="<?= base_url()."/".$pagedata['seo_url']; ?>"><?= $pagedata['seo_url']; ?></a>
             </td>
-            <td><?php echo (($pagedata['visibility']=='p')?"Public":"Hidden")?></td>
-            <td><?php echo date("d/M/Y H:i A", strtotime($pagedata['cur_date'])) ?></td>
+            <td><?= (($pagedata['visibility']=='p')?"Public":"Hidden")?></td>
+            <td><?= date("d/M/Y H:i A", strtotime($pagedata['cur_date'])) ?></td>
           </tr>
         <?php } ?>
         <tr class="table-header">
@@ -155,7 +155,7 @@
           <?php if($pager): ?>
           <?php $pagi_path = "wp2ci_magazine/admin/page";?>
           <?php $pager->setPath($pagi_path)?>
-          <?php echo $pager->links();?>
+          <?= $pager->links();?>
           <?php endif; ?>
         </div>
 </div>
@@ -166,7 +166,7 @@
 <?= $this->section('scriptLinks') ?>
 
 <script type="text/javascript">
-  var url = "<?php echo base_url(); ?>";
+  var url = "<?= base_url(); ?>";
   function add_trash_page(id)
   {
     //console.log(id);

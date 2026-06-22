@@ -29,7 +29,7 @@
           <div class="newsletter_title_container">
             <div class="newsletter_icon"><img src="images/send.png" alt=""></div>
             <div class="newsletter_title text-center"><h3>Create a brand new campaign</h3></div>
-            <form action="<?php echo base_url("/") ?>/admin/matico/addCampaignProcess" method="post" class="newsletter_form">
+            <form action="<?= base_url("/") ?>/admin/matico/addCampaignProcess" method="post" class="newsletter_form">
               <?php  $session = session();
                 echo $session->getFlashdata("msg");?>
               <div class="form-group row">
@@ -50,7 +50,7 @@
                  <select class="form-control" name="author">
                      <?php helper('webbuild_usable_helper');
                      foreach(get_author() as $auth){ ?>
-                      <option value="<?php echo $auth["uid"] ?>"><?php echo ucfirst($auth["f_name"]." ".$auth["l_name"]) ?></option>
+                      <option value="<?= $auth["uid"] ?>"><?= ucfirst($auth["f_name"]." ".$auth["l_name"]) ?></option>
                      <?php } ?>
                   </select>
                 </div>

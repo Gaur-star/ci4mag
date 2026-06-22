@@ -2,7 +2,7 @@
    <div class="container"> <div class="float-right d-none d-sm-block">
       <b>Version</b> 2.0
     </div>
-    <strong>Copyright &copy; <?php echo date("Y");?> <a rel="nofollow" href="https://www.elphilltechnology.com/">Elphill Technology</a>.</strong> All rights
+    <strong>Copyright &copy; <?= date("Y");?> <a rel="nofollow" href="https://www.elphilltechnology.com/">Elphill Technology</a>.</strong> All rights
     reserved.
 	</div>
   </footer>

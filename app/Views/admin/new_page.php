@@ -72,7 +72,7 @@
                                 <?php $session = session();
                                     echo $session->getFlashdata("msg");
                                 ?>
-                                <form action="<?php echo base_url('admin/admin/pageCreated') ?>" method="post" enctype='multipart/form-data'>
+                                <form action="<?= base_url('admin/admin/pageCreated') ?>" method="post" enctype='multipart/form-data'>
 
                                     <div class="col-12">
                                         <div class="form-group">
@@ -305,9 +305,9 @@
         if (!modal_open) {
             $('#image_gallery').on('shown.bs.modal', function(e) {
                 page = 0;
-                maxPage = '<?php echo $img_no_page ?>';
+                maxPage = '<?= $img_no_page ?>';
                 $.ajax({
-                    url: "<?php echo base_url() . "/admin/media_library/media_library" ?>",
+                    url: "<?= base_url() . "/admin/media_library/media_library" ?>",
                     success: function(res) {
                         $("#img-gallery").html(res);
                         page = 1;
@@ -321,7 +321,7 @@
 
                 if ($(".tab-content").scrollTop() > 400) {
                     page = page + 1;
-                    $.post('<?php echo base_url() . "/admin/media_library/media_library/" ?>' + page, function(res) {
+                    $.post('<?= base_url() . "/admin/media_library/media_library/" ?>' + page, function(res) {
                         $("#img-gallery").append(res);
                     });
 

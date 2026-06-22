@@ -30,7 +30,7 @@
   </div>
 
   <div class="container-fluid">
-    <form action="<?php echo base_url() ?>/admin/settings/settings_edit_process" method="post" class="newsletter_form" enctype='multipart/form-data'>
+    <form action="<?= base_url() ?>/admin/settings/settings_edit_process" method="post" class="newsletter_form" enctype='multipart/form-data'>
       <?php //echo validation_errors();
       if (isset($_SESSION['st_vdata'])) {
         echo "<div style='color:red !important;'>" . $_SESSION['st_vdata'] . "</div>";
@@ -40,7 +40,7 @@
       <div class="form-group">
         <div class="row">
           <div class="col-2"><span class="input-title">Site Name</span></div>
-          <div class="col-6"> <input type="text" value="<?php echo $setting[0]["setting_value"]; ?>" class="form-control" required="required" name="<?php echo $setting[0]["id"]; ?>" style="width:100%;"></div>
+          <div class="col-6"> <input type="text" value="<?= $setting[0]["setting_value"]; ?>" class="form-control" required="required" name="<?= $setting[0]["id"]; ?>" style="width:100%;"></div>
         </div>
       </div>
 
@@ -97,7 +97,7 @@
       </div>
       <div class="row">
           <div class="col-2"><span class="input-title">Sitemap link</span></div>
-          <div class="col-6"><a href="<?php echo base_url(); ?>/sitemap.xml" target="_blank"><?= base_url() . '/' .'sitemap.xml' ?></a></div>
+          <div class="col-6"><a href="<?= base_url(); ?>/sitemap.xml" target="_blank"><?= base_url() . '/' .'sitemap.xml' ?></a></div>
       </div>
       <div class="form-group">
         <div class="row">
@@ -106,7 +106,7 @@
             <select name="permalink" class="form-control">
       
               <?php foreach($permalink as $perma) { ?>
-                <option value="<?php echo $perma["permalinkListId"] ?>" <?php echo ($perma["status"]=="active")?"selected":"" ?>><?php echo $perma["linkname"] ?></option>
+                <option value="<?= $perma["permalinkListId"] ?>" <?= ($perma["status"]=="active")?"selected":"" ?>><?= $perma["linkname"] ?></option>
               <?php } ?>
             </select>
           </div>
@@ -115,34 +115,34 @@
       <div class="form-group row">
 
         <div class="col-2"><span class="input-title">Site Email</span></div>
-        <div class="col-6"> <input type="text" value="<?php echo $setting[2]["setting_value"]; ?>" class="form-control" required="required" name="<?php echo $setting[2]["id"]; ?>" id="email" style="width:100%;"></div>
+        <div class="col-6"> <input type="text" value="<?= $setting[2]["setting_value"]; ?>" class="form-control" required="required" name="<?= $setting[2]["id"]; ?>" id="email" style="width:100%;"></div>
       </div>
       <div class="form-group row">
 
         <div class="col-2"><span class="input-title">Site Description</span></div>
         <div class="col-6">
-          <textarea rows="5" cols="50" name="<?php echo $setting[3]["id"]; ?>" class="form-control"><?php echo $setting[3]["setting_value"]; ?></textarea>
+          <textarea rows="5" cols="50" name="<?= $setting[3]["id"]; ?>" class="form-control"><?= $setting[3]["setting_value"]; ?></textarea>
         </div>
       </div>
       <div class="form-group row">
 
         <div class="col-2"><span class="input-title">Site Keyword</span></div>
         <div class="col-6">
-          <input type="text" placeholder="Enter Meta tag" name="<?php echo $setting[4]["id"]; ?>" class="form-control" value="<?php echo $setting[4]["setting_value"]; ?>">
+          <input type="text" placeholder="Enter Meta tag" name="<?= $setting[4]["id"]; ?>" class="form-control" value="<?= $setting[4]["setting_value"]; ?>">
         </div>
       </div>
       <div class="form-group row">
 
         <div class="col-2"><span class="input-title">About</span></div>
         <div class="col-6">
-          <textarea class="form-control" name="<?php echo $setting[8]["id"]; ?>"><?php echo $setting[8]["setting_value"]; ?></textarea>
+          <textarea class="form-control" name="<?= $setting[8]["id"]; ?>"><?= $setting[8]["setting_value"]; ?></textarea>
         </div>
       </div>
       <div class="form-group row">
 
         <div class="col-2"><span class="input-title">Footer</span></div>
         <div class="col-6">
-          <input type="text" placeholder="Footer" name="<?php echo $setting[9]["id"]; ?>" class="form-control" value="<?php echo $setting[9]["setting_value"]; ?>">
+          <input type="text" placeholder="Footer" name="<?= $setting[9]["id"]; ?>" class="form-control" value="<?= $setting[9]["setting_value"]; ?>">
         </div>
       </div>
       <div class="form-group row">

@@ -73,7 +73,7 @@
         <h3>Posts</h3>
       </div>
       <div class="col-3 mt-3 addpost">
-      <a href="<?php echo base_url("admin/addPost");?>"><button class="btn btn-sm btn-outline-primary" type="button"><b>Add New Post</b></button></a>
+      <a href="<?= base_url("admin/addPost");?>"><button class="btn btn-sm btn-outline-primary" type="button"><b>Add New Post</b></button></a>
       <!-- <button class="btn btn-sm btn-outline-primary" onkeypress="add_post_preview()" type="button"><b>Add New Post</b></button> -->
       </div>
     </div>
@@ -81,12 +81,12 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12 mb-3 text-left">
-        <form action='<?php echo base_url(); ?>/admin/posts' method='get' class='form-inline'>
+        <form action='<?= base_url(); ?>/admin/posts' method='get' class='form-inline'>
 
           <div class="input-group col-2" style="padding:0px">
             <select name="order" id="order" class="form-control">
-              <option value="ASC" <?php echo (($searchdetail["order"] == "ASC") ? "selected" : "") ?>>ASC</option>
-              <option value="DESC" <?php echo (($searchdetail["order"] == "DESC") ? "selected" : "") ?>>DESC</option>
+              <option value="ASC" <?= (($searchdetail["order"] == "ASC") ? "selected" : "") ?>>ASC</option>
+              <option value="DESC" <?= (($searchdetail["order"] == "DESC") ? "selected" : "") ?>>DESC</option>
             </select>
           </div>
           <div class="input-group col-2" style="padding:0px">
@@ -97,7 +97,7 @@
                 foreach ($dateList as $dl) {
                   if ($dl["update_date"] != "0000-00-00 00:00:00") {
               ?>
-                    <option value="<?php echo $dl["update_date"] ?>" <?php echo (($searchdetail["date"] == $dl["update_date"]) ? "selected" : "") ?>><?php echo date("M Y", strtotime($dl["update_date"])) ?></option>
+                    <option value="<?= $dl["update_date"] ?>" <?= (($searchdetail["date"] == $dl["update_date"]) ? "selected" : "") ?>><?= date("M Y", strtotime($dl["update_date"])) ?></option>
               <?php }
                 }
               }
@@ -110,7 +110,7 @@
               <?php
               if ($catagory) {
                 foreach ($catagory as $cat) { //echo $cat["id"]."sssssss";?>
-                  <option value="<?php echo $cat["id"] ?>" <?php echo (($searchdetail["category"] == $cat["id"]) ? "selected" : "") ?>><?php echo $cat["categorie"] ?></option>
+                  <option value="<?= $cat["id"] ?>" <?= (($searchdetail["category"] == $cat["id"]) ? "selected" : "") ?>><?= $cat["categorie"] ?></option>
               <?php }
               }
               ?>
@@ -118,8 +118,8 @@
           </div>
           <div class="input-group col-2" style="padding:0px">
             <select name="short" id="short" class="form-control">
-              <option value="title" <?php echo (($searchdetail["short"] == "title") ? "selected" : "") ?>>Title</option>
-              <option value="author" <?php echo (($searchdetail["short"] == "author") ? "selected" : "") ?>>Author</option>
+              <option value="title" <?= (($searchdetail["short"] == "title") ? "selected" : "") ?>>Title</option>
+              <option value="author" <?= (($searchdetail["short"] == "author") ? "selected" : "") ?>>Author</option>
             </select>
           </div>
           <div class="input-group col-3" style="padding:0px">
@@ -137,9 +137,9 @@
       <div class="col-6 mt-2">
 
         <!-- <a href="</?php echo base_url("admin/posts") ?>">All <span class="fade-color"> (</?php echo $totalpost ?>)</span></a> -->
-        | <a href="<?php echo base_url("admin/posts?vi=pub") ?>">Published <span class="fade-color"> (<?php echo $publish ?>)</span></a>
-        | <a href="<?php echo base_url("admin/posts?vi=draft") ?>">Draft <span class="fade-color"> (<?php echo $draft ?>)</span></a>
-        | <a href="<?php echo base_url("admin/trash") ?>">Trash <span class="fade-color"> (<?php echo $trashcount ?>)</span></a>
+        | <a href="<?= base_url("admin/posts?vi=pub") ?>">Published <span class="fade-color"> (<?= $publish ?>)</span></a>
+        | <a href="<?= base_url("admin/posts?vi=draft") ?>">Draft <span class="fade-color"> (<?= $draft ?>)</span></a>
+        | <a href="<?= base_url("admin/trash") ?>">Trash <span class="fade-color"> (<?= $trashcount ?>)</span></a>
       </div>
       <div class="col-6 text-right">
         <?php
@@ -147,7 +147,7 @@
         ?>
       </div>
       <div class="col-6 mt-2 mb-2">
-        <form action='<?php echo base_url(); ?>/admin/admin/bulkpostaction' class='form-inline' method="post">
+        <form action='<?= base_url(); ?>/admin/admin/bulkpostaction' class='form-inline' method="post">
           <div class="input-group">
             <select name="bulkaction" class="form-control">
               <option value="">Bulk Action</option>
@@ -183,12 +183,12 @@
 
           ?>
             <tr>
-              <td><input type="checkbox" class="bulkaction" value="<?php echo $blogdata['id'];?>"></td>
-              <td onmouseover="document.getElementById('div<?php echo $blogdata['id']; ?>').style.visibility='visible';" onmouseout="document.getElementById('div<?php echo $blogdata['id']; ?>').style.visibility='hidden';">
+              <td><input type="checkbox" class="bulkaction" value="<?= $blogdata['id'];?>"></td>
+              <td onmouseover="document.getElementById('div<?= $blogdata['id']; ?>').style.visibility='visible';" onmouseout="document.getElementById('div<?= $blogdata['id']; ?>').style.visibility='hidden';">
                 <div class="title_name">
-                  <?php echo $blogdata['title']; ?>
+                  <?= $blogdata['title']; ?>
                 </div>
-                <div id="div<?php echo $blogdata['id']; ?>" style="visibility: hidden;cursor: pointer;">
+                <div id="div<?= $blogdata['id']; ?>" style="visibility: hidden;cursor: pointer;">
                   <?php
                   $d = $blogdata['date_'];
                   $d_create = date_create($d);
@@ -197,9 +197,9 @@
                   ?>
 
                  
-                  <a href="<?php echo base_url() ."/".$date."/".$text?>" target="_blank"> View </a>|
-                  <a href="<?php echo base_url() ."/" ."admin/admin/post_edit/" . $blogdata['id'] ?>"> Edit</a>|
-                  <a href="#" onclick="delete_post(<?php echo $blogdata['id']; ?>)"> Trash </a>
+                  <a href="<?= base_url() ."/".$date."/".$text?>" target="_blank"> View </a>|
+                  <a href="<?= base_url() ."/" ."admin/admin/post_edit/" . $blogdata['id'] ?>"> Edit</a>|
+                  <a href="#" onclick="delete_post(<?= $blogdata['id']; ?>)"> Trash </a>
                 </div>
               </td>
               <td style="color:#0099ff;">
@@ -288,7 +288,7 @@
 <?= $this->section('scriptLinks') ?>
 
 <script type="text/javascript">
-  var url = "<?php echo base_url();?>";
+  var url = "<?= base_url();?>";
 
   function delete_post(id) {
     var r = confirm("Do you want to Add this in Trash?");

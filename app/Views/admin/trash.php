@@ -94,16 +94,16 @@
                     <td width="10%">Action</td>
                 </tr>
                 <tr>
-                    <td colspan="4" class="text-center" id="loader-section"><img src="<?php echo base_url() . "assets/loader.svg" ?>"></td>
+                    <td colspan="4" class="text-center" id="loader-section"><img src="<?= base_url() . "assets/loader.svg" ?>"></td>
                 </tr>
                 <?php foreach ($posts as $post) { ?>
                     <tr>
-                        <td><input type="checkbox" value="<?php echo $post["id"] ?>" name="trash_check[]"></td>
-                        <td width="10%"><?php echo $post["id"] ?></td>
-                        <td width="80%"><?php echo $post["title"] ?></td>
+                        <td><input type="checkbox" value="<?= $post["id"] ?>" name="trash_check[]"></td>
+                        <td width="10%"><?= $post["id"] ?></td>
+                        <td width="80%"><?= $post["title"] ?></td>
                         <td width="10%">
-                            <a class="btnsection" href="#" onclick="delete_trash('<?php echo '[' . $post['id'] . ']' ?>')">Delete</a>
-                            <a class="btnsection" href="#" onclick="restore_trash('<?php echo '[' . $post['id'] . ']' ?>')">Restore</a>
+                            <a class="btnsection" href="#" onclick="delete_trash('<?= '[' . $post['id'] . ']' ?>')">Delete</a>
+                            <a class="btnsection" href="#" onclick="restore_trash('<?= '[' . $post['id'] . ']' ?>')">Restore</a>
                         </td>
                     </tr>
                 <?php } ?>
@@ -134,7 +134,7 @@
 
     function delete_trash(delete_id) {
         $.ajax({
-            url: "<?php echo base_url() . "/admin/admin/trash_clear" ?>",
+            url: "<?= base_url() . "/admin/admin/trash_clear" ?>",
             data: {
                 delete_id
             },
@@ -142,7 +142,7 @@
             success: function() {
                 $("#loader-section").hide();
                 // alert(delete_id);
-                location.href = "<?php echo base_url() . "/admin/trash" ?>"
+                location.href = "<?= base_url() . "/admin/trash" ?>"
             }
         });
     }
@@ -175,14 +175,14 @@
 
     function restore_trash(restore_id) {
         $.ajax({
-            url: "<?php echo base_url() . "/admin/admin/restore" ?>",
+            url: "<?= base_url() . "/admin/admin/restore" ?>",
             data: {
                 restore_id
             },
             type: "post",
             success: function() {
                 $("#loader-section").hide();
-                location.href = "<?php echo base_url() . "/admin/trash" ?>"
+                location.href = "<?= base_url() . "/admin/trash" ?>"
             }
         });
     }
@@ -205,12 +205,12 @@
        var data=arr.join(',');
 
        $.ajax({
-         url:'<?php echo base_url();?>/admin/trash_delete',
+         url:'<?= base_url();?>/admin/trash_delete',
          type:'post',
          data:{data : data},
          success:function(data)
          {
-             window.location='<?php echo base_url();?>/admin/trash';
+             window.location='<?= base_url();?>/admin/trash';
          }
          });
        
@@ -237,12 +237,12 @@
 
        $.ajax({
         //  url:'</?php echo base_url();?>/admin/trash_delete',
-         url:'<?php echo base_url();?>/admin/admin/restore',
+         url:'<?= base_url();?>/admin/admin/restore',
          type:'post',
          data:{data : data},
          success:function(data)
          {
-             window.location='<?php echo base_url();?>/admin/trash';
+             window.location='<?= base_url();?>/admin/trash';
          }
          });
        

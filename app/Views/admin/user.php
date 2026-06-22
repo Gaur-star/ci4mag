@@ -24,9 +24,9 @@
           <div class="newsletter_title_container">
             <div class="newsletter_icon"><img src="images/send.png" alt=""></div>
             <div class="newsletter_title"><h3>Create a brand new user and add them to this site.</h3></div>
-            <form action="<?php echo base_url()?>/admin/useraddprocess" method="post" class="newsletter_form">
-              <?php $session = session();
-              //echo validation_errors();
+            <form action="<?= base_url()?>/admin/useraddprocess" method="post" class="newsletter_form">
+              <?php 
+              $session = session();
               echo $session->getFlashdata("msg");
               ?>
               <div class="form-group row">
@@ -70,7 +70,7 @@
                 <div class="col-sm-10">
                  <select name="role_" class="form-control">
                      <?php foreach($role as $rol){ ?>
-                      <option value="<?php echo $rol["role_id"] ?>"><?php echo ucfirst($rol["role"]) ?></option>
+                      <option value="<?= $rol["role_id"] ?>"><?= ucfirst($rol["role"]) ?></option>
                      <?php } ?>
                   </select>
                 </div>
